@@ -1,2 +1,9 @@
+# Latex auxillary files
 *.synctex.gz
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+
+# Other
 .DS_Store
