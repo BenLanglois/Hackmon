@@ -1,4 +1,6 @@
 \documentclass{article}
+\usepackage[margin=0.75in]{geometry} % For margins
+\usepackage{parskip} % For not indenting the first line of a paragraph
 
 \begin{document}
 
@@ -10,5 +12,22 @@
   {\large Ariel Lam --- a66lam}
 \end{center}
 
+\section*{Overview}
+We would like to create a game which would be similar to a turn-based Pok\'emon battle. Our game would support two players. At the start of the game, both players choose which Pok\'emon they would like to battle with. During the battle, the players take turns selecting attacks. You win by dropping your opponent's HP to zero.
+
+Each Pok\'emon has a ``type'', and each type has rules determining what is strong and weak against. For example, fire Pok\'emon are strong against grass Pok\'emon but weak against water Pok\'emon. Every Pok\'emon also has stats determining its attack, defense, health, etc.
+
+\section*{Extras}
+If we have enough time, we would like to implement these extra features. Our project would work fine without these, but they would be nice to have.
+
+\begin{itemize}
+  \item \textbf{Party battles:} Instead of choosing only one Pok\'emon to battle with, each player would choose multiple different Pok\'emon to fight with and could swap them out during the battle.
+
+  \item \textbf{Items:} Instead of attacking every turn, players could use items to perform special actions such as healing.
+
+  \item \textbf{Status effects:} Some attacks could inflict the opponent with a status instead of just damaging them. Status effects could include poison, burn, and confusion.
+
+  \item \textbf{ASCII art:} Each Pok\'emon would have a unique design, which would be shown when selecting your Pok\'emon at the start of the game.
+\end{itemize}
 
 \end{document}
