@@ -14,7 +14,7 @@ protected:
   const Family family;
 
 public:
-  attachHackmon(Hackmon *hackmon);
+  void attachHackmon(Hackmon *hackmon);
 
   Move(const std::string name, const Scope scope, const size_t accuracy, const Family family);
 };
