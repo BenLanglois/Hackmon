@@ -15,7 +15,7 @@ class Species {
   std::string speciesName;
   std::vector<Move> moves; // FIXME: should be moved to family? depends on type
   Move specialMove;
-  map<StatName, Stat> stats;
+  Stats stat;
   std::vector<Family> family;
  public:
   Species(const std::string speciesName, std::vector<Move> moves, Move specialMove, map<std::string, Stat> stats, std::vector<Family> family):

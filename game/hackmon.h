@@ -15,20 +15,22 @@
 #include "statName.h"
 
 class Hackmon {
+ public:
   std::string name;
   bool inBattle;
   Move& currentMove;
-  Debuff& debuff; // FIXME: implementation
+  Debuff& debuff;
   Mobility mobility;
   map<StatName, Stat> stats;
   std::vector<Move> moves;
   std::vector<Family> family;
- public:
+
   Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family):
     name{hackmonName}, moves{moves}, family{family}, stats{stats} {
       currentMove = nullptr;
       inBattle = false;
-    }
+      debuff
+  }
 };
 
 #endif
