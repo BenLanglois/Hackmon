@@ -21,15 +21,14 @@ class Hackmon {
   Move& currentMove;
   Debuff& debuff;
   Mobility mobility;
-  map<StatName, Stat> stats;
+  Stats stats;
   std::vector<Move> moves;
   std::vector<Family> family;
 
-  Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family):
-    name{hackmonName}, moves{moves}, family{family}, stats{stats} {
+  Hackmon(std::string hackmonName, std::vector<Move> moves, Stats stats, std::vector<Family> family):
+    name{hackmonName}, moves{moves}, stats{stats}, family{family} {
       currentMove = nullptr;
       inBattle = false;
-      debuff
   }
 };
 
