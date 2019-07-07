@@ -13,21 +13,22 @@
 
 class Species {
   std::string speciesName;
-  std::vector<Move> moves;
+  std::vector<Move> moves; // FIXME: should be moved to family? depends on type
   Move specialMove;
   map<StatName, Stat> stats;
   std::vector<Family> family;
  public:
   Species(const std::string speciesName, std::vector<Move> moves, Move specialMove, map<std::string, Stat> stats, std::vector<Family> family):
     speciesName{speciesName}, moves{moves}, specialMove{specialMove}, family{family} {
-      for(const auto statName : StatName::All ) stats.insert(make_pair<StatName, string>(statName, Stat(statName))); //
-    };
+
+      for (auto const& statInfo : StatInfo) stats.insert(make_pair<StatName, Stat>(statInfo.first, Stat(statInfo.second))); //
+  }
 
   Hackmon createHackmon(std::vector<Move>, const std::string hackmonName = std::string()) {
     std::vector<Move> hackmonMoves = moves;
     hackmonMoves.emplaceBack(specialMove);
 
-    return Hackmon(hackmonName.length() ? hackmonName : speciesName, hackmonMoves, family);
+    return Hackmon(hackmonName.length() ? hackmonName : speciesName, hackmonMoves, family, stats);
   }
 };
 

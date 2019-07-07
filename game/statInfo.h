@@ -2,6 +2,7 @@
 #define STATINFO_H
 
 #include <vector>
+#include <map>
 
 enum StatName {
   HP,
@@ -10,12 +11,17 @@ enum StatName {
   SPEED
 };
 
-// name, base, min, max
-std::vector<int> hp      = {HP,      80, 0, 100};
-std::vector<int> attack  = {ATTACK,  80, 0, 100};
-std::vector<int> defense = {DEFENSE, 80, 0, 100};
-std::vector<int> speed   = {SPEED,   80, 0, 100};
+// base, min, max
+std::vector<int> hp      = {80, 0, 100};
+std::vector<int> attack  = {80, 0, 100};
+std::vector<int> defense = {80, 0, 100};
+std::vector<int> speed   = {80, 0, 100};
 
-std::vector<std::vector<int>> = {hp, attack, defense, speed};
+std::map<StatName, std::vector<int>> StatInfo = {
+  {HP, hp},
+  {ATTACK, attack},
+  {DEFENSE, defense},
+  {SPEED, speed},
+};
 
 #endif

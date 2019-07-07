@@ -17,19 +17,18 @@
 class Hackmon {
   std::string name;
   bool inBattle;
-  Move& currentMove;x
-  Debuff& debuff;
+  Move& currentMove;
+  Debuff& debuff; // FIXME: implementation
   Mobility mobility;
   map<StatName, Stat> stats;
   std::vector<Move> moves;
   std::vector<Family> family;
  public:
-  Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family): name{hackmonName}, moves{moves}, family{family} {
-    currentMove = nullptr;
-    inBattle = false;
-
-    for(const auto statName : StatName::All ) stats.insert(make_pair<StatName, string>(statName, Stat(statName)));
-  }
+  Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family):
+    name{hackmonName}, moves{moves}, family{family}, stats{stats} {
+      currentMove = nullptr;
+      inBattle = false;
+    }
 };
 
 #endif
