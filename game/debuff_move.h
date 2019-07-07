@@ -11,7 +11,7 @@ class Player;
 
 class DebuffMove: public Move {
   const DebuffName debuff;
-  virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override;
+  virtual void doMoveOverride(Player &player, const std::vector<size_t> &targets) const override;
 
 public:
   DebuffMove(const std::string name, const Scope scope, const size_t accuracy,

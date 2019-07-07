@@ -12,7 +12,7 @@ class Player;
 
 class MobilityMove: public Move {
   Mobility mobility;
-  virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override;
+  virtual void doMoveOverride(Player &player, const std::vector<size_t> &targets) const override;
 
 public:
   MobilityMove(const std::string name, const Scope scope, size_t accuracy, Family family, Mobility mobility);
