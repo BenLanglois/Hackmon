@@ -4,33 +4,31 @@
 #include <vector>
 #include <string>
 #include <map>
-#include <tuple>
+#include <algorithm>
 
 #include "move.h"
 #include "stats.h"
 #include "family.h"
 #include "mobility.h"
 
-enum StatName {HP, ATTACK, DEFENSE, SPEED};
-enum Debuff {HEALTHY, POISONED, BURNED, FROZEN};
+#include "debuffName.h"
+#include "statName.h"
 
 class Hackmon {
   std::string name;
-  std::vector<Move> moves;
-  Move& currentMove;
-  map<StatName, Stat> stats; // <StatName, Stat>
   bool inBattle;
-  std::vector<Family> family;
+  Move& currentMove;x
+  Debuff& debuff;
   Mobility mobility;
-  // FIXME: should change the debuff to be structured similar to Type and Family
-  tuple <Debuff, StatName, int> debuff; // <Debuff enum, StatName enum, potency>
+  map<StatName, Stat> stats;
+  std::vector<Move> moves;
+  std::vector<Family> family;
  public:
-  Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family):
-    name{hackmonName}, moves{moves}, family{family} {
-      currentMove = nullptr;
-      inBattle = false;
-      stats = for(auto StatName = statName) make_pair<StatName, string>(statName, Stat(statName));
-      debuff =
+  Hackmon(std::string hackmonName, std::vector<Move> moves, std::vector<Family> family): name{hackmonName}, moves{moves}, family{family} {
+    currentMove = nullptr;
+    inBattle = false;
+
+    for(const auto statName : StatName::All ) stats.insert(make_pair<StatName, string>(statName, Stat(statName)));
   }
 };
 
