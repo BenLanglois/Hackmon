@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <algorithm>
+#include <memory>
 
 #include "move.h"
 #include "stats.h"
@@ -19,7 +20,7 @@ class Hackmon {
   std::string name;
   bool inBattle;
   Move& currentMove;
-  Debuff& debuff;
+  std::unique_ptr<Debuff> debuff;
   Mobility mobility;
   Stats stats;
   std::vector<Move> moves;
@@ -29,6 +30,7 @@ class Hackmon {
     name{hackmonName}, moves{moves}, stats{stats}, family{family} {
       currentMove = nullptr;
       inBattle = false;
+      debuff = make_unique<Debuff>(HEALTHY, HP, 0);
   }
 };
 
