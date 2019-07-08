@@ -13,7 +13,7 @@
 #include "mobility.h"
 
 #include "debuffName.h"
-#include "statName.h"
+#include "statInfo.h"
 
 class Hackmon {
  public:
