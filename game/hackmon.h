@@ -18,7 +18,6 @@
 class Hackmon {
  public:
   std::string name;
-  bool inBattle;
   Move& currentMove;
   std::unique_ptr<Debuff> debuff;
   Mobility mobility;
