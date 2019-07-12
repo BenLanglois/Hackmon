@@ -1,8 +1,8 @@
-#ifndef DEBUFF_H
-#define DEBUFF_H
+#ifndef DEBUFF_H_
+#define DEBUFF_H_
 
-#include "debuffName.h"
-#include "statName.h"
+#include "debuffInfo.h"
+#include "statInfo.h"
 
 class Debuff {
   public:

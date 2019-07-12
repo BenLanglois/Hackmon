@@ -1,5 +1,5 @@
-#ifndef STATS_H
-#define STATS_H
+#ifndef STATS_H_
+#define STATS_H_
 
 #include "statInfo.h"
 

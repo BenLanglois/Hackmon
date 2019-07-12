@@ -1,5 +1,5 @@
-#ifndef SLEEP_H
-#define SLEEP_H
+#ifndef SLEEP_H_
+#define SLEEP_H_
 
 #include "mobility.h"
 

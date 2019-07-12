@@ -1,5 +1,5 @@
-#ifndef TYPE_H
-#define TYPE_H
+#ifndef TYPE_H_
+#define TYPE_H_
 
 enum Type {
   normal,

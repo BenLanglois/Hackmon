@@ -1,5 +1,5 @@
-#ifndef PARALYSIS_H
-#define PARALYSIS_H
+#ifndef PARALYSIS_H_
+#define PARALYSIS_H_
 
 #include "mobility.h"
 

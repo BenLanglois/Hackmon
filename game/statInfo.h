@@ -1,8 +1,5 @@
-#ifndef STATINFO_H
-#define STATINFO_H
-
-#include <vector>
-#include <map>
+#ifndef STATINFO_H_
+#define STATINFO_H_
 
 enum StatName {
   HP,
