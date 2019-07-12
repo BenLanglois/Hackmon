@@ -6,6 +6,7 @@
 #include <utility>
 
 #include "hackmon.h"
+#include "statInfo.h"
 
 class Player {
  public:
@@ -13,7 +14,6 @@ class Player {
   int winTotal;
   int nextAlive;
   std::vector<unique_ptr<Hackmon>> party;
-  std::vector<size_t> inBattle;
 
   Player(std::string name, std::vector<unique_ptr<Hackmon>> party): name{name}, party{party} {
     winTotal = 0;
@@ -24,18 +24,25 @@ class Player {
     }
   }
 
-  // move calls this function
-  Hackmon& getHackmon() {
-    /*
-    void hasFainted(int index) {
+  bool isAlive(int index) {
+    return (*(party.at(index)).stats.getStat(HP) > 0);
+  }
+
+  // move calls this function -- returns nullptr if no hackmon left
+  Hackmon* getHackmon(int index) {
+    if (isAlive(*(inBattle.at(index)))) {
+      return party.at(*(inBattle.at(index)));
+    }
+    else {
       if (nextAlive < party.size()) {
-        inBattle.at(index) = *party.at(nextAlive);
-        nextAlive++;
-      } else {
+        inBattle.at(index) = *party.at(nextAlive++);
+        return party.at(*(inBattle.at(index)));
+      }
+      else {
         inBattle.at(index) = nullptr;
+        return nullptr;
       }
     }
-    */
   }
 
   // index1 from inBattle vector, index2 from party not in inBattle and not fainted
@@ -47,7 +54,6 @@ class Player {
   void hasWon() {
     winTotal++;
   }
-
 };
 
 #endif
