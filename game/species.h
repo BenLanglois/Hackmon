@@ -9,7 +9,7 @@
 #include "stats.h"
 #include "family.h"
 
-#include "statName.h"
+#include "statInfo.h"
 
 class Species {
   std::string speciesName;
