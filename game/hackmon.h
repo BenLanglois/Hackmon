@@ -3,17 +3,12 @@
 
 #include <vector>
 #include <string>
-#include <map>
-#include <algorithm>
 #include <memory>
 
 #include "move.h"
 #include "stats.h"
 #include "family.h"
 #include "mobility.h"
-
-#include "debuffName.h"
-#include "statInfo.h"
 
 class Hackmon {
  public:
@@ -25,12 +20,7 @@ class Hackmon {
   std::vector<Move> moves;
   std::vector<Family> family;
 
-  Hackmon(std::string hackmonName, std::vector<Move> moves, Stats stats, std::vector<Family> family):
-    name{hackmonName}, moves{moves}, stats{stats}, family{family} {
-      currentMove = nullptr;
-      inBattle = false;
-      debuff = make_unique<Debuff>(HEALTHY, HP, 0);
-  }
+  Hackmon(std::string, std::vector<Move>, Stats, std::vector<Family>);
 };
 
 #endif

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = hackmon
-OBJECTS = action.o hackmon.o
+OBJECTS = player.o hackmon.o species.o
 DEPENDS = ${OBJECTS:.o=.d}
 ZIPPED = Makefile ${OBJECTS:.o=.h} ${OBJECTS:.o=.cc}
 
