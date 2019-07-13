@@ -9,7 +9,7 @@
 
 class Player;
 
-class Potion: public Item {
+class DebuffHeal: public Item {
   DebuffName debuff;
   virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override;
 
