@@ -11,11 +11,11 @@
 class Player;
 
 class MobilityMove: public Move {
-  Mobility mobility;
-  virtual void doMoveOverride(Player &player, const std::vector<size_t> &targets) const override;
+  Mobility &mobility;
+  virtual void doMoveOverride(Hackmon &target) const override;
 
 public:
-  MobilityMove(const std::string name, const Scope scope, size_t accuracy, Family family, Mobility mobility);
+  MobilityMove(const std::string name, const Scope scope, size_t accuracy, Family family, Mobility &mobility);
 };
 
 #endif

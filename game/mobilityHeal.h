@@ -10,11 +10,11 @@
 class Player;
 
 class MobilityHeal: public Item {
-  Mobility mobility;
+  Mobility &mobility;
   virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override;
 
 public:
-  Potion(const std::string name, const Scope scope, Mobility mobility);
+  MobilityHeal(const std::string name, const Scope scope, Mobility &mobility);
 };
 
 #endif
