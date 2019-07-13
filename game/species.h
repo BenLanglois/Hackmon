@@ -11,7 +11,7 @@
 
 class Species {
   std::string speciesName;
-  std::vector<Move*> moves; // FIXME: should be moved to family? depends on type
+  std::vector<unique_ptr<Move>> moves; // FIXME: should be moved to family? depends on type
   Move specialMove;
   Stats stats;
   std::vector<Family> family;

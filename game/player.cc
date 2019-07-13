@@ -30,9 +30,9 @@ Player::Hackmon* getHackmon(unsigned index) {
   }
 }
 
-// index1 from inBattle vector, index2 from party not in inBattle and not fainted
+// index1 from party, index2 from party not in battle and not fainted
 Player::void swapHackmon(unsigned index1, unsigned index2) {
-  swap(inBattle.at(index1), party.at(index2));
+  swap(party.at(index1), party.at(index2));
 }
 
 // increment win count
