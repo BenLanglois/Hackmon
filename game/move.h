@@ -6,6 +6,7 @@
 
 #include "action.h"
 #include "family.h"
+#include "hackmon.h"
 
 
 class Move: public Action {

@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "stat_move.h"
+#include "statMove.h"
 #include "statInfo.h"
 #include "family.h"
 #include "player.h"
