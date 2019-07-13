@@ -12,6 +12,4 @@ enum DebuffName {
   FROZEN
 };
 
-
-
 #endif

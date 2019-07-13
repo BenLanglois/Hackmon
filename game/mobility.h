@@ -5,7 +5,6 @@ class Mobility {
     virtual bool canMoveOverride() const = 0;
   public:
     bool canMove() const;
-    Mobility();
 };
 
 #endif
