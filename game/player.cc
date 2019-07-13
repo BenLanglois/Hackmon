@@ -7,37 +7,31 @@
 #include "statInfo.h"
 using namespace std;
 
-Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0} {
-  nextAlive = numberBattling; // FIXME: global variable
+// FIXME: numberBattling global variable unsigned int
+Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0}, nextAlive{numberBattling} {}
 
-  for (auto& index : numberBattling) {
-    inBattle.at(index) = party.at(index);
-  }
-}
-
-Player::bool isAlive(int index) {
+Player::bool isAlive(unsigned index) {
   return (*(party.at(index)).stats.getStat(HP) > 0);
 }
 
 // move calls this function -- returns nullptr if no hackmon left
-Player::Hackmon* getHackmon(int index) {
-  if (isAlive(*(inBattle.at(index)))) {
-    return party.at(*(inBattle.at(index)));
+Player::Hackmon* getHackmon(unsigned index) {
+  if (isAlive(index)) {
+    return *(party.at(index));
   }
   else {
     if (nextAlive < party.size()) {
-      inBattle.at(index) = *party.at(nextAlive++);
-      return party.at(*(inBattle.at(index)));
+      swapHackmon(index, nextAlive++);
+      return *(party.at(index));
     }
     else {
-      inBattle.at(index) = nullptr;
       return nullptr;
     }
   }
 }
 
 // index1 from inBattle vector, index2 from party not in inBattle and not fainted
-Player::void swapHackmon(int index1, int index2) {
+Player::void swapHackmon(unsigned index1, unsigned index2) {
   swap(inBattle.at(index1), party.at(index2));
 }
 
