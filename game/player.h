@@ -11,20 +11,20 @@
 class Player {
  public:
   std::string name;
-  std::vector<unique_ptr<Hackmon>> party;
-  int winTotal;
-  int nextAlive;
+  std::vector<std::unique_ptr<Hackmon>> party;
+  unsigned winTotal;
+  unsigned nextAlive;
 
-  Player(std::string, std::vector<unique_ptr<Hackmon>>);
+  Player(std::string, std::vector<std::unique_ptr<Hackmon>>);
 
   // checks if hp of indicated hackmon is above 0
-  bool isAlive(int);
+  bool isAlive(unsigned);
 
   // move calls this function -- returns nullptr if no hackmon left
-  Hackmon* getHackmon(int);
+  Hackmon* getHackmon(unsigned);
 
   // index1 from inBattle vector, index2 from party not in inBattle and not fainted
-  void swapHackmon(int, int);
+  void swapHackmon(unsigned, unsigned);
 
   // increment win count
   void hasWon();
