@@ -6,7 +6,7 @@
 
 #include "action.h"
 #include "family.h"
-#include "hackmon.h"
+class Hackmon;
 
 
 class Move: public Action {
@@ -17,7 +17,7 @@ class Move: public Action {
 
 protected:
   Hackmon *hackmon; // Non-owning pointer
-  const unsigned int accuracy; // The percent chance that the move will hit. A value between 1 and 100 inclusive
+  const unsigned accuracy; // The percent chance that the move will hit. A value between 1 and 100 inclusive
   const Family family;
 
   virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override final;
@@ -26,7 +26,7 @@ protected:
 public:
   void attachHackmon(Hackmon *hackmon);
 
-  Move(const std::string name, const Scope scope, const size_t accuracy, const Family family);
+  Move(const std::string name, const Scope scope, const unsigned accuracy, const Family family);
 };
 
 #endif

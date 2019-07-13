@@ -15,7 +15,7 @@ class StatMove: public Move {
   virtual void doMoveOverride(Hackmon &target) const override;
 
 public:
-  StatMove(const std::string name, const Scope scope, const size_t accuracy,
+  StatMove(const std::string name, const Scope scope, const unsigned accuracy,
            const Family family, const StatName stat, const int strength);
 };
 

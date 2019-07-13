@@ -9,7 +9,7 @@
 
 using namespace std;
 
-StatMove::StatMove(const std::string name, const Scope scope, const size_t accuracy,
+StatMove::StatMove(const std::string name, const Scope scope, const unsigned accuracy,
                    const Family family, const StatName stat, const int strength):
   Move{name, scope, accuracy, family}, stat{stat}, strength{strength} {}
 
@@ -19,11 +19,11 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     // damage is inversely proportional to the target's Defense stat
     // damage cannot be less than 1
 
-    int attackStat = hackmon.stats.getStat(Attack);
-    int defenseStat = hackmon.stats.getStat(Defense);
+    int attackStat = hackmon->stats.getStat(ATTACK);
+    int defenseStat = hackmon->stats.getStat(DEFENSE);
 
-    if (hackmon.debuff.stat == Attack) {
-      attackStat -= hackmon.debuff.strength;
+    if (hackmon.debuff.stat == ATTACK) {
+      attackStat -= hackmon->debuff.strength;
     }
     if (target.debuff.stat == Defense) {
       defenseStat -= hackmon.debuff.strength;
