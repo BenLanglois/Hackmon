@@ -2,13 +2,14 @@
 #define TYPE_H_
 
 enum Type {
-  normal,
-  fire,
-  water,
-  grass,
-  electric,
-  ground,
-  psychic
+  NORMAL,
+  FIRE,
+  WATER,
+  ELECTRIC,
+  GRASS,
+  FIGHTING,
+  GROUND,
+  PSYCHIC
 };
 
 #endif
