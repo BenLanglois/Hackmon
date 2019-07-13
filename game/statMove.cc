@@ -30,7 +30,7 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     }
 
     int damage = max(1, strength
-                      * hackmon.family.effectiveness(target.family)
+                      * family.effectiveness(target.family)
                       * max(1, attackStat)
                       / max(1, defenseStat)
     );
