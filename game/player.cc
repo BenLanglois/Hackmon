@@ -7,8 +7,7 @@
 #include "statInfo.h"
 using namespace std;
 
-Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party} {
-  winTotal = 0;
+Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0} {
   nextAlive = numberBattling; // FIXME: global variable
 
   for (auto& index : numberBattling) {

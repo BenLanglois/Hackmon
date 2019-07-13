@@ -11,9 +11,9 @@
 class Player {
  public:
   std::string name;
+  std::vector<unique_ptr<Hackmon>> party;
   int winTotal;
   int nextAlive;
-  std::vector<unique_ptr<Hackmon>> party;
 
   Player(std::string, std::vector<unique_ptr<Hackmon>>);
 
