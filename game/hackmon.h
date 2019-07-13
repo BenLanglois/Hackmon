@@ -16,11 +16,11 @@ class Hackmon {
   std::vector<Move*> moves;
   Stats stats;
   std::vector<Family> family;
-  Mobility* mobility;
-  Move* currentMove;
+  std::unique_ptr<Mobility> mobility;
+  std::unique_ptr<Move> currentMove;
   std::unique_ptr<Debuff> debuff;
 
-  Hackmon(std::string, std::vector<Move*>, Stats, std::vector<Family>, Mobility*);
+  Hackmon(std::string, std::vector<Move*>, Stats, std::vector<Family>, std::unique_ptr<Mobility>);
 };
 
 #endif
