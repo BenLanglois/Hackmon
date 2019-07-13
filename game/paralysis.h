@@ -6,7 +6,7 @@
 class Paralysis: public Mobility {
     virtual bool canMoveOverride() const override;
   public:
-    Paralysis();
+    Paralysis(Hackmon &);
 };
 
 #endif

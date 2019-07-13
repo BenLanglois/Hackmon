@@ -6,7 +6,7 @@
 class Mobile: public Mobility {
     virtual bool canMoveOverride() const override;
   public:
-    Mobile();
+    Mobile(Hackmon &);
 };
 
 #endif

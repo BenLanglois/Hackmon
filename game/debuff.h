@@ -9,7 +9,7 @@ class Debuff {
     const DebuffName name;
     const StatName stat;
     const int strength;
-    Debuff(const DebuffName name, const StatName stat, const int strength);
+    Debuff(const DebuffName, const StatName, const int);
 };
 
 #endif
