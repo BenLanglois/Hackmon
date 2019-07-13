@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "item.h"
-#include "stat.h"
+#include "statInfo.h"
 
 class Player;
 
