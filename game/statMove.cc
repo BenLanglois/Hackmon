@@ -17,20 +17,20 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     // damage is inversely proportional to the target's Defense stat
     // damage cannot be less than 1
 
-    int attackStat = hackmon->stats.getStat(ATTACK);
-    int defenseStat = hackmon->stats.getStat(DEFENSE);
+    int attackerAttackStat = hackmon->stats.getStat(ATTACK);
+    int targetDefenseStat = target.stats.getStat(DEFENSE);
 
     if (hackmon->debuff.stat == ATTACK) {
-      attackStat -= hackmon->debuff.strength;
+      attackerAttackStat -= hackmon->debuff.strength;
     }
     if (target.debuff.stat == DEFENSE) {
-      defenseStat -= target.debuff.strength;
+      targetDefenseStat -= target.debuff.strength;
     }
 
     int damage = max(1, strength
                       * (int) family.effectiveness(target.family)
-                      * max(1, attackStat)
-                      / max(1, defenseStat)
+                      * max(1, attackerAttackStat)
+                      / max(1, targetDefenseStat)
     );
 
     target.stats.setStat(HP, target.stats.getStat(HP) - damage);
