@@ -4,6 +4,6 @@ using namespace std;
 
 Mobility::Mobility(Hackmon & h) : hackmon{h} {}
 
-bool Mobility::canMove() const {
+bool Mobility::canMove() {
   return canMoveOverride();
 }

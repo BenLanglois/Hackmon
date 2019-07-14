@@ -6,12 +6,11 @@
 #include "hackmon.h";
 
 class Mobility {
-    virtual bool canMoveOverride() const = 0;
+    virtual bool canMoveOverride() = 0;
   protected:
     Hackmon& hackmon;
-    int duration;
   public:
-    bool canMove() const;
+    bool canMove();
     Mobility(Hackmon &);
 };
 

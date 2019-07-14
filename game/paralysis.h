@@ -2,9 +2,11 @@
 #define PARALYSIS_H_
 
 #include "mobility.h"
+#include "randomGen.h"
 
 class Paralysis: public Mobility {
-    virtual bool canMoveOverride() const override;
+    RandomGenerator rng;
+    virtual bool canMoveOverride() override;
   public:
     Paralysis(Hackmon &);
 };

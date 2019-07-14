@@ -1,7 +1,11 @@
 #include "paralysis.h"
 
-Paralysis::Paralysis() {}
+Paralysis::Paralysis(Hackmon & h) : Mobility(h), rng{RandomGenerator(1,2)} {}
 
-bool Paralysis::canMoveOverride() const {
-  // TO-DO: decide on implementation details
+bool Paralysis::canMoveOverride() {
+  if(rng.getRandom() >= 7) {
+    return true;
+  } else {
+    return false;
+  }
 }

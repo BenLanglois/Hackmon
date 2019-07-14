@@ -7,7 +7,8 @@
 class Confusion: public Mobility {
     RandomGenerator rng;
     int damage;
-    virtual bool canMoveOverride() const override;
+    int duration;
+    virtual bool canMoveOverride() override;
   public:
     Confusion(Hackmon &);
 };

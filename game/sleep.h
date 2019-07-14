@@ -4,7 +4,7 @@
 #include "mobility.h"
 
 class Sleep: public Mobility {
-    virtual bool canMoveOverride() const override;
+    virtual bool canMoveOverride() override;
   public:
     Sleep(Hackmon &);
 };

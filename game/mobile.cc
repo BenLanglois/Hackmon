@@ -2,10 +2,8 @@
 
 using namespace std;
 
-Mobile::Mobile(Hackmon & _h) : Mobility(_h) {
-  duration = -1;
-}
+Mobile::Mobile(Hackmon & _h) : Mobility(_h) {}
 
-bool Mobile::canMoveOverride() const {
+bool Mobile::canMoveOverride() {
   return true;
 }
