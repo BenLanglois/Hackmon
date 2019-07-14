@@ -4,7 +4,17 @@
 
 #include "hackmon.h"
 #include "move.h"
+#include "species.h"
+#include "stats.h"
 using namespace std;
+
+template<typename T>
+void getValidValue(T inVar, T rangeMin, T rangeMax) {
+  while (cin >> inVar) {
+    if (inVar > rangeMin && inVar < rangeMax) break;
+    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin+1 << "<= # <= " << rangeMax-1 << ")" << endl;
+  }
+}
 
 int main() {
   char cmd;
@@ -19,7 +29,12 @@ int main() {
   string newHackmonName;
   int newHackmonType;
   int newHackmonMove;
-  vector<Move*> newHackmonMoves;
+  vector<unique_ptr<Move>> newHackmonMoves;
+  vector<Family> newHackmonFamily;
+  int newHackmonHp;
+  int newHackmonAttack;
+  int newHackmonDefense;
+  int newHackmonSpeed;
 
   while (cin >> cmd && cmd != 'q') {
     // pregame -----------------------------------------------------------------
@@ -28,7 +43,7 @@ int main() {
     cout << "My name is ROB HACKMAN! People call me the HACKMON PROF!" << endl;
     cout << "This world is inhabited by creatures called HACKMON!" << endl;
     cout << "For some people, HACKMON are pets. Others use them for fights." << endl;
-    cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)"
+    cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)" << endl;
     cin >> p1;
     cout << "Right! So your name is" << p1 << "! What is the name of your friend? (player 2)" << endl;
     cin >> p2;
@@ -45,7 +60,7 @@ int main() {
     cout << "...Okay! It’s time to get started!" << endl;
 
     for (int i=0; i<2; i++) {
-      cout << (i==0) ? p1 : p2 << " why don't you pick your Hackmon! You can choose 6 in your party." << endl;
+      cout << (i==0 ? p1 : p2) << " why don't you pick your Hackmon! You can choose 6 in your party." << endl;
       cout << "You can either select a Hackmon from our Hackerdex or create your own!" << endl;
 
       for (int j=0; j<6; j++) {
@@ -60,10 +75,7 @@ int main() {
           // print out Hackerdex with numbers beside it
 
           cout << "Which Hackmon would you like to select? (1 <= # <= 20)" << endl;
-          while (cin >> hackmonNumber) {
-            if (hackmonNumber > 0 && hackmonNumber < 21) break;
-            else cout << "...Uh oh, that's not an option. Try again! (1 <= # <= 20)" << endl;
-          }
+          getValidValue(hackmonNumber, 0, 21);
 
           cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party." << endl;
 
@@ -75,10 +87,8 @@ int main() {
           cout << "Here is a list of the 8 Hackmon types:" << endl;
           cout << /* type list */ << endl;
           cout << "Which type would you like your species to belong to? (1 <= # <= 8)" << endl;
-          while (cin >> newHackmonType) {
-            if (hackmonNumber > 0 && hackmonNumber < 9) break;
-            else cout << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)" << endl;
-          }
+          getValidValue(newHackmonType, 0, 9);
+          newHackmonFamily.emplace_back(/* family object - typeList[newHackmonType] */);
 
           cout << "What would you like the name of your Hackmon to be?" << endl;
           cin >> newHackmonName;
@@ -91,8 +101,23 @@ int main() {
             newHackmonMoves.emplace_back(/*MoveList[newHackmonMove]*/);
           }
 
-          // stats
+          cout << "Now lets set your Hackmon stats." << endl;
+          cout << "What would you like your maximum health points(HP) to be? (1 <= # <= 200)" << endl;
+          getValidValue(newHackmonHp, 0, 201);
 
+          cout << "What would you like your base attack level to be? (1 <= # <= 10)" << endl;
+          getValidValue(newHackmonAttack, 0, 11);
+
+          cout << "What would you like your base defense level to be? (1 <= # <= 10)" << endl;
+          getValidValue(newHackmonDefense, 0, 11);
+
+          cout << "What would you like your base speed level to be? (1 <= # <= 10)" << endl;
+          getValidValue(newHackmonSpeed, 0, 11);
+
+          Stats createdHackmonStats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed);
+
+          Species createdHackmonSpecies(newHackmonSpecies, newHackmonMoves, createdHackmonStats, newHackmonFamily);
+          // add species to species list
 
 
           cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party." << endl;
