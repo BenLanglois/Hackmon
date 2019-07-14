@@ -7,12 +7,12 @@
 #include "debuff.h"
 
 class DebuffMove: public Move {
-  const DebuffName debuff;
+  const Debuff debuff;
   virtual void doMoveOverride(Hackmon &) const override;
 
 public:
-  DebuffMove(const std::string, const Scope, const size_t,
-             const Family, const DebuffName);
+  DebuffMove(const std::string, const Scope, const unsigned,
+             const Family, const Debuff);
 };
 
 #endif

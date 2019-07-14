@@ -7,7 +7,6 @@
 
 #include "action.h"
 #include "family.h"
-class Hackmon;
 
 class Player;
 class Hackmon;

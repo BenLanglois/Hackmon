@@ -1,11 +1,9 @@
 #include <string>
-#include <vector>
-#include <algorithm>
 
 #include "statMove.h"
 #include "statInfo.h"
 #include "family.h"
-#include "player.h"
+#include "hackmon.h"
 
 using namespace std;
 
@@ -22,11 +20,11 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     int attackStat = hackmon->stats.getStat(ATTACK);
     int defenseStat = hackmon->stats.getStat(DEFENSE);
 
-    if (hackmon->debuff->stat == ATTACK) {
-      attackStat -= hackmon->debuff->strength;
+    if (hackmon->debuff.stat == ATTACK) {
+      attackStat -= hackmon->debuff.strength;
     }
-    if (target.debuff->stat == DEFENSE) {
-      defenseStat -= target.debuff->strength;
+    if (target.debuff.stat == DEFENSE) {
+      defenseStat -= target.debuff.strength;
     }
 
     int damage = max(1, strength

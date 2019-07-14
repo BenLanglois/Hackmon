@@ -19,7 +19,7 @@ class Hackmon {
   std::vector<Family> family;
   std::unique_ptr<Mobility> mobility;
   std::unique_ptr<Move> currentMove;
-  std::unique_ptr<Debuff> debuff;
+  Debuff debuff;
 
   Hackmon(std::string, std::vector<std::unique_ptr<Move>>, Stats, std::vector<Family>);
 };
