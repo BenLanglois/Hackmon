@@ -10,12 +10,12 @@
 class Player;
 
 class Potion: public Item {
-  StatName stat;
-  int strength;
-  virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override;
+  const StatName stat;
+  const int strength;
+  virtual void doActionOverride(Player &, const std::vector<size_t> &) const override;
 
 public:
-  Potion(const std::string name, const Scope scope, StatName stat, int strength);
+  Potion(const std::string, const Scope, const StatName, const int);
 };
 
 #endif

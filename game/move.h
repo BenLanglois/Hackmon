@@ -2,12 +2,15 @@
 #define MOVE_H
 
 #include <string>
+#include <vector>
 #include <random>
 
 #include "action.h"
 #include "family.h"
 class Hackmon;
 
+class Player;
+class Hackmon;
 
 class Move: public Action {
   // PRNG
@@ -20,13 +23,13 @@ protected:
   const unsigned accuracy; // The percent chance that the move will hit. A value between 1 and 100 inclusive
   const Family family;
 
-  virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const override final;
-  virtual void doMoveOverride(Hackmon &target) const = 0;
+  virtual void doActionOverride(Player &, const std::vector<size_t> &) const override final;
+  virtual void doMoveOverride(Hackmon &) const = 0;
 
 public:
-  void attachHackmon(Hackmon *hackmon);
+  void attachHackmon(Hackmon *);
 
-  Move(const std::string name, const Scope scope, const unsigned accuracy, const Family family);
+  Move(const std::string, const Scope, const unsigned, const Family);
 };
 
 #endif

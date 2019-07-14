@@ -6,7 +6,7 @@
 class Confusion: public Mobility {
     virtual bool canMoveOverride() const override;
   public:
-    Confusion();
+    Confusion(Hackmon &);
 };
 
 #endif
