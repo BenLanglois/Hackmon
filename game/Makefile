@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = game
-MODULES = action move stat_move debuff_move mobility_move item potion debuff_heal mobility_heal
+MODULES = action move stat_move debuff_move mobility_move item potion debuff_heal mobility_heal player hackmon species
 OBJECTS = ${MODULES:=.o}
 DEPENDS = ${MODULES:=.d}
 ZIPPED = Makefile ${MODULES:=.h} ${MODULES:=.cc}
