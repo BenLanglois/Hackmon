@@ -10,7 +10,7 @@ using namespace std;
 
 template <typename MobilitySubclass>
 MobilityMove<MobilitySubclass>::MobilityMove(const std::string name, const Scope scope, const unsigned accuracy,
-                           const Family family, MobilitySubclass mobility):
+                                             const Family family, MobilitySubclass mobility):
   Move{name, scope, accuracy, family}, mobility{mobility} {}
 
 template <typename MobilitySubclass>

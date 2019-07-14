@@ -12,5 +12,5 @@ DebuffMove::DebuffMove(const std::string name, const Scope scope, const unsigned
   Move{name, scope, accuracy, family}, debuff{debuff} {}
 
 void DebuffMove::doMoveOverride(Hackmon &target) const {
-  // target.debuff
+  target.debuff = debuff;
 }

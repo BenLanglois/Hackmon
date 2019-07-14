@@ -7,9 +7,9 @@
 class Debuff {
     static const int defaultStrength = 3;
   public:
-    const DebuffName name;
-    const StatName stat;
-    const int strength;
+    DebuffName name;
+    StatName stat;
+    int strength;
     Debuff(const DebuffName);
 };
 
