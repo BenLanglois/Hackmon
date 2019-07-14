@@ -5,7 +5,7 @@
 #include "statInfo.h"
 
 class Debuff {
-    static int defaultStrength = 3;
+    static const int defaultStrength = 3;
   public:
     const DebuffName name;
     const StatName stat;

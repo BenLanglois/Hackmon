@@ -15,4 +15,4 @@ Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> moves, Stats stats
   family{family},
   mobility{make_unique<Mobile>(*this)},
   currentMove{nullptr},
-  debuff{HEALTHY, HP, 0} {}
+  debuff{HEALTHY} {}
