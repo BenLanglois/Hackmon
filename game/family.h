@@ -7,7 +7,7 @@
 class Family {
   public:
     const Type type;
-    size_t effectiveness(std::vector<Family>);
+    size_t effectiveness(const std::vector<Family>) const;
     Family(const Type);
 };
 

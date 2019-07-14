@@ -3,10 +3,16 @@
 #include <memory>
 
 #include "hackmon.h"
-#include "debuffName.h"
+#include "debuffInfo.h"
 #include "statInfo.h"
+#include "mobile.h"
 using namespace std;
 
-Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> moves, Stats stats, vector<Family> family, std::unique_ptr<Mobility> mobility):
-name{hackmonName}, moves{moves}, stats{stats}, family{family}, mobility{mobility},
-currentMove{nullptr}, debuff{make_unique<Debuff>(HEALTHY, HP, 0)} {}
+Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> moves, Stats stats, vector<Family> family):
+  name{hackmonName},
+  moves{moves},
+  stats{stats},
+  family{family},
+  mobility{make_unique<Mobile>(*this)},
+  currentMove{nullptr},
+  debuff{HEALTHY, HP, 0} {}

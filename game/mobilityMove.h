@@ -5,14 +5,13 @@
 
 #include "move.h"
 
-class Mobility;
-
+template <typename MobilitySubclass>
 class MobilityMove: public Move {
-  Mobility &mobility;
+  MobilitySubclass mobility;
   virtual void doMoveOverride(Hackmon &) const override;
 
 public:
-  MobilityMove(const std::string, const Scope, size_t, Family, Mobility &);
+  MobilityMove(const std::string, const Scope, unsigned, Family, MobilitySubclass);
 };
 
 #endif
