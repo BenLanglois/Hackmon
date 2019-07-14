@@ -6,7 +6,7 @@
 class Sleep: public Mobility {
     virtual bool canMoveOverride() const override;
   public:
-    Sleep();
+    Sleep(Hackmon &);
 };
 
 #endif

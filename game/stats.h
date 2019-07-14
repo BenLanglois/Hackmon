@@ -12,12 +12,11 @@ class Stats {
     int attack;
     int defense;
     int speed;
+    int variance;
   public:
-    Stats(const int mapHp, const int baseAttack, const int baseDefense, const int baseSpeed):
-      maxHp{maxHp}, baseAttack{baseAttack}, baseDefense{baseDefense}, baseSpeed{baseSpeed}, hp{mapHp}, attack{baseAttack},
-      defense{baseDefense}, speed{baseSpeed};
-    const int getStat(StatName s);
-    void setStat(StatName s, int newValue);
+    Stats(int, int, int, int);
+    const int getStat(StatName);
+    void setStat(StatName, int);
 };
 
 #endif
