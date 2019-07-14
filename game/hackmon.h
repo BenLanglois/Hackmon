@@ -14,14 +14,14 @@
 class Hackmon {
  public:
   std::string name;
-  std::vector<unique_ptr<Move>> moves;
+  std::vector<std::unique_ptr<Move>> moves;
   Stats stats;
   std::vector<Family> family;
   std::unique_ptr<Mobility> mobility;
   std::unique_ptr<Move> currentMove;
   std::unique_ptr<Debuff> debuff;
 
-  Hackmon(std::string, std::vector<unique_ptr<Move>>, Stats, std::vector<Family>, std::unique_ptr<Mobility>);
+  Hackmon(std::string, std::vector<std::unique_ptr<Move>>, Stats, std::vector<Family>);
 };
 
 #endif
