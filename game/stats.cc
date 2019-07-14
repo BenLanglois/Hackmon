@@ -2,9 +2,9 @@
 
 using namespace std;
 
-Stats::Stats(const int mapHp, const int baseAttack, const int baseDefense, const int baseSpeed) : 
+Stats::Stats(int maxHp, int baseAttack, int baseDefense, int baseSpeed) : 
       maxHp{maxHp}, baseAttack{baseAttack}, baseDefense{baseDefense}, baseSpeed{baseSpeed}, 
-      hp{mapHp}, attack{baseAttack}, defense{baseDefense}, speed{baseSpeed}, variance{5} {}
+      hp{maxHp}, attack{baseAttack}, defense{baseDefense}, speed{baseSpeed}, variance{5} {}
       
 const int Stats::getStat(StatName s) {
   switch(s) {

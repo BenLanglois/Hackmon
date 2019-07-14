@@ -14,7 +14,7 @@ class Stats {
     int speed;
     int variance;
   public:
-    Stats(const int, const int, const int, const int);
+    Stats(int, int, int, int);
     const int getStat(StatName);
     void setStat(StatName, int);
 };
