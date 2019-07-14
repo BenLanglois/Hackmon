@@ -1,6 +1,9 @@
-#include "hackmon.h"
 #include <string>
 #include <iostream>
+#include <vector>
+
+#include "hackmon.h"
+#include "move.h"
 using namespace std;
 
 int main() {
@@ -11,6 +14,12 @@ int main() {
 
   char hackmonSelect;
   int hackmonNumber;
+
+  string newHackmonSpecies;
+  string newHackmonName;
+  int newHackmonType;
+  int newHackmonMove;
+  vector<Move*> newHackmonMoves;
 
   while (cin >> cmd && cmd != 'q') {
     // pregame -----------------------------------------------------------------
@@ -60,6 +69,30 @@ int main() {
 
         }
         else if (hackmonSelect == 'o') {
+          cout << "What would you like the name of your species to be?" << endl;
+          cin >> newHackmonSpecies;
+
+          cout << "Here is a list of the 8 Hackmon types:" << endl;
+          cout << /* type list */ << endl;
+          cout << "Which type would you like your species to belong to? (1 <= # <= 8)" << endl;
+          while (cin >> newHackmonType) {
+            if (hackmonNumber > 0 && hackmonNumber < 9) break;
+            else cout << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)" << endl;
+          }
+
+          cout << "What would you like the name of your Hackmon to be?" << endl;
+          cin >> newHackmonName;
+
+          cout << "Here is a list of the # Hackmon moves:" << endl;
+          cout << /* move list */ << endl;
+          cout << "Which moves would you like your Hackmon to have? Please separate the numbers by spaces (1 <= # <= ?)" << endl;
+          for (int k=0; k<4; k++) {
+            cin >> newHackmonMove;
+            newHackmonMoves.emplace_back(/*MoveList[newHackmonMove]*/);
+          }
+
+          // stats
+
 
 
           cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party." << endl;
