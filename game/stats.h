@@ -15,8 +15,9 @@ class Stats {
     int variance;
   public:
     Stats(int, int, int, int);
-    const int getStat(StatName);
+    int getStat(StatName) const;
     void setStat(StatName, int);
+    int getMaxHP() const;
 };
 
 #endif

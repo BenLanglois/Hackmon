@@ -1,6 +1,7 @@
 #ifndef FAMILY_H_
 #define FAMILY_H_
 
+#include <string>
 #include "type.h"
 
 class Family {

@@ -2,8 +2,10 @@
 
 using namespace std;
 
-Confusion::Confusion() {}
+Confusion::Confusion(Hackmon &h) : Mobility(h), rng{RandomGenerator(1, 2)} {
+  damage = hackmon.stats.getMaxHP();
+}
 
 bool Confusion::canMoveOverride() const {
-  // TO-DO: decide on implementation details
+  // TO-DO: implement
 }

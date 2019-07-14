@@ -11,10 +11,3 @@ RandomGenerator::RandomGenerator(const unsigned int min_, const unsigned int max
 int RandomGenerator::getRandom() {
   return random_distribution(random_generator);
 }
-
-int main() {
-  RandomGenerator rng(1,10);
-  for(int i = 0; i < 10; i++) {
-    cout << rng.getRandom() << endl;
-  }
-}

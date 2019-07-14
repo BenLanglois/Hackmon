@@ -1,11 +1,15 @@
 #ifndef MOBILITY_H_
 #define MOBILITY_H_
 
-class Hackmon;
+#include "randomGen.h"
+
+#include "hackmon.h";
 
 class Mobility {
-    Hackmon& h;
     virtual bool canMoveOverride() const = 0;
+  protected:
+    Hackmon& hackmon;
+    int duration;
   public:
     bool canMove() const;
     Mobility(Hackmon &);
