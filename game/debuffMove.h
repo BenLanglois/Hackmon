@@ -2,20 +2,17 @@
 #define DEBUFF_MOVE_H
 
 #include <string>
-#include <vector>
 
 #include "move.h"
 #include "debuff.h"
 
-class Player;
-
 class DebuffMove: public Move {
   const DebuffName debuff;
-  virtual void doMoveOverride(Player &player, const std::vector<size_t> &targets) const override;
+  virtual void doMoveOverride(Hackmon &) const override;
 
 public:
-  DebuffMove(const std::string name, const Scope scope, const size_t accuracy,
-             const Family family, const DebuffName debuff);
+  DebuffMove(const std::string, const Scope, const size_t,
+             const Family, const DebuffName);
 };
 
 #endif

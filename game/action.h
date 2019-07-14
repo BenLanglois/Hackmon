@@ -7,7 +7,7 @@
 class Player;
 
 class Action {
-  virtual void doActionOverride(Player &player, const std::vector<size_t> &targets) const = 0;
+  virtual void doActionOverride(Player &, const std::vector<size_t> &) const = 0;
 
 public:
   enum Scope {
@@ -17,9 +17,9 @@ public:
   const std::string name;
   const Scope scope;
 
-  void doAction(Player &player, const std::vector<size_t> &targets) const;
+  void doAction(Player &, const std::vector<size_t> &) const;
 
-  Action(const std::string name, const Scope scope);
+  Action(const std::string, const Scope);
 };
 
 #endif
