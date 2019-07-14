@@ -122,16 +122,15 @@ int main() {
 
           Species createdHackmonSpecies(
             newHackmonSpecies,
-            newHackmonMoves,
             /*type move list[newHackmonSpecialMove]*/,
             Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
             newHackmonFamily,
           );
           // add species to species list
 
-          Hackmon newHackmon = createdHackmonSpecies.createHackmon(newHackmonName);
+          Hackmon newHackmon = createdHackmonSpecies.createHackmon(newHackmonMoves, newHackmonName);
 
-          cout << "Great! " << newHackmonName */ << "has been added to your party!" << endl;
+          cout << "Great! " << newHackmonName << " has been added to your party!" << endl;
         }
       }
     }
