@@ -10,11 +10,11 @@
 class Player;
 
 class DebuffHeal: public Item {
-  DebuffName debuff;
+  const DebuffName debuff;
   virtual void doActionOverride(Player &, const std::vector<size_t> &) const override;
 
 public:
-  Potion(const std::string, const Scope, DebuffName);
+  DebuffHeal(const std::string, const Scope, const DebuffName);
 };
 
 #endif
