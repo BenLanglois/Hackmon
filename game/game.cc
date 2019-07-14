@@ -29,6 +29,7 @@ int main() {
   string newHackmonName;
   int newHackmonType;
   int newHackmonMove;
+  int newHackmonSpecialMove;
   vector<unique_ptr<Move>> newHackmonMoves;
   vector<Family> newHackmonFamily;
   int newHackmonHp;
@@ -77,7 +78,7 @@ int main() {
           cout << "Which Hackmon would you like to select? (1 <= # <= 20)" << endl;
           getValidValue(hackmonNumber, 0, 21);
 
-          cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party." << endl;
+          cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party!" << endl;
 
         }
         else if (hackmonSelect == 'o') {
@@ -94,9 +95,14 @@ int main() {
           cin >> newHackmonName;
 
           cout << "Here is a list of the # Hackmon moves:" << endl;
+          cout << /* type move list */ << endl;
+          cout << "Now please select a special move for your Hackmon based on the type" << endl;
+          cin >> newHackmonSpecialMove;
+
+          cout << "Here is a list of the # Hackmon moves:" << endl;
           cout << /* move list */ << endl;
-          cout << "Which moves would you like your Hackmon to have? Please separate the numbers by spaces (1 <= # <= ?)" << endl;
-          for (int k=0; k<4; k++) {
+          cout << "Which moves would you like your Hackmon to have? Please type 3 numbers separated by spaces (1 <= # <= ?)" << endl;
+          for (int k=0; k<3; k++) {
             cin >> newHackmonMove;
             newHackmonMoves.emplace_back(/*MoveList[newHackmonMove]*/);
           }
@@ -114,13 +120,18 @@ int main() {
           cout << "What would you like your base speed level to be? (1 <= # <= 10)" << endl;
           getValidValue(newHackmonSpeed, 0, 11);
 
-          Stats createdHackmonStats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed);
-
-          Species createdHackmonSpecies(newHackmonSpecies, newHackmonMoves, createdHackmonStats, newHackmonFamily);
+          Species createdHackmonSpecies(
+            newHackmonSpecies,
+            newHackmonMoves,
+            /*type move list[newHackmonSpecialMove]*/,
+            Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
+            newHackmonFamily,
+          );
           // add species to species list
 
+          Hackmon newHackmon = createdHackmonSpecies.createHackmon(newHackmonName);
 
-          cout << "Great! " << /* hackerdex[hackmonNumber].name */ << "has been added to your party." << endl;
+          cout << "Great! " << newHackmonName */ << "has been added to your party!" << endl;
         }
       }
     }
