@@ -1,7 +1,17 @@
 #include "sleep.h"
+#include "mobile.h"
 
-Sleep::Sleep() {}
+Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)} {
+  // TO=DO: can this be done in the MIL?
+  duration = rng.getRandom();
+}
 
-bool Sleep::canMoveOverride() const {
-    return false;
+bool Sleep::canMoveOverride() {
+  --duration;
+  // continues until set duration
+  if(duration == 0) {
+    hackmon.mobility.reset(new Mobile(hackmon));
+    return true;
+  } 
+  return false;
 }
