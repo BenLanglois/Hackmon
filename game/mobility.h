@@ -1,7 +1,7 @@
 #ifndef MOBILITY_H_
 #define MOBILITY_H_
 
-#include "hackmon.h"
+class Hackmon;
 
 class Mobility {
     Hackmon& h;
