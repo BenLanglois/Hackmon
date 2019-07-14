@@ -7,8 +7,6 @@
 #include "statInfo.h"
 using namespace std;
 
-unsigned numberBattling; // REMOVE THIS LATER
-
 // FIXME: numberBattling global variable unsigned int
 Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0}, nextAlive{numberBattling} {}
 

@@ -20,13 +20,13 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
   // requires: targets must be distinct and attachHackmon must have already been called
 
   if (!hackmon->mobility->canMove()) {
-    // Print "can't move" or something
+    // FIXME: Print "can't move" or something
     // or, should that be the responsibility of mobility?
     return;
   }
 
   if (random_distribution(random_generator) > accuracy) {
-    // Print "move missed" or something
+    // FIXME: Print "move missed" or something
     return;
   }
 
@@ -37,7 +37,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     if (target != nullptr) {
       doMoveOverride(*target);
     } else {
-      // Print "move failed" or something
+      // FIXME: Print "move failed" or something
     }
   }
 }
