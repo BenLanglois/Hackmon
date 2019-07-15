@@ -9,9 +9,9 @@ class Confusion: public Mobility {
     int damage;
     unsigned duration;
     virtual bool canMoveOverride() override;
-    virtual MobilityName name() const override;
   public:
     Confusion(Hackmon &);
+    virtual MobilityName name() const override;
     virtual std::unique_ptr<Mobility> clone() const override;
 };
 
