@@ -9,6 +9,7 @@ class Confusion: public Mobility {
     int damage;
     int duration;
     virtual bool canMoveOverride() override;
+    virtual MobilityName name() const override;
   public:
     Confusion(Hackmon &);
 };

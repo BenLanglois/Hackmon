@@ -7,6 +7,7 @@
 class Paralysis: public Mobility {
     RandomGenerator rng;
     virtual bool canMoveOverride() override;
+    virtual MobilityName name() const override;
   public:
     Paralysis(Hackmon &);
 };

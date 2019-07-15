@@ -9,3 +9,7 @@ bool Paralysis::canMoveOverride() {
     return false;
   }
 }
+
+MobilityName Paralysis::name() const {
+  return PARALYSIS;
+}

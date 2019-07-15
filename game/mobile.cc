@@ -7,3 +7,7 @@ Mobile::Mobile(Hackmon & _h) : Mobility(_h) {}
 bool Mobile::canMoveOverride() {
   return true;
 }
+
+MobilityName Mobile::name() const {
+  return MOBILE;
+}

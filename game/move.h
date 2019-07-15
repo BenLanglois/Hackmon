@@ -11,6 +11,8 @@
 class Player;
 class Hackmon;
 
+// TODO: Use Ariel's RandomGenerator class
+
 class Move: public Action {
   // PRNG
   static std::random_device rd;
