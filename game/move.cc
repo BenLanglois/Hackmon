@@ -11,7 +11,7 @@ using namespace std;
 RandomGenerator Move::rng {1, 100};
 
 Move::Move(const string name, const Scope scope, const unsigned accuracy, const Family family):
-  Action{name, scope}, hackmon{nullptr}, accuracy{accuracy}, family{family} {}
+  hackmon{nullptr}, accuracy{accuracy}, family{family}, name{name}, scope{scope} {}
 
 void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) const {
   // requires: targets must be distinct and attachHackmon must have already been called
