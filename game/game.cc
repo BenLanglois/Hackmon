@@ -8,6 +8,8 @@
 #include "move.h"
 #include "species.h"
 #include "stats.h"
+#include "gameConstants.h"
+
 using namespace std;
 
 template<typename T>
