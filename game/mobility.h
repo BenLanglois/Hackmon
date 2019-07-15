@@ -15,6 +15,7 @@ class Mobility {
     bool canMove();
     Mobility(Hackmon &);
     bool operator==(Mobility &);
+    virtual ~Mobility() = 0;
 };
 
 #endif

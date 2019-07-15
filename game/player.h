@@ -11,11 +11,11 @@
 class Player {
  public:
   std::string name;
-  std::vector<std::unique_ptr<Hackmon>> party;
+  std::vector<std::shared_ptr<Hackmon>> party;
   unsigned winTotal;
   unsigned nextAlive;
 
-  Player(std::string, std::vector<std::unique_ptr<Hackmon>>);
+  Player(std::string, std::vector<std::shared_ptr<Hackmon>>);
 
   // checks if hp of indicated hackmon is above 0
   bool isAlive(unsigned);

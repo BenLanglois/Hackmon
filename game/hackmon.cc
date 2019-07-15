@@ -8,7 +8,7 @@
 #include "mobile.h"
 using namespace std;
 
-Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> moves, Stats stats, vector<Family> family):
+Hackmon::Hackmon(string hackmonName, vector<shared_ptr<Move>> moves, Stats stats, vector<Family> family):
   name{hackmonName},
   moves{moves},
   stats{stats},

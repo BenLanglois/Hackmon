@@ -46,3 +46,5 @@ void Move::attachHackmon(Hackmon *new_hackmon) {
   // This should only be called if the Move object isn't already attached to a Hackmon
   hackmon = new_hackmon;
 }
+
+Move::~Move() {}

@@ -5,6 +5,10 @@
 *.fls
 *.log
 
+# Files created by make
+*.o
+*.d
+
 # Other
 .DS_Store
 .vscode

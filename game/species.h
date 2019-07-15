@@ -12,14 +12,14 @@
 
 class Species {
   std::string speciesName;
-  std::vector<std::unique_ptr<Move>> moves; // FIXME: should be moved to family? depends on type
+  std::vector<std::shared_ptr<Move>> moves; // FIXME: should be moved to family? depends on type
   Move &specialMove;
   Stats stats;
   std::vector<Family> family;
  public:
-  Species(const std::string, std::vector<std::unique_ptr<Move>>, Move &, Stats, std::vector<Family>);
+  Species(const std::string, std::vector<std::shared_ptr<Move>>, Move &, Stats, std::vector<Family>);
 
-  Hackmon createHackmon(std::vector<std::unique_ptr<Move>>, const std::string);
+  Hackmon createHackmon(std::vector<std::shared_ptr<Move>>, const std::string);
 };
 
 #endif

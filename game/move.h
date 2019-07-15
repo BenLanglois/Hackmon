@@ -31,6 +31,8 @@ public:
   void attachHackmon(Hackmon *);
 
   Move(const std::string, const Scope, const unsigned, const Family);
+
+  virtual ~Move() = 0;
 };
 
 #endif
