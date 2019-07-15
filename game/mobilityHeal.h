@@ -4,16 +4,14 @@
 #include <string>
 
 #include "item.h"
+#include "mobilityInfo.h"
 
-class Mobility;
-
-template <typename MobilitySubclass>
 class MobilityHeal: public Item {
-  MobilitySubclass mobility;
+  MobilityName mobility;
   virtual void useItemOverride(Hackmon &) const override;
 
 public:
-  MobilityHeal(const std::string, const Scope, Mobility &);
+  MobilityHeal(const std::string, const Scope, MobilityName);
 };
 
 #endif
