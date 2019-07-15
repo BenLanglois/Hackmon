@@ -1,11 +1,12 @@
 #include "confusion.h"
 #include "statInfo.h"
 #include "mobile.h"
+#include "hackmon.h"
 
 using namespace std;
 
-Confusion::Confusion(Hackmon &h) : Mobility(h), rng{RandomGenerator(1,10)}, 
-    damage{hackmon.stats.getMaxHP() * 0.1}, duration{5} {}
+Confusion::Confusion(Hackmon &h) : Mobility(h), rng{RandomGenerator(1,10)},
+    damage{hackmon.stats.getMaxHP() / 10}, duration{5} {}
 
 
 bool Confusion::canMoveOverride() {
@@ -22,3 +23,11 @@ bool Confusion::canMoveOverride() {
   }
   return false;
 };
+
+MobilityName Confusion::name() const {
+  return CONFUSION;
+}
+
+unique_ptr<Mobility> Confusion::clone() const {
+  return make_unique<Confusion>(*this);
+}

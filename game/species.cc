@@ -7,9 +7,9 @@ using namespace std;
 Species::Species(const string speciesName, Move &specialMove, Stats stats, vector<Family> family):
   speciesName{speciesName}, specialMove{specialMove}, stats{stats}, family{family} {}
 
-Hackmon Species::createHackmon(vector<unique_ptr<Move>> moves, const string hackmonName = string()) {
-  vector<unique_ptr<Move>> hackmonMoves = moves;
-  hackmonMoves.emplace_back(specialMove);
+Hackmon Species::createHackmon(vector<unique_ptr<Move>> &&moves, const string hackmonName = string()) {
+  vector<unique_ptr<Move>> hackmonMoves = move(moves);
+  hackmonMoves.emplace_back(specialMove.clone());
 
-  return Hackmon(hackmonName.length() ? hackmonName : speciesName, hackmonMoves, stats, family);
+  return Hackmon(hackmonName.length() ? hackmonName : speciesName, move(hackmonMoves), stats, family);
 }

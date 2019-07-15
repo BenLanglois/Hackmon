@@ -13,7 +13,7 @@ StatMove::StatMove(const std::string name, const Scope scope, const unsigned acc
 
 void StatMove::doMoveOverride(Hackmon &target) const {
   if (stat == HP) {
-    // damage is proportional to strength, effectiveness, and the attacker's Attack stat
+    // damage is proportional to strength, effectiveness, and the attacker's ATTACK stat
     // damage is inversely proportional to the target's Defense stat
     // damage cannot be less than 1
 
@@ -36,6 +36,11 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     target.stats.setStat(HP, target.stats.getStat(HP) - damage);
 
   } else {
-
+    // We don't care about effectiveness, ATTACK, or DEFENSE for non-damage stat moves
+    target.stats.setStat(stat, target.stats.getStat(stat) - strength);
   }
+}
+
+unique_ptr<Move> StatMove::clone() const {
+  return make_unique<StatMove>(*this);
 }

@@ -4,14 +4,14 @@
 #include <random>
 
 class RandomGenerator {
-    const unsigned int min;
-    const unsigned int max;
+    const unsigned min;
+    const unsigned max;
     static std::random_device rd;
     static std::mt19937 random_generator;
-    std::uniform_int_distribution<unsigned int> random_distribution;
+    std::uniform_int_distribution<unsigned> random_distribution;
   public:
-    RandomGenerator(const unsigned int, const unsigned int);
-    int getRandom();
+    RandomGenerator(const unsigned, const unsigned);
+    unsigned getRandom();
 };
 
 #endif

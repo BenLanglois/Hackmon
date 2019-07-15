@@ -7,10 +7,12 @@
 class Confusion: public Mobility {
     RandomGenerator rng;
     int damage;
-    int duration;
+    unsigned duration;
     virtual bool canMoveOverride() override;
+    virtual MobilityName name() const override;
   public:
     Confusion(Hackmon &);
+    virtual std::unique_ptr<Mobility> clone() const override;
 };
 
 #endif

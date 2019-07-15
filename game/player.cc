@@ -7,8 +7,11 @@
 #include "statInfo.h"
 using namespace std;
 
+// FIXME: remove this later
+unsigned numberBattling;
+
 // FIXME: numberBattling global variable unsigned int
-Player::Player(string name, vector<unique_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0}, nextAlive{numberBattling} {}
+Player::Player(string name, vector<shared_ptr<Hackmon>> party): name{name}, party{party}, winTotal{0}, nextAlive{numberBattling} {}
 
 bool Player::isAlive(unsigned index) {
   return (party.at(index)->stats.getStat(HP) > 0);
