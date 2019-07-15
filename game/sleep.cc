@@ -2,7 +2,6 @@
 #include "mobile.h"
 
 Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)} {
-  // TO=DO: can this be done in the MIL?
   duration = rng.getRandom();
 }
 
