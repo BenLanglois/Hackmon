@@ -8,8 +8,4 @@ bool Mobility::canMove() {
   return canMoveOverride();
 }
 
-bool Mobility::operator==(Mobility &other) {
-  return name() == other.name();
-}
-
 Mobility::~Mobility() {}

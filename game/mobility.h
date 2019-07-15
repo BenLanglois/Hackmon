@@ -10,13 +10,12 @@ class Hackmon;
 
 class Mobility {
     virtual bool canMoveOverride() = 0;
-    virtual MobilityName name() const = 0;
   protected:
     Hackmon& hackmon;
   public:
     bool canMove();
     Mobility(Hackmon &);
-    bool operator==(Mobility &);
+    virtual MobilityName name() const = 0;
     virtual ~Mobility() = 0;
     virtual std::unique_ptr<Mobility> clone() const = 0;
 };
