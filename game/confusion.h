@@ -2,9 +2,13 @@
 #define CONFUSION_H
 
 #include "mobility.h"
+#include "randomGen.h"
 
 class Confusion: public Mobility {
-    virtual bool canMoveOverride() const override;
+    RandomGenerator rng;
+    int damage;
+    int duration;
+    virtual bool canMoveOverride() override;
   public:
     Confusion(Hackmon &);
 };
