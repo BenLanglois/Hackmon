@@ -3,7 +3,7 @@
 Paralysis::Paralysis(Hackmon & h) : Mobility(h), rng{RandomGenerator(1,10)} {}
 
 bool Paralysis::canMoveOverride() {
-  if(rng.getRandom() >= 7) {
+  return rng.getRandom() >= 7;
     return true;
   } else {
     return false;
