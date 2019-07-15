@@ -8,12 +8,12 @@
 #include "mobile.h"
 using namespace std;
 
-Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> moves, Stats stats, vector<Family> family, string speciesName):
+Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> &&moves, Stats stats, vector<Family> family, string speciesName):
   name{hackmonName},
-  moves{moves},
+  moves{move(moves)}, // This line makes sense. I promise.
   stats{stats},
   family{family},
   speciesName{speciesName},
   mobility{make_unique<Mobile>(*this)},
   currentMove{nullptr},
-  debuff{HEALTHY, HP, 0} {}
+  debuff{HEALTHY} {}

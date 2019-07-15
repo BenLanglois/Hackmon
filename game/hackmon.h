@@ -22,7 +22,7 @@ class Hackmon {
   std::unique_ptr<Move> currentMove;
   Debuff debuff;
 
-  Hackmon(std::string, std::vector<std::unique_ptr<Move>>, Stats, std::vector<Family>, std::string);
+  Hackmon(std::string, std::vector<std::unique_ptr<Move>> &&, Stats, std::vector<Family>, std::string);
 };
 
 #endif

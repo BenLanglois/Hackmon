@@ -7,9 +7,13 @@
 #include "statInfo.h"
 using namespace std;
 
+// FIXME: remove these 2 later
+unsigned numberBattling;
+int numberParty;
+
 // FIXME: numberBattling global variable unsigned int
-Player::Player(string name, vector<unique_ptr<Hackmon>> party, vector<Item> items):
-  name{name}, party{party}, items{items}, winTotal{0}, nextAlive{numberBattling} {}
+Player::Player(string name, vector<unique_ptr<Hackmon>> &&party, vector<unique_ptr<Item>> &&items):
+name{name}, party{move(party)}, items{move(items)}, winTotal{0}, nextAlive{numberBattling} {}
 
 bool Player::isAlive(unsigned index) {
   return (party.at(index)->stats.getStat(HP) > 0);
@@ -52,11 +56,10 @@ void Player::hasWon() {
 }
 
 void Player::printParty() {
-  cout << p.name << "'s HACKMON:" << endl;
+  cout << name << "'s HACKMON:" << endl;
 
   for (int m=0; m<numberParty; m++) {
-    cout << m+1 << ". " << p.party.at(m) << endl;
+    cout << m+1 << ". " << party.at(m)->name << endl; // add species name
     if (m == numberParty-1) cout << endl;
   }
-  return cout;
 }

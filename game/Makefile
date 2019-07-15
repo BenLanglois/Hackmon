@@ -1,10 +1,12 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = game
-MODULES = action move statMove debuffMove mobilityMove item potion debuffHeal mobilityHeal hackmon player species
+MODULES = action confusion debuff debuffHeal debuffMove family hackmon item mobile mobility mobilityHeal
+MODULES += mobilityMove move paralysis player potion randomGen sleep species statMove stats
+ADDITIONAL_FILES = game.cc actionInfo.h debuffInfo.h mobilityInfo.h statInfo.h
 OBJECTS = ${MODULES:=.o}
 DEPENDS = ${MODULES:=.d}
-ZIPPED = Makefile ${MODULES:=.h} ${MODULES:=.cc}
+ZIPPED = Makefile ${MODULES:=.h} ${MODULES:=.cc} ${ADDITIONAL_FILES}
 
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}

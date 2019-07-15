@@ -5,11 +5,12 @@
 #include "statInfo.h"
 
 class Debuff {
+    static const int defaultStrength = 3;
   public:
-    const DebuffName name;
-    const StatName stat;
-    const int strength;
-    Debuff(const DebuffName, const StatName, const int);
+    DebuffName name;
+    StatName stat;
+    int strength;
+    Debuff(const DebuffName);
 };
 
 #endif
