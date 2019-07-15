@@ -1,20 +1,18 @@
 #include <string>
+#include <memory>
 
 #include "mobilityHeal.h"
-#include "hackmon.h"
-#include "mobility.h"
 #include "mobile.h"
+#include "hackmon.h"
 
 using namespace std;
 
 
-template <typename MobilitySubclass>
-MobilityHeal<MobilitySubclass>::MobilityHeal(const string name, const Scope scope, Mobility &mobility):
+MobilityHeal::MobilityHeal(const string name, const Scope scope, MobilityName mobility):
   Item{name, scope}, mobility{mobility} {}
 
-template <typename MobilitySubclass>
-void MobilityHeal<MobilitySubclass>::useItemOverride(Hackmon &target) const {
-  if (*(target.mobility) == mobility) {
-    target.mobility.reset(new Mobile(target));
+void MobilityHeal::useItemOverride(Hackmon &target) const {
+  if (target.mobility->name() == mobility) {
+    target.mobility = make_unique<Mobile>(target);
   }
 }
