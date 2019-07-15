@@ -217,17 +217,20 @@ int main() {
 
         // loop (check if all pokemon of one player have fainted)
         int loopCounter = 1;
-        cout << "Time to Battle!" << endl;
+        cout << "Time to battle!" << endl;
         while (p1.partyAlive() && p2.partyAlive()) {
           cout << "-------- ROUND " << loopCounter++ << " --------" << endl << endl;
 
           // choose move/use item/swap for each hackmon
-          vector<Move> p1Moves; // FIXME: wrong implementation of vector of moves
-          vecotr<Move> p2Moves;
+          vector<Action*> p1Actions; // FIXME: wrong implementation of vector of moves
+          vector<Action*> p2Actions;
           for (int p=0; p<2; p++) {
+            Player &currPlayer = (p == 0 ? p1 : p2);
+            vector<Action*> &currPlayerActions = (p == 0 ? p1Actions : p2Actions);
+
             for (unsigned h=0; h<numberBattling; h++) {
-              cout << (p==0) ? p1.name : p2.name << " please select for ";
-              cout << (p==0) ? *(p1.party.at(h)).name : *(p2.party.at(h)).name << endl;
+              cout << currPlayer.name << " please select for ";
+              cout << currPlayer.party.at(h)->name << endl;
 
               char action;
               cout << "Would you like to perform an action or swap out your HACKMON with another in your party? (a/s)" << endl;
@@ -235,7 +238,7 @@ int main() {
 
               if (action == 'a') {
                 char moveItem;
-                if ((p==0) ? p1.items.size() != 0 : p2.items.size() != 0) {
+                if (currPlayer.items.size() != 0) {
                   cout << "Would you like to move against your opponent or use an item? (m/i)" << endl;
                   getValidValueOneOf(moveItem, 'm', 'i');
                 } else {
@@ -243,11 +246,20 @@ int main() {
                 }
 
                 if (moveItem == 'm') {
-                  cout << "Here is a list of the available moves" << endl;
-                  // cout << /* moves list */ << endl;
+                  cout << "Here is a list of the available moves:" << endl;
+                  for (size_t moveIndex = 0; moveIndex < currPlayer.party.at(h)->moves.size(); ++moveIndex) {
+                    // Give one-index list of moves
+                    cout << moveIndex+1 << ": " << currPlayer.party.at(h)->moves.at(moveIndex)->name << endl;
+                  }
 
                   // pick one from list
+                  size_t selectedMoveIndex;
+                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currPlayer.party.at(h)->moves.size()+1);
+                  --selectedMoveIndex; // Make zero-indexed
+
                   // add to pMove vector
+                  currPlayerActions.emplace_back(currPlayer.party.at(h)->moves.at(selectedMoveIndex));
+
                 } else {
                   // output list of items
                   // pick one from list
