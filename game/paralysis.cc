@@ -1,6 +1,6 @@
 #include "paralysis.h"
 
-Paralysis::Paralysis(Hackmon & h) : Mobility(h), rng{RandomGenerator(1,2)} {}
+Paralysis::Paralysis(Hackmon & h) : Mobility(h), rng{RandomGenerator(1,10)} {}
 
 bool Paralysis::canMoveOverride() {
   if(rng.getRandom() >= 7) {

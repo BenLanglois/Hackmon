@@ -10,7 +10,7 @@ Confusion::Confusion(Hackmon &h) : Mobility(h), rng{RandomGenerator(1,10)},
 
 bool Confusion::canMoveOverride() {
   int currentHP = hackmon.stats.getStat(HP);
-  // 70% chance damage will be inflicted
+  // 60% chance damage will be inflicted
   if(rng.getRandom() >= 5) {
     hackmon.stats.setStat(HP, currentHP - damage);
   }
