@@ -10,6 +10,7 @@ class Paralysis: public Mobility {
     virtual MobilityName name() const override;
   public:
     Paralysis(Hackmon &);
+    virtual std::unique_ptr<Mobility> clone() const override;
 };
 
 #endif

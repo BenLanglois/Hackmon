@@ -14,3 +14,7 @@ DebuffMove::DebuffMove(const std::string name, const Scope scope, const unsigned
 void DebuffMove::doMoveOverride(Hackmon &target) const {
   target.debuff = debuff;
 }
+
+unique_ptr<Move> DebuffMove::clone() const {
+  return make_unique<DebuffMove>(*this);
+}

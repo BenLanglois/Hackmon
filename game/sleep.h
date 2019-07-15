@@ -11,6 +11,7 @@ class Sleep: public Mobility {
     int duration;
   public:
     Sleep(Hackmon &);
+    virtual std::unique_ptr<Mobility> clone() const override;
 };
 
 #endif

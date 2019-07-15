@@ -12,6 +12,7 @@ class Confusion: public Mobility {
     virtual MobilityName name() const override;
   public:
     Confusion(Hackmon &);
+    virtual std::unique_ptr<Mobility> clone() const override;
 };
 
 #endif

@@ -2,6 +2,8 @@
 #include "mobile.h"
 #include "hackmon.h"
 
+using namespace std;
+
 Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)}, duration{rng.getRandom()} {}
 
 bool Sleep::canMoveOverride() {
@@ -16,4 +18,8 @@ bool Sleep::canMoveOverride() {
 
 MobilityName Sleep::name() const {
   return SLEEP;
+}
+
+unique_ptr<Mobility> Sleep::clone() const {
+  return make_unique<Sleep>(*this);
 }

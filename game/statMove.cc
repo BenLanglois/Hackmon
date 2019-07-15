@@ -40,3 +40,7 @@ void StatMove::doMoveOverride(Hackmon &target) const {
     target.stats.setStat(stat, target.stats.getStat(stat) - strength);
   }
 }
+
+unique_ptr<Move> StatMove::clone() const {
+  return make_unique<StatMove>(*this);
+}

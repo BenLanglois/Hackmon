@@ -27,3 +27,7 @@ bool Confusion::canMoveOverride() {
 MobilityName Confusion::name() const {
   return CONFUSION;
 }
+
+unique_ptr<Mobility> Confusion::clone() const {
+  return make_unique<Confusion>(*this);
+}

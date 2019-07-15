@@ -13,6 +13,7 @@ class StatMove: public Move {
 
 public:
   StatMove(const std::string, const Scope, const unsigned, const Family, const StatName, const int);
+  virtual std::unique_ptr<Move> clone() const override;
 };
 
 #endif

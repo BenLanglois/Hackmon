@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <random>
+#include <memory>
 
 #include "action.h"
 #include "family.h"
@@ -29,6 +30,7 @@ protected:
 
 public:
   void attachHackmon(Hackmon *);
+  virtual std::unique_ptr<Move> clone() const = 0;
 
   Move(const std::string, const Scope, const unsigned, const Family);
 

@@ -11,3 +11,7 @@ bool Mobile::canMoveOverride() {
 MobilityName Mobile::name() const {
   return MOBILE;
 }
+
+unique_ptr<Mobility> Mobile::clone() const {
+  return make_unique<Mobile>(*this);
+}
