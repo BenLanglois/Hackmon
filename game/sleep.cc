@@ -1,9 +1,7 @@
 #include "sleep.h"
 #include "mobile.h"
 
-Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)} {
-  duration = rng.getRandom();
-}
+Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)}, duration{rng.getRandom()} {}
 
 bool Sleep::canMoveOverride() {
   --duration;
