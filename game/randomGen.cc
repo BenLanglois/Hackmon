@@ -6,11 +6,11 @@ using namespace std;
 random_device RandomGenerator::rd {};
 mt19937 RandomGenerator::random_generator {rd()};
 
-RandomGenerator::RandomGenerator(const unsigned int min_, const unsigned int max_) : min{min_}, max{max_},
-  random_distribution{uniform_int_distribution<unsigned int> {min, max}} {
+RandomGenerator::RandomGenerator(const unsigned min_, const unsigned max_) : min{min_}, max{max_},
+  random_distribution{uniform_int_distribution<unsigned> {min, max}} {
 
 }
 
-int RandomGenerator::getRandom() {
+unsigned RandomGenerator::getRandom() {
   return random_distribution(random_generator);
 }

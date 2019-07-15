@@ -3,11 +3,11 @@
 
 #include <string>
 #include <vector>
-#include <random>
 #include <memory>
 
 #include "action.h"
 #include "family.h"
+#include "randomGen.h"
 
 class Player;
 class Hackmon;
@@ -15,10 +15,7 @@ class Hackmon;
 // TODO: Use Ariel's RandomGenerator class
 
 class Move: public Action {
-  // PRNG
-  static std::random_device rd;
-  static std::mt19937 random_generator;
-  static std::uniform_int_distribution<unsigned int> random_distribution;
+  static RandomGenerator rng;
 
 protected:
   Hackmon *hackmon; // Non-owning pointer
