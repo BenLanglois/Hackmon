@@ -8,10 +8,7 @@
 
 using namespace std;
 
-// Initialize PRNG
-random_device Move::rd {};
-mt19937 Move::random_generator {rd()};
-uniform_int_distribution<unsigned int> Move::random_distribution {1, 100};
+RandomGenerator Move::rng {1, 100};
 
 Move::Move(const string name, const Scope scope, const unsigned accuracy, const Family family):
   Action{name, scope}, hackmon{nullptr}, accuracy{accuracy}, family{family} {}
@@ -25,7 +22,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     return;
   }
 
-  if (random_distribution(random_generator) > accuracy) {
+  if (rng.getRandom() > accuracy) {
     // FIXME: Print "move missed" or something
     return;
   }
@@ -46,3 +43,5 @@ void Move::attachHackmon(Hackmon *new_hackmon) {
   // This should only be called if the Move object isn't already attached to a Hackmon
   hackmon = new_hackmon;
 }
+
+Move::~Move() {}

@@ -3,19 +3,17 @@
 
 #include <string>
 #include <vector>
-#include <random>
+#include <memory>
 
 #include "action.h"
 #include "family.h"
+#include "randomGen.h"
 
 class Player;
 class Hackmon;
 
 class Move: public Action {
-  // PRNG
-  static std::random_device rd;
-  static std::mt19937 random_generator;
-  static std::uniform_int_distribution<unsigned int> random_distribution;
+  static RandomGenerator rng;
 
 protected:
   Hackmon *hackmon; // Non-owning pointer
@@ -27,8 +25,11 @@ protected:
 
 public:
   void attachHackmon(Hackmon *);
+  virtual std::unique_ptr<Move> clone() const = 0;
 
   Move(const std::string, const Scope, const unsigned, const Family);
+
+  virtual ~Move() = 0;
 };
 
 #endif

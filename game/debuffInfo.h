@@ -17,6 +17,6 @@ std::map<DebuffName, StatName> debuffMap = {
   {POISONED, ATTACK},
   {BURNED, DEFENSE},
   {FROZEN, SPEED}
-}
+};
 
 #endif

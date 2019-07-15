@@ -1,11 +1,10 @@
 #include "stats.h"
 
-using namespace std;
 
 Stats::Stats(int maxHp, int baseAttack, int baseDefense, int baseSpeed) :
       maxHp{maxHp}, baseAttack{baseAttack}, baseDefense{baseDefense}, baseSpeed{baseSpeed},
       hp{maxHp}, attack{baseAttack}, defense{baseDefense}, speed{baseSpeed}, variance{5} {}
-      
+
 int Stats::getStat(StatName s) const {
   switch(s) {
     case HP:
