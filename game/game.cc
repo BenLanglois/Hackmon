@@ -38,7 +38,7 @@ void printMoveList() {
   int i = 0;
   for (auto& move : moveList) {
     cout << ++i << ". ";
-    move.printMove();
+    move->printMove();
     cout << endl;
   }
 }
@@ -47,7 +47,7 @@ void printItemList() {
   int i = 0;
   for (auto& item : itemList) {
     cout << ++i << ". ";
-    item.printItem();
+    item->printItem();
     cout << endl;
   }
 }
@@ -172,7 +172,7 @@ int main() {
 
             Species createdHackmonSpecies(
               newHackmonSpecies,
-              moveList[newHackmonSpecialMove],
+              *moveList[newHackmonSpecialMove],
               Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
               newHackmonFamily
             );
@@ -189,12 +189,12 @@ int main() {
           cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
 
           cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
-          cout << /* items list */ << endl;
+          printItemList();
           cout << "Which items would you like to select? Please type " << numberOfItems;
-          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
+          cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
           for (int k=0; k<numberOfItems; k++) {
-            cin >> itemNumber; // FIXME: add num check
-            if (p==0) items1.emplace_back(make_unique<Item>(/*ItemList[itemNumber-1]*/)); else items2.emplace_back(/*ItemList[itemNumber-1]*/);
+            getValidValueRange(itemNumber, 0, (int)itemList.size()); // FIXME: remove cast
+            if (p==0) items1.emplace_back(make_unique<Item>(itemList[itemNumber-1])); else items2.emplace_back(itemList[itemNumber-1]);
           }
         }
       }

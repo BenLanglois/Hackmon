@@ -7,11 +7,12 @@
 #include "debuffInfo.h"
 
 class DebuffHeal: public Item {
-  const DebuffName debuff;
+  DebuffName debuff;
   virtual void useItemOverride(Hackmon &target) const override;
 
 public:
   DebuffHeal(const std::string, const Scope, const DebuffName);
+  virtual void printItem() override;
 };
 
 #endif
