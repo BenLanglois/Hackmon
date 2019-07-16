@@ -251,25 +251,32 @@ int main() {
 
               char action;
               if (currPlayer.items.size() != 0) {
-                if (currPlayer.)
+                // Able to use items
+                if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
+                  // Able to switch
+                  cout << "Will you make a move against your oppoent, use an item, "
+                       << "or swap out your HACKMON with another in your party? (m/i/s)" << endl;
+                  action = getValidValueOneOf<char>('m', 'i', 's');
+                } else {
+                  // Unable to switch
+                  cout << "Will you make a move against your oppoent or use an item? (m/i) " << endl;
+                  action = getValidValueOneOf<char>('m', 'i');
+                }
               } else {
-
+                // Unable to use items
+                if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
+                  // Able to switch
+                  cout << "Will you make a move against your oppoent "
+                       << "or swap out your HACKMON with another in your party? (m/s)" << endl;
+                  action = getValidValueOneOf<char>('m', 's');
+                } else {
+                  // Unable to switch
+                  action = 'm';
+                }
               }
 
-              cout << "Will you make a move against your oppoent, use an item, "
-                   << "or swap out your HACKMON with another in your party? (m/i/s)" << endl;
-              action = getValidValueOneOf<char>('m', 'i', 's');
 
-              if (action == 'a') {
-                char moveItem;
-                if (currPlayer.items.size() != 0) {
-                  cout << "Would you like to move against your opponent or use an item? (m/i)" << endl;
-                  moveItem = getValidValueOneOf<char>('m', 'i');
-                } else {
-                  moveItem = 'm';
-                }
-
-                if (moveItem == 'm') {
+              if (action == 'm') {
                   cout << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currPlayer.party.at(h)->moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
@@ -284,12 +291,10 @@ int main() {
                   // add to playerMove vector
                   currPlayerActions.emplace_back(currPlayer.party.at(h)->moves.at(selectedMoveIndex));
 
-                } else {
-                  // output list of items
-                  // pick one from list
-                  // add to pMove vector
-                }
-
+              } else if (action == 'i') {
+                // output list of items
+                // pick one from list
+                // add to pMove vector
               } else {
                 // output list of hackmon from numberBattling to end
                 // pick one from list
