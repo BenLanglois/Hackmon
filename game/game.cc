@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 #include "hackmon.h"
 #include "player.h"
@@ -233,14 +234,17 @@ int main() {
         }
 
         // loop (check if all pokemon of one player have fainted)
-        int loopCounter = 1;
+        int loopCounter = 0;
         cout << "Time to battle!" << endl;
 
+        const int itemPriority = 99;
+        const int switchPriority = 100; // We all know that numbers stop at 100
+
         while (p1.partyAlive() && p2.partyAlive()) {
-          cout << "-------- ROUND " << loopCounter++ << " --------" << endl << endl;
+          cout << "-------- ROUND " << ++loopCounter << " --------" << endl << endl;
 
           // choose move/use item/swap for each hackmon
-          vector<Action*> p1Actions; // FIXME: wrong implementation of vector of moves
+          unordered_map<const int, vector<Action*>> actions; // FIXME: wrong implementation of vector of moves
           vector<Action*> p2Actions;
           for (int p=0; p<2; ++p) {
             Player &currPlayer = (p == 0 ? p1 : p2);
@@ -277,6 +281,7 @@ int main() {
 
 
               if (action == 'm') {
+                  // output list of moves
                   cout << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currPlayer.party.at(h)->moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
@@ -293,8 +298,11 @@ int main() {
 
               } else if (action == 'i') {
                 // output list of items
+                cout << "Here is a list of the available moves:" << endl;
+
                 // pick one from list
                 // add to pMove vector
+
               } else {
                 // output list of hackmon from numberBattling to end
                 // pick one from list
