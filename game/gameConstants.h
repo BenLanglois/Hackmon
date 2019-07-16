@@ -51,7 +51,7 @@ enum HACKERDEX_NAMES {
 };
 
 /* Hackerdex */
-const std::map<Type, std::vector<Species>> hackerdex = {
+std::map<Type, std::vector<Species>> hackerdex = {
   { NORMAL,
     std::vector<Species> {
       Species(std::string("Brown Puppy"),
