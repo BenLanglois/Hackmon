@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Item::Item(const std::string name, const Scope scope): Action{name, scope} {}
+Item::Item(const std::string name, const Scope scope): name{name}, scope{scope} {}
 
 void Item::doActionOverride(Player &player, const std::vector<size_t> &targets) const {
   Hackmon *target = nullptr;
