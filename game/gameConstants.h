@@ -148,7 +148,7 @@ std::vector<Move> specialMoveList = {
   StatMove(std::string("Tail Whip"), SINGLE, 100, Family(NORMAL), DEFENSE, 5),
   MobilityMove(std::string("Yawn"), SINGLE, 100, Family(NORMAL), SLEEP),
   StatMove(std::string("Fire Spin"), SINGLE, 100, Family(FIRE), HP, 5),
-  DebuffMove(std::string("Heat Wave"), ALL, 50, Family(FIRE), BURNED),
+  DebuffMove(std::string("Heat Wave"), ALL, 50, Family(FIRE), Debuff(BURNED)),
   StatMove(std::string("Surf"), ALL, 100, Family(WATER), HP, 5),
   StatMove(std::string("Water Gun"), SINGLE, 90, Family(WATER), HP, 5),
   MobilityMove(std::string("Thunder Shock"), SINGLE, 80, Family(ELECTRIC), PARALYSIS),
