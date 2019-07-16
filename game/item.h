@@ -12,6 +12,8 @@ class Item: public Action {
   virtual void useItemOverride(Hackmon &) const = 0;
   virtual void doActionOverride(Player &, const std::vector<size_t> &) const override final;
 public:
+  const std::string name;
+  const Scope scope;
   Item(const std::string, const Scope);
 };
 
