@@ -20,12 +20,37 @@ void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   }
 }
 
-template<typename R>
-void getValidValueOneOf(R& inVar, R a, R b) {
+template <typename T>
+bool _isOneOf(T key, T first) {
+  return key == first;
+}
+
+template <typename T, typename... Rest>
+bool _isOneOf(T key, T first, Rest... rest) {
+  return key == first ? true : _isOneOf(key, rest...);
+}
+
+template <typename T>
+void _printValues(T first) {
+  cout << first;
+}
+
+template <typename T, typename... Rest>
+void _printValues(T first, Rest... rest) {
+  cout << first << "/";
+  _printValues(rest...);
+}
+
+template <typename T, typename... Rest>
+T getValidValueOneOf(Rest... values) {
+  T inVar;
   while (cin >> inVar) {
-    if (inVar == a || inVar == b) break;
-    else cout << "...Uh oh, that's not an option. Try again! (" << a << "/" << b << ")" << endl;
+    if (_isOneOf(inVar, values...)) break;
+    else cout << "...Uh oh, that's not an option. Try again! (";
+    _printValues(values...); // print out valid values
+    cout << ")" << endl;
   }
+  return inVar;
 }
 
 int main() {
@@ -60,7 +85,7 @@ int main() {
 
     while (playerLoop) {
       cout << "Would you like to battle 1 vs 1 or 2 vs 2? (1/2)" << endl;
-      getValidValueOneOf(numberBattling, (unsigned)1, (unsigned)2); // FIXME: remove casting?
+      numberBattling = getValidValueOneOf<int>(1, 2);
 
       cout << "...Okay! It’s time to get started!" << endl;
 
@@ -91,7 +116,7 @@ int main() {
           int itemNumber;
 
           cout << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
-          getValidValueOneOf(hackmonSelect, 'h', 'o');
+          hackmonSelect = getValidValueOneOf<char>('h', 'o');
 
           cout << "Here is a list of the 8 HACKMON types:" << endl;
           cout << /* type list */ << endl;
@@ -109,7 +134,7 @@ int main() {
           }
 
           cout << "Awesome! Would you like to name your HACKMON? (y/n)" << endl;
-          getValidValueOneOf(wantNameHackmon, 'y', 'n');
+          wantNameHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (wantNameHackmon == 'y') {
             cout << "What would you like the name of your HACKMON to be?" << endl;
@@ -225,14 +250,21 @@ int main() {
               cout << currPlayer.name << " please select for " << currPlayer.party.at(h)->name << endl;
 
               char action;
-              cout << "Would you like to perform an action or swap out your HACKMON with another in your party? (a/s)" << endl;
-              getValidValueOneOf(action, 'a', 's');
+              if (currPlayer.items.size() != 0) {
+                if (currPlayer.)
+              } else {
+
+              }
+
+              cout << "Will you make a move against your oppoent, use an item, "
+                   << "or swap out your HACKMON with another in your party? (m/i/s)" << endl;
+              action = getValidValueOneOf<char>('m', 'i', 's');
 
               if (action == 'a') {
                 char moveItem;
                 if (currPlayer.items.size() != 0) {
                   cout << "Would you like to move against your opponent or use an item? (m/i)" << endl;
-                  getValidValueOneOf(moveItem, 'm', 'i');
+                  moveItem = getValidValueOneOf<char>('m', 'i');
                 } else {
                   moveItem = 'm';
                 }
@@ -240,7 +272,7 @@ int main() {
                 if (moveItem == 'm') {
                   cout << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currPlayer.party.at(h)->moves.size(); ++moveIndex) {
-                    // Give one-index list of moves
+                    // Give one-indexed list of moves
                     cout << moveIndex+1 << ": " << currPlayer.party.at(h)->moves.at(moveIndex)->name << endl;
                   }
 
@@ -249,7 +281,7 @@ int main() {
                   getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currPlayer.party.at(h)->moves.size()+1);
                   --selectedMoveIndex; // Make zero-indexed
 
-                  // add to pMove vector
+                  // add to playerMove vector
                   currPlayerActions.emplace_back(currPlayer.party.at(h)->moves.at(selectedMoveIndex));
 
                 } else {
@@ -291,11 +323,11 @@ int main() {
         cout << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;
         cout << "Would you two trainers like to battle again? (y/n)" << endl;
-        getValidValueOneOf(playAgain, 'y', 'n');
+        playAgain = getValidValueOneOf<char>('y', 'n');
 
         if (playAgain == 'y') {
           cout << "Would you like to battle with the same HACKMON? (y/n)" << endl;
-          getValidValueOneOf(keepHackmon, 'y', 'n');
+          keepHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (keepHackmon == 'y') {
             // FIXME: reset Hackmon levels
