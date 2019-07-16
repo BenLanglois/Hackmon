@@ -36,8 +36,19 @@ void printTypeList() {
 
 void printMoveList() {
   int i = 0;
-  for (auto const& type : typeString) {
-    cout << ++i << ". " << type.second << endl;
+  for (auto& move : moveList) {
+    cout << ++i << ". ";
+    move.printMove();
+    cout << endl;
+  }
+}
+
+void printItemList() {
+  int i = 0;
+  for (auto& item : itemList) {
+    cout << ++i << ". ";
+    item.printItem();
+    cout << endl;
   }
 }
 
@@ -95,6 +106,7 @@ int main() {
           string newHackmonSpecies;
           string newHackmonName;
           vector<Family> newHackmonFamily;
+          int newHackmonSpecialMove;
           int newHackmonHp;
           int newHackmonAttack;
           int newHackmonDefense;
@@ -116,7 +128,8 @@ int main() {
             cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
             getValidValueRange(hackmonNumber, 0, 21);
           } else {
-            newHackmonFamily.emplace_back(/* family object - typeList[newHackmonType] */);
+
+            newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
             cout << "What would you like the name of your species to be?" << endl;
             cin >> newHackmonSpecies;
           }
@@ -130,13 +143,17 @@ int main() {
           }
 
           int numberOfMovesToSelect = (hackmonSelect == 'h') ? 3 : 4;
-          cout << "Here is a list of the # HACKMON moves:" << endl;
-          cout << /* move list */ << endl;
+          cout << "Here is a list of the " << moveList.size() << " HACKMON moves:" << endl;
+          printMoveList();
           cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
-          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
-          for (int k=0; k<numberOfMovesToSelect; k++) {
-            cin >> hackmonMove; // FIXME: add num check
-            hackmonMoves.emplace_back(make_unique<Move>(/*MoveList[hackmonMove-1]*/));
+          cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
+          for (int k=0; k<3; k++) {
+            getValidValueRange(hackmonMove, 0, (int)moveList.size()); // FIXME: remove casting
+            hackmonMoves.emplace_back(make_unique<Move>(moveList[hackmonMove-1]));
+          }
+
+          if (numberOfMovesToSelect == 4) {
+            getValidValueRange(newHackmonSpecialMove, 0, (int)moveList.size()); // FIXME: remove casting
           }
 
           if (hackmonSelect == 'o') {
@@ -155,15 +172,15 @@ int main() {
 
             Species createdHackmonSpecies(
               newHackmonSpecies,
-              /*type move list[newHackmonSpecialMove]*/,
+              moveList[newHackmonSpecialMove],
               Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
-              newHackmonFamily,
+              newHackmonFamily
             );
 
-            // add species to species list
+            hackerdex[(Type)hackmonType].emplace_back(createdHackmonSpecies);
             speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
           } else {
-            speciesToUse = &/*typelist[hackmonType]*/;
+            speciesToUse = &hackerdex[(Type)hackmonType].back();
           }
 
           Hackmon newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);

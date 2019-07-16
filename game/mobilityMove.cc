@@ -1,10 +1,12 @@
 #include <string>
 #include <memory>
+#include <iostream>
+#include <iomanip>
 
 #include "mobilityMove.h"
 #include "family.h"
 #include "hackmon.h"
-
+#include "globalConstants.h"
 #include "mobilityUtility.h"
 
 using namespace std;
@@ -19,4 +21,13 @@ void MobilityMove::doMoveOverride(Hackmon &target) const {
 
 unique_ptr<Move> MobilityMove::clone() const {
   return make_unique<MobilityMove>(*this);
+}
+
+void MobilityMove::printMove() {
+  cout << left << "Name: " << setw(20) << name;
+  cout << "Type: " << setw(12) << typeString[family.type];
+  cout << "Move Type: " << setw(18) << "Mobility Move";
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
+  cout << "Accuracy: " << setw(18) << accuracy << "%";
+  cout << "Mobility: " << setw(12) << mobilityString[mobility];
 }
