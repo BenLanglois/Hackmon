@@ -9,7 +9,6 @@
 #include "species.h"
 #include "stats.h"
 #include "gameConstants.h"
-
 using namespace std;
 
 template<typename T>
@@ -25,6 +24,20 @@ void getValidValueOneOf(R& inVar, R a, R b) {
   while (cin >> inVar) {
     if (inVar == a || inVar == b) break;
     else cout << "...Uh oh, that's not an option. Try again! (" << a << "/" << b << ")" << endl;
+  }
+}
+
+void printTypeList() {
+  int i = 0;
+  for (auto const& type : typeString) {
+    cout << ++i << ". " << type.second << endl;
+  }
+}
+
+void printMoveList() {
+  int i = 0;
+  for (auto const& type : typeString) {
+    cout << ++i << ". " << type.second << endl;
   }
 }
 
@@ -94,7 +107,7 @@ int main() {
           getValidValueOneOf(hackmonSelect, 'h', 'o');
 
           cout << "Here is a list of the 8 HACKMON types:" << endl;
-          cout << /* type list */ << endl;
+          printTypeList();
           cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
           getValidValueRange(hackmonType, 0, 9);
 

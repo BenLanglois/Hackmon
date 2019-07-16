@@ -1,10 +1,11 @@
 #include <string>
+#include <iostream>
+#include <iomanip>
 
 #include "statMove.h"
 #include "statInfo.h"
 #include "family.h"
 #include "hackmon.h"
-
 using namespace std;
 
 StatMove::StatMove(const std::string name, const Scope scope, const unsigned accuracy,
@@ -43,4 +44,8 @@ void StatMove::doMoveOverride(Hackmon &target) const {
 
 unique_ptr<Move> StatMove::clone() const {
   return make_unique<StatMove>(*this);
+}
+
+void printMove() {
+  cout << left << "Move: " << setw(20) << name << " Type: " << setw() << name << ;
 }
