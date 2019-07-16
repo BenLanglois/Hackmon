@@ -8,10 +8,12 @@
 #include "move.h"
 #include "species.h"
 #include "stats.h"
+#include "gameConstants.h"
+
 using namespace std;
 
 template<typename T>
-void getValidValueRange(T inVar, T rangeMin, T rangeMax) {
+void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   while (cin >> inVar) {
     if (inVar > rangeMin && inVar < rangeMax) break;
     else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin+1 << "<= # <= " << rangeMax-1 << ")" << endl;
@@ -19,7 +21,7 @@ void getValidValueRange(T inVar, T rangeMin, T rangeMax) {
 }
 
 template<typename R>
-void getValidValueOneOf(R inVar, R a, R b) {
+void getValidValueOneOf(R& inVar, R a, R b) {
   while (cin >> inVar) {
     if (inVar == a || inVar == b) break;
     else cout << "...Uh oh, that's not an option. Try again! (" << a << "/" << b << ")" << endl;
@@ -27,16 +29,16 @@ void getValidValueOneOf(R inVar, R a, R b) {
 }
 
 int main() {
-  char cmd;
   string name1;
   string name2;
   unsigned numberBattling;
   vector<unique_ptr<Hackmon>> party1;
   vector<unique_ptr<Hackmon>> party2;
-  Player p1;
-  Player p2;
+  vector<unique_ptr<Item>> items1;
+  vector<unique_ptr<Item>> items2;
 
   int numberParty = 6;
+  int numberOfItems = 3;
   bool gameLoop = true;
   bool battleLoop = true;
   bool playerLoop = true;
@@ -50,7 +52,7 @@ int main() {
     cout << "For some people, HACKMON are pets. Others use them for fights." << endl;
     cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)" << endl;
     cin >> name1;
-    cout << "Right! So your name is" << p1 << "! What is the name of your friend? (player 2)" << endl;
+    cout << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
     cin >> name2;
 
     cout << "Your very own HACKMON legend is about to unfold!" << endl;
@@ -62,94 +64,69 @@ int main() {
 
       cout << "...Okay! It’s time to get started!" << endl;
 
-      for (int i=0; i<2; i++) {
-        cout << (i==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose " << numberParty << " in your party." << endl;
+      for (int p=0; p<2; p++) {
+        // reset party unique pointers
+
+        cout << (p==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose " << numberParty << " in your party." << endl;
         cout << "You can either select a HACKMON from our Hackerdex or create your own!" << endl;
 
-        for (int j=0; j<numberParty; j++) {
+        for (int h=0; h<numberParty; h++) {
           char hackmonSelect;
+          int hackmonType;
+          int hackmonNumber;
+          char wantNameHackmon;
+          string hackmonName;
+          int hackmonMove;
+          vector<unique_ptr<Move>> hackmonMoves;
 
-          cout << "For HACKMON #" << i+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
+          string newHackmonSpecies;
+          string newHackmonName;
+          vector<Family> newHackmonFamily;
+          int newHackmonHp;
+          int newHackmonAttack;
+          int newHackmonDefense;
+          int newHackmonSpeed;
+
+          Species* speciesToUse;
+          int itemNumber;
+
+          cout << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
           getValidValueOneOf(hackmonSelect, 'h', 'o');
 
+          cout << "Here is a list of the 8 HACKMON types:" << endl;
+          cout << /* type list */ << endl;
+          cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
+          getValidValueRange(hackmonType, 0, 9);
+
           if (hackmonSelect == 'h') {
-            int hackmonType;
-            int hackmonNumber;
-            char wantNameHackmon;
-            string hackmonName;
-            int hackmonMove;
-            vector<unique_ptr<Move>> hackmonMoves;
-
-            cout << "Here is a list of the 8 HACKMON types:" << endl;
-            cout << /* type list */ << endl;
-            cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
-            getValidValueRange(hackmonType, 0, 9);
-
             // print out Hackerdex with numbers beside it
             cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
             getValidValueRange(hackmonNumber, 0, 21);
-
-            cout << "Awesome! Would you like to name your HACKMON? (y/n)"
-            getValidValueOneOf(wantNameHackmon, 'y', 'n');
-
-            if (wantNameHackmon == 'y') {
-              cout << "What would you like the name of your HACKMON to be?" << endl;
-              cin >> hackmonName;
-            }
-
-            cout << "Here is a list of the # HACKMON moves:" << endl;
-            cout << /* move list */ << endl;
-            cout << "Which moves would you like your HACKMON to have? Please type 3 numbers separated by spaces (1 <= # <= ?)" << endl;
-            for (int k=0; k<3; k++) {
-              cin >> hackmonMove; // FIXME: add num check
-              hackmonMoves.emplace_back(/*MoveList[hackmonMove]*/);
-            }
-
-            Hackmon newHackmon = /*typelist[hackmonType].hackmonNumber*/.createdHackmon(hackmonMoves, hackmonName);
-
-            if (i==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
-
-            cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
-
-          }
-          else if (hackmonSelect == 'o') {
-            string newHackmonSpecies;
-            string newHackmonName;
-            int newHackmonType;
-            int newHackmonMove;
-            int newHackmonSpecialMove;
-            vector<unique_ptr<Move>> newHackmonMoves;
-            vector<Family> newHackmonFamily;
-            int newHackmonHp;
-            int newHackmonAttack;
-            int newHackmonDefense;
-            int newHackmonSpeed;
-
+          } else {
+            newHackmonFamily.emplace_back(/* family object - typeList[newHackmonType] */);
             cout << "What would you like the name of your species to be?" << endl;
             cin >> newHackmonSpecies;
+          }
 
-            cout << "Here is a list of the 8 HACKMON types:" << endl;
-            cout << /* type list */ << endl;
-            cout << "Which type would you like your species to belong to? (1 <= # <= 8)" << endl;
-            getValidValueRange(newHackmonType, 0, 9);
-            newHackmonFamily.emplace_back(/* family object - typeList[newHackmonType] */);
+          cout << "Awesome! Would you like to name your HACKMON? (y/n)" << endl;
+          getValidValueOneOf(wantNameHackmon, 'y', 'n');
 
+          if (wantNameHackmon == 'y') {
             cout << "What would you like the name of your HACKMON to be?" << endl;
-            cin >> newHackmonName;
+            cin >> hackmonName;
+          }
 
-            cout << "Here is a list of the # HACKMON moves:" << endl;
-            cout << /* type move list */ << endl;
-            cout << "Now please select a special move for your HACKMON based on the type" << endl;
-            cin >> newHackmonSpecialMove;
+          int numberOfMovesToSelect = (hackmonSelect == 'h') ? 3 : 4;
+          cout << "Here is a list of the # HACKMON moves:" << endl;
+          cout << /* move list */ << endl;
+          cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
+          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
+          for (int k=0; k<numberOfMovesToSelect; k++) {
+            cin >> hackmonMove; // FIXME: add num check
+            hackmonMoves.emplace_back(make_unique<Move>(/*MoveList[hackmonMove-1]*/));
+          }
 
-            cout << "Here is a list of the # HACKMON moves:" << endl;
-            cout << /* move list */ << endl;
-            cout << "Which moves would you like your HACKMON to have? Please type 3 numbers separated by spaces (1 <= # <= ?)" << endl;
-            for (int k=0; k<3; k++) {
-              cin >> newHackmonMove;
-              newHackmonMoves.emplace_back(/*MoveList[newHackmonMove]*/);
-            }
-
+          if (hackmonSelect == 'o') {
             cout << "Now lets set your HACKMON stats." << endl;
             cout << "What would you like your maximum health points(HP) to be? (1 <= # <= 200)" << endl;
             getValidValueRange(newHackmonHp, 0, 201);
@@ -169,18 +146,31 @@ int main() {
               Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
               newHackmonFamily,
             );
+
             // add species to species list
-
-            Hackmon newHackmon = createdHackmonSpecies.createHackmon(newHackmonMoves, newHackmonName);
-
-            if (i==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
-
-            cout << "Great! " << newHackmonName << " has been added to your party!" << endl << endl;
+            speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
+          } else {
+            speciesToUse = &/*typelist[hackmonType]*/;
           }
 
-          if (i==0) p1 = Player(name1, party1); else p2 = Player(name2, party2);
+          Hackmon newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
+
+          if (p==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
+          cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
+
+          cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
+          cout << /* items list */ << endl;
+          cout << "Which items would you like to select? Please type " << numberOfItems;
+          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
+          for (int k=0; k<numberOfItems; k++) {
+            cin >> itemNumber; // FIXME: add num check
+            if (p==0) items1.emplace_back(make_unique<Item>(/*ItemList[itemNumber-1]*/)); else items2.emplace_back(/*ItemList[itemNumber-1]*/);
+          }
         }
       }
+
+      Player p1(name1, move(party1), move(items1));
+      Player p2(name2, move(party2), move(items2));
 
       while (battleLoop) {
         // battle ------------------------------------------------------------------
@@ -194,10 +184,12 @@ int main() {
         int inBattleIndex;
         vector<int> inBattleIndexes;
 
-        for (int l=0; l<2; l++) {
-          cout << "Now " << (l==0 ? p1.name : p2.name) << ", lets choose your starting HACKMON!" << endl;
+        for (int p=0; p<2; p++) {
+          Player &curPlayer = (p==0 ? p1 : p2);
+
+          cout << "Now " << curPlayer.name << ", lets choose your starting HACKMON!" << endl;
           cout << "Here is a list of your chose HACKMON!" << endl;
-          if (l==0) p1.printParty(); else p2.printParty();
+          curPlayer.printParty();
 
           cout << "Please select " << numberBattling << "HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
           for (unsigned m=0; m<numberBattling; m++) {
@@ -207,30 +199,30 @@ int main() {
 
           // make sure first (numberBattling) indexes in array are the starting hackmon
           for (unsigned m=0; m<numberBattling; m++) {
-            if (inBattleIndexes.at(m) != m) {
-              if (l==0) p1.swapHackmon(m, inBattleIndexes.at(m)); else p2.swapHackmon(m, inBattleIndexes.at(m));
+            if ((unsigned)inBattleIndexes.at(m) != m) {
+              curPlayer.swapHackmon(m, inBattleIndexes.at(m));
             }
           }
 
-          // FIXME: clear screent to hide p1 starting pokemon
+          // FIXME: clear screen to hide p1 starting pokemon
         }
 
         // loop (check if all pokemon of one player have fainted)
         int loopCounter = 1;
         cout << "Time to battle!" << endl;
+
         while (p1.partyAlive() && p2.partyAlive()) {
           cout << "-------- ROUND " << loopCounter++ << " --------" << endl << endl;
 
           // choose move/use item/swap for each hackmon
           vector<Action*> p1Actions; // FIXME: wrong implementation of vector of moves
           vector<Action*> p2Actions;
-          for (int p=0; p<2; p++) {
+          for (int p=0; p<2; ++p) {
             Player &currPlayer = (p == 0 ? p1 : p2);
             vector<Action*> &currPlayerActions = (p == 0 ? p1Actions : p2Actions);
 
-            for (unsigned h=0; h<numberBattling; h++) {
-              cout << currPlayer.name << " please select for ";
-              cout << currPlayer.party.at(h)->name << endl;
+            for (unsigned h=0; h<numberBattling; ++h) {
+              cout << currPlayer.name << " please select for " << currPlayer.party.at(h)->name << endl;
 
               char action;
               cout << "Would you like to perform an action or swap out your HACKMON with another in your party? (a/s)" << endl;
@@ -274,8 +266,8 @@ int main() {
             }
           }
 
-          // implement swap first
-          // then items
+
+          // implement items
           // then move - order based on hackmon speed
           // output active hackmon stats
         }
