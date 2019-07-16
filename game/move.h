@@ -24,6 +24,8 @@ protected:
   virtual void doMoveOverride(Hackmon &) const = 0;
 
 public:
+  const std::string name;
+  const Scope scope;
   void attachHackmon(Hackmon *);
   virtual std::unique_ptr<Move> clone() const = 0;
 
