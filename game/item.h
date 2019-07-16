@@ -13,6 +13,7 @@ class Item: public Action {
   virtual void doActionOverride(Player &, const std::vector<size_t> &) const override final;
 public:
   Item(const std::string, const Scope);
+  virtual ~Item() = 0;
 };
 
 #endif

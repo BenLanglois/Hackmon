@@ -38,6 +38,7 @@ int main() {
   Player p1;
   Player p2;
 
+  int numberParty = 6;
   bool gameLoop = true;
   bool battleLoop = true;
   bool playerLoop = true;
@@ -64,10 +65,10 @@ int main() {
       cout << "...Okay! It’s time to get started!" << endl;
 
       for (int i=0; i<2; i++) {
-        cout << (i==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose 6 in your party." << endl;
+        cout << (i==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose " << numberParty << " in your party." << endl;
         cout << "You can either select a HACKMON from our Hackerdex or create your own!" << endl;
 
-        for (int j=0; j<6; j++) {
+        for (int j=0; j<numberParty; j++) {
           char hackmonSelect;
 
           cout << "For HACKMON #" << i+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
@@ -108,7 +109,7 @@ int main() {
 
             Hackmon newHackmon = /*typelist[hackmonType].hackmonNumber*/.createdHackmon(hackmonMoves, hackmonName);
 
-            (i==0) ? party1.emplace_back(newHackmon) : party2.emplace_back(newHackmon);
+            if (i==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
 
             cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
 
@@ -174,34 +175,116 @@ int main() {
 
             Hackmon newHackmon = createdHackmonSpecies.createHackmon(newHackmonMoves, newHackmonName);
 
-            (i==0) ? party1.emplace_back(newHackmon) : party2.emplace_back(newHackmon);
+            if (i==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
 
             cout << "Great! " << newHackmonName << " has been added to your party!" << endl << endl;
           }
 
-          (i==0) ? p1 = Player(name1, party1) : p2 = Player(name2, party2);
+          if (i==0) p1 = Player(name1, party1); else p2 = Player(name2, party2);
         }
       }
 
       while (battleLoop) {
         // battle ------------------------------------------------------------------
+        cout << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
+        cout << "First lets see which HACKMON you've chosen!" << endl;
         // show players all chosen hackmon
+        p1.printParty();
+        p2.printParty();
+
         // players choose starting pokemon
+        int inBattleIndex;
+        vector<int> inBattleIndexes;
+
+        for (int l=0; l<2; l++) {
+          cout << "Now " << (l==0 ? p1.name : p2.name) << ", lets choose your starting HACKMON!" << endl;
+          cout << "Here is a list of your chose HACKMON!" << endl;
+          if (l==0) p1.printParty(); else p2.printParty();
+
+          cout << "Please select " << numberBattling << "HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
+          for (unsigned m=0; m<numberBattling; m++) {
+            cin >> inBattleIndex;
+            inBattleIndexes.emplace_back(inBattleIndex);
+          }
+
+          // make sure first (numberBattling) indexes in array are the starting hackmon
+          for (unsigned m=0; m<numberBattling; m++) {
+            if (inBattleIndexes.at(m) != m) {
+              if (l==0) p1.swapHackmon(m, inBattleIndexes.at(m)); else p2.swapHackmon(m, inBattleIndexes.at(m));
+            }
+          }
+
+          // FIXME: clear screent to hide p1 starting pokemon
+        }
 
         // loop (check if all pokemon of one player have fainted)
+        int loopCounter = 1;
+        cout << "Time to Battle!" << endl;
+        while (p1.partyAlive() && p2.partyAlive()) {
+          cout << "-------- ROUND " << loopCounter++ << " --------" << endl << endl;
+
           // choose move/use item/swap for each hackmon
+          vector<Move> p1Moves; // FIXME: wrong implementation of vector of moves
+          vecotr<Move> p2Moves;
+          for (int p=0; p<2; p++) {
+            for (unsigned h=0; h<numberBattling; h++) {
+              cout << (p==0) ? p1.name : p2.name << " please select for ";
+              cout << (p==0) ? *(p1.party.at(h)).name : *(p2.party.at(h)).name << endl;
+
+              char action;
+              cout << "Would you like to perform an action or swap out your HACKMON with another in your party? (a/s)" << endl;
+              getValidValueOneOf(action, 'a', 's');
+
+              if (action == 'a') {
+                char moveItem;
+                if ((p==0) ? p1.items.size() != 0 : p2.items.size() != 0) {
+                  cout << "Would you like to move against your opponent or use an item? (m/i)" << endl;
+                  getValidValueOneOf(moveItem, 'm', 'i');
+                } else {
+                  moveItem = 'm';
+                }
+
+                if (moveItem == 'm') {
+                  cout << "Here is a list of the available moves" << endl;
+                  // cout << /* moves list */ << endl;
+
+                  // pick one from list
+                  // add to pMove vector
+                } else {
+                  // output list of items
+                  // pick one from list
+                  // add to pMove vector
+                }
+
+              } else {
+                // output list of hackmon from numberBattling to end
+                // pick one from list
+                // call p.swapHackmon on indices
+              }
+            }
+          }
+
           // implement swap first
           // then items
           // then move - order based on hackmon speed
           // output active hackmon stats
-        // output winner
+        }
 
+        // output winner
+        string winner;
+        if (!p1.partyAlive()) {
+          winner = p2.name;
+          p2.hasWon();
+        } else {
+          winner = p1.name;
+          p1.hasWon();
+        }
 
         // postgame ----------------------------------------------------------------
         char playAgain;
         char keepHackmon;
 
-        cout << "ROB HACKMAN here! Congrats to " << /* winner */ << "for the win!" << endl; // FIXME: add timers to these statementd
+        cout << "ROB HACKMAN here! Congrats to " << winner << "for the win!" << endl; // FIXME: add timers to these statementd
         cout << "Here is the current scores:" << endl;
         cout << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;

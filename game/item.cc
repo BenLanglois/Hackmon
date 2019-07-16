@@ -17,3 +17,5 @@ void Item::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     useItemOverride(*target);
   }
 }
+
+Item::~Item() {}
