@@ -178,7 +178,7 @@ int main() {
           cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
           for (int k=0; k<3; k++) {
             getValidValueRange(hackmonMove, 1, (int)moveList.size()-1); // FIXME: remove casting
-            hackmonMoves.emplace_back(make_unique<Move>(moveList.at(hackmonMove-1)));
+            hackmonMoves.emplace_back(moveList.at(hackmonMove-1)->clone());
           }
 
           if (numberOfMovesToSelect == 4) {
@@ -223,7 +223,7 @@ int main() {
           cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
           for (int k=0; k<numberOfItems; k++) {
             getValidValueRange(itemNumber, 1, (int)itemList.size()-1); // FIXME: remove cast
-            if (p==0) items1.emplace_back(make_unique<Item>(itemList.at(itemNumber-1))); else items2.emplace_back(itemList.at(itemNumber-1));
+            if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
           }
         }
       }
