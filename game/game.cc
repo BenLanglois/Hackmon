@@ -130,6 +130,13 @@ int main() {
     cout <<  "A world of dream and adventures with HACKMON Awaits! Let’s go!" << endl << endl;
 
     while (playerLoop) {
+      name1 = "";
+      name2 = "";
+      party1.clear();
+      party2.clear();
+      items1.clear();
+      items2.clear();
+
       cout << "Would you like to battle 1 vs 1 or 2 vs 2? (1/2)" << endl;
       numberBattling = getValidValueOneOf<int>(1, 2);
 
@@ -506,7 +513,7 @@ int main() {
             hackmon->restore();
           }
         }
-        
+
         // postgame ----------------------------------------------------------------
         char playAgain;
         char keepHackmon;
