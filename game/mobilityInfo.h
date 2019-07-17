@@ -12,7 +12,7 @@ enum MobilityName {
 };
 
 // Mobility to String
-std::map<StatName, std::string> mobilityString = {
+std::map<MobilityName, std::string> mobilityString = {
   {MOBILE, "Mobile"},
   {CONFUSION, "Confusion"},
   {PARALYSIS, "Paralysis"},
@@ -20,7 +20,7 @@ std::map<StatName, std::string> mobilityString = {
 };
 
 // Mobility to String verb
-std::map<StatName, std::string> mobilityStringVerb = {
+std::map<MobilityName, std::string> mobilityStringVerb = {
   {MOBILE, "Mobile"},
   {CONFUSION, "Confused"},
   {PARALYSIS, "Paralyzed"},
