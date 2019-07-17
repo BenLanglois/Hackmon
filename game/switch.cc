@@ -9,5 +9,5 @@ using namespace std;
 Switch::Switch() {}
 
 void Switch::doActionOverride(Player &player, const vector<size_t> &targets) const {
-  swap(player.party.at(targets.at(0)), player.party.at(targets.at(1)));
+  player.swapHackmon(targets.at(0), targets.at(1));
 }
