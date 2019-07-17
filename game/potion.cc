@@ -19,5 +19,5 @@ void Potion::printItem() {
   cout << left << "Item: " << setw(16) << "Stat Potion";
   cout << "Stat: " << setw(10) << statString.at(stat);
   cout << "Strength: " << setw(12) << strength;
-  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }

@@ -21,5 +21,5 @@ void DebuffHeal::useItemOverride(Hackmon &target) const {
 void DebuffHeal::printItem() {
   cout << left << "Item: " << setw(16) << "Debuff Heal";
   cout << "Debuff: " << setw(12) << debuffString.at(debuff);
-  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }

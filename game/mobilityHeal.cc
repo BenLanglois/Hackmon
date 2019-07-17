@@ -23,5 +23,5 @@ void MobilityHeal::useItemOverride(Hackmon &target) const {
 void MobilityHeal::printItem() {
   cout << left << "Item: " << setw(16) << "Mobility Heal";
   cout << "Mobility: " << setw(12) << mobilityString.at(mobility);
-  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }
