@@ -233,7 +233,7 @@ int main() {
           unique_ptr<Hackmon> newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
 
           if (p==0) party1.emplace_back(move(newHackmon)); else party2.emplace_back(move(newHackmon));
-          cout << "Great! " << (p==0 ? party1.back()->name : party2.back()->name) << "has been added to your party!" << endl << endl;
+          cout << endl << "Great! " << (p==0 ? party1.back()->name : party2.back()->name) << " has been added to your party!" << endl << endl;
 
           cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
           printItemList();
