@@ -35,6 +35,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
       cout << hackmon->name << " used " << name << " against " << target.name << "." << endl;
       doMoveOverride(target);
       if (!player.isAlive(targetIndex)) {
+        cout << target.name << " fainted!" << endl;
         player.hasFainted(targetIndex);
       }
     } else {
