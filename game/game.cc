@@ -212,10 +212,10 @@ int main() {
             speciesToUse = &hackerdex.at((Type)hackmonType).back();
           }
 
-          Hackmon newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
+          unique_ptr<Hackmon> newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
 
-          if (p==0) party1.emplace_back(newHackmon); else party2.emplace_back(newHackmon);
-          cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
+          if (p==0) party1.emplace_back(move(newHackmon)); else party2.emplace_back(move(newHackmon));
+          cout << "Great! " << newHackmon->name << "has been added to your party!" << endl << endl;
 
           cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
           printItemList();

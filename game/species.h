@@ -18,7 +18,7 @@ class Species {
  public:
   Species(const std::string, Move &, Stats, std::vector<Family>);
 
-  Hackmon createHackmon(std::vector<std::unique_ptr<Move>> &&, const std::string);
+  std::unique_ptr<Hackmon> createHackmon(std::vector<std::unique_ptr<Move>> &&, const std::string);
 };
 
 #endif
