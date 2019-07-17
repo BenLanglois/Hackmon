@@ -28,13 +28,13 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     return;
   }
 
-  Hackmon *target = nullptr;
-  for (size_t target_index: targets) {
+  for (size_t targetIndex: targets) {
     // Call doMoveOverride method for each target
-    target = player.getHackmon(target_index);
-    if (target != nullptr) {
-      cout << hackmon->name << " used " << name << " against " << target->name << "." << endl;
-      doMoveOverride(*target);
+    if (player.isAlive(targetIndex)) {
+      Hackmon &target = *player.party.at(targetIndex);
+      cout << hackmon->name << " used " << name << " against " << target.name << "." << endl;
+      doMoveOverride(target);
+      player.hasFainted(targetIndex);
     } else {
       cout << hackmon->name << " tried to use " << name << ". Oh no! The move failed!" << endl;
     }
