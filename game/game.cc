@@ -84,7 +84,7 @@ void printItemList() {
 
 void printHackerdexAtType(int t) {
   int i = 0;
-  vector<Species> speciesForType = hackerdex.at((Type)(t-1));
+  vector<Species> speciesForType = hackerdex.at((Type)t);
   for (auto& sp : speciesForType) {
     cout << ++i << ". ";
     cout << sp.speciesName << endl;
@@ -130,12 +130,13 @@ int main() {
       cout << "Would you like to battle 1 vs 1 or 2 vs 2? (1/2)" << endl;
       numberBattling = getValidValueOneOf<int>(1, 2);
 
-      cout << "...Okay! It’s time to get started!" << endl << endl;
+      cout << "...Okay! It’s time to get started!" << endl;
 
       for (int p=0; p<2; p++) {
         // reset party unique pointers
+        int itemNumber;
 
-        cout << (p==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose " << numberParty << " in your party." << endl;
+        cout << endl << endl << (p==0 ? name1 : name2) << " why don't you pick your HACKMON! You can choose " << numberParty << " in your party." << endl;
         cout << "You can either select a HACKMON from our Hackerdex or create your own!" << endl;
 
         for (int h=0; h<numberParty; h++) {
@@ -157,7 +158,6 @@ int main() {
           int newHackmonSpeed;
 
           Species* speciesToUse;
-          int itemNumber;
 
           cout << endl << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
           hackmonSelect = getValidValueOneOf<char>('h', 'o');
@@ -181,7 +181,7 @@ int main() {
             cin >> newHackmonSpecies;
           }
 
-          cout << "Awesome! Would you like to name your HACKMON? (y/n)" << endl;
+          cout << endl << "Awesome! Would you like to name your HACKMON? (y/n)" << endl;
           wantNameHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (wantNameHackmon == 'y') {
@@ -234,15 +234,15 @@ int main() {
 
           if (p==0) party1.emplace_back(move(newHackmon)); else party2.emplace_back(move(newHackmon));
           cout << endl << "Great! " << (p==0 ? party1.back()->name : party2.back()->name) << " has been added to your party!" << endl << endl;
+        }
 
-          cout << "Now, lets select some items to put in your bag! Here is a list of the available items:" << endl;
-          printItemList();
-          cout << "Which items would you like to select? Please type " << numberOfItems;
-          cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
-          for (int k=0; k<numberOfItems; k++) {
-            getValidValueRange(itemNumber, 1, (int)itemList.size()); // FIXME: remove cast
-            if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
-          }
+        cout << "Now, lets select some items to put in your bag! Here is a list of the available items:" << endl;
+        printItemList();
+        cout << "Which items would you like to select? Please type " << numberOfItems;
+        cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
+        for (int k=0; k<numberOfItems; k++) {
+          getValidValueRange(itemNumber, 1, (int)itemList.size()); // FIXME: remove cast
+          if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
         }
       }
 
@@ -251,7 +251,7 @@ int main() {
 
       while (battleLoop) {
         // battle ------------------------------------------------------------------
-        cout << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
+        cout << endl << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
         cout << "First lets see which HACKMON you've chosen!" << endl;
         // show players all chosen hackmon
         p1.printParty();
@@ -264,15 +264,16 @@ int main() {
         for (int p=0; p<2; p++) {
           Player &curPlayer = (p==0 ? p1 : p2);
 
-          cout << "Now " << curPlayer.name << ", lets choose your starting HACKMON!" << endl;
+          cout << "Now " << curPlayer.name << ", lets choose your starting HACKMON!" << endl << endl;
           cout << "Here is a list of your chose HACKMON!" << endl;
           curPlayer.printParty();
 
-          cout << "Please select " << numberBattling << "HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
+          cout << "Please select " << numberBattling << " HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
           for (unsigned m=0; m<numberBattling; m++) {
-            cin >> inBattleIndex;
-            inBattleIndexes.emplace_back(inBattleIndex);
+            getValidValueRange(inBattleIndex, 1, numberParty);
+            inBattleIndexes.emplace_back(--inBattleIndex);
           }
+          cout << endl;
 
           // make sure first (numberBattling) indexes in array are the starting hackmon
           for (unsigned m=0; m<numberBattling; m++) {
@@ -286,7 +287,7 @@ int main() {
 
         // loop (check if all pokemon of one player have fainted)
         int loopCounter = 0;
-        cout << "Time to battle!" << endl;
+        cout << endl << "Time to battle!" << endl;
 
         const int itemPriority = 99;
         const int switchPriority = 100; // We all know that numbers stop at 100

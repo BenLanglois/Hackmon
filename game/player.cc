@@ -57,7 +57,7 @@ void Player::printParty() {
   cout << name << "'s HACKMON:" << endl;
 
   for (int m=0; m<numberParty; m++) {
-    cout << m+1 << ". " << party.at(m)->name << endl; // add species name
+    cout << m+1 << ". " << party.at(m)->name << "  (" << party.at(m)->speciesName << ")" << endl; // add species name
     if (m == numberParty-1) cout << endl;
   }
 }
