@@ -68,6 +68,3 @@ GroundlessArmhog
 
 3
 3
-
-m
-3
