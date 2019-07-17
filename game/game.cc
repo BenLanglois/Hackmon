@@ -356,7 +356,7 @@ int main() {
 
                   // pick one from list
                   size_t selectedMoveIndex;
-                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(1), currHackmon.moves.size());
+                  getValidValueRange<size_t>(selectedMoveIndex, 1, currHackmon.moves.size());
                   --selectedMoveIndex; // Make zero-indexed
 
                   // Hard-coded move logic for 1v1 and 2v2 battles starts here ------------
