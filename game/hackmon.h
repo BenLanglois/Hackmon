@@ -17,12 +17,13 @@ class Hackmon {
   std::vector<std::unique_ptr<Move>> moves;
   Stats stats;
   std::vector<Family> family;
+  std::vector<std::string> art;
   std::string speciesName;
   std::unique_ptr<Mobility> mobility;
   std::unique_ptr<Move> currentMove;
   Debuff debuff;
 
-  Hackmon(std::string, std::vector<std::unique_ptr<Move>> &&, Stats, std::vector<Family>, std::string);
+  Hackmon(std::string, std::vector<std::unique_ptr<Move>> &&, Stats, std::vector<Family>, std::string, std::vector<std::string> art);
   void restore();
 };
 
