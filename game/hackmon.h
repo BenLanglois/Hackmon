@@ -23,6 +23,7 @@ class Hackmon {
   Debuff debuff;
 
   Hackmon(std::string, std::vector<std::unique_ptr<Move>> &&, Stats, std::vector<Family>, std::string);
+  void restore();
 };
 
 #endif

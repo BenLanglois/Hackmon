@@ -64,6 +64,13 @@ int Stats::getMaxHP() const {
   return maxHp;
 }
 
+void Stats::restoreBaseStats() {
+  hp = maxHp;
+  attack = baseAttack;
+  defense = baseDefense;
+  speed = baseSpeed;
+}
+
 void Stats::printStats() {
   cout << "HP: " << hp << "/" << maxHp << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed << endl;
 }

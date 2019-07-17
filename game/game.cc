@@ -499,6 +499,14 @@ int main() {
           p1.hasWon();
         }
 
+        // reset hackmon
+        for (int p=0; p<2; ++p) {
+          Player &currPlayer = (p == 0 ? p1 : p2);
+          for (auto& hackmon : currPlayer.party) {
+            hackmon->restore();
+          }
+        }
+        
         // postgame ----------------------------------------------------------------
         char playAgain;
         char keepHackmon;
