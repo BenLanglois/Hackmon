@@ -1,3 +1,6 @@
+#ifndef ACTION_QUEUE_H
+#define ACTION_QUEUE_H
+
 #include <map>
 #include <tuple>
 #include <vector>
@@ -14,3 +17,5 @@ public:
   bool isEmpty();
   void doNextAction();
 };
+
+#endif
