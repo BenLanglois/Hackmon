@@ -20,12 +20,16 @@ bool ActionQueue::empty() {
 }
 
 void ActionQueue::doNextAction() {
-  vector<tuple<Action * const, Player * const, const vector<size_t>>> highestPriority = theQueue.rbegin()->second;
+  list<tuple<Action * const, Player * const, const vector<size_t>>> highestPriority = theQueue.rbegin()->second;
   RandomGenerator rng {0, static_cast<unsigned>(highestPriority.size()-1)};
   unsigned actionIndex = rng.getRandom();
-  tuple<Action * const, Player * const, const vector<size_t>> nextAction = highestPriority.at(actionIndex);
+  auto actionIter = highestPriority.begin();
+  for (size_t i = 0; i < actionIndex; ++i) {
+    ++actionIter;
+  }
+  tuple<Action * const, Player * const, const vector<size_t>> nextAction = *actionIter;
   get<0>(nextAction)->doAction(*get<1>(nextAction), get<2>(nextAction));
-  highestPriority.erase(highestPriority.begin() + actionIndex);
+  highestPriority.erase(actionIter);
   if (highestPriority.size() == 0) {
     theQueue.erase(theQueue.rbegin()->first);
   }
