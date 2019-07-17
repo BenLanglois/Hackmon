@@ -1,12 +1,11 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = game
-MODULES = action actionQueue confusion debuff debuffHeal debuffMove family game gameConstants globalConstants hackmon item
-MODULES += mobile mobility mobilityHeal mobilityMove move paralysis player potion randomGen sleep species statMove stats switch
-ADDITIONAL_FILES = game.cc actionInfo.h debuffInfo.h mobilityInfo.h statInfo.h mobilityUtility.h gameConstants.h globalConstants.h
+MODULES = action actionQueue confusion debuff debuffHeal debuffInfo debuffMove family game gameConstants globalConstants
+MODULES += hackmon item mobile mobility mobilityHeal mobilityInfo mobilityMove move paralysis player potion randomGen
+MODULES += sleep species statInfo statMove stats switch type
 OBJECTS = ${MODULES:=.o}
 DEPENDS = ${MODULES:=.d}
-ZIPPED = Makefile ${MODULES:=.h} ${MODULES:=.cc} ${ADDITIONAL_FILES}
 
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
@@ -16,12 +15,10 @@ ${EXEC}: ${OBJECTS}
 ${EXEC}.zip: ${ZIPPED}
 	zip ${EXEC} ${ZIPPED}
 
-.PHONY: clean debug zip
+.PHONY: clean debug
 
 clean:
 	rm -f ${OBJECTS} ${EXEC} ${DEPENDS} ${EXEC}.zip
 
 debug: CXXFLAGS += -g
 debug: ${EXEC}
-
-zip: ${EXEC}.zip
