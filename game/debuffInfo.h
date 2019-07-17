@@ -13,18 +13,8 @@ enum DebuffName {
   FROZEN
 };
 
-std::map<DebuffName, StatName> debuffMap = {
-  {HEALTHY, HP},
-  {POISONED, ATTACK},
-  {BURNED, DEFENSE},
-  {FROZEN, SPEED}
-};
+extern std::map<DebuffName, StatName> debuffMap;
 
-std::map<DebuffName, std::string> debuffString = {
-  {HEALTHY, "Healthy"},
-  {POISONED, "Posioned"},
-  {BURNED, "Burned"},
-  {FROZEN, "Frozen"}
-};
+extern std::map<DebuffName, std::string> debuffString;
 
 #endif

@@ -12,11 +12,6 @@ enum StatName {
 };
 
 // Stat to String
-std::map<StatName, std::string> statString = {
-  {HP, "Hp"},
-  {ATTACK, "Attack"},
-  {DEFENSE, "Defense"},
-  {SPEED, "Speed"}
-};
+extern std::map<StatName, std::string> statString;
 
 #endif
