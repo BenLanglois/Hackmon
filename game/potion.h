@@ -13,7 +13,10 @@ class Potion: public Item {
 
 public:
   Potion(const std::string, const Scope, const StatName, const int);
+
   virtual void printItem() override;
+
+  virtual std::unique_ptr<Item> clone() const override;
 };
 
 #endif

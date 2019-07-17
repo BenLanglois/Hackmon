@@ -25,3 +25,7 @@ void MobilityHeal::printItem() {
   cout << "Mobility: " << setw(12) << mobilityString.at(mobility);
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }
+
+unique_ptr<Item> MobilityHeal::clone() const {
+  return make_unique<MobilityHeal>(*this);
+}

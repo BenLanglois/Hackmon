@@ -21,3 +21,7 @@ void Potion::printItem() {
   cout << "Strength: " << setw(12) << strength;
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }
+
+unique_ptr<Item> Potion::clone() const {
+  return make_unique<Potion>(*this);
+}

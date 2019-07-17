@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "action.h"
 
@@ -14,6 +15,7 @@ class Item: public Action {
 public:
   const std::string name;
   const Scope scope;
+  virtual std::unique_ptr<Item> clone() const = 0;
   Item(const std::string, const Scope);
   virtual void printItem() = 0;
   virtual ~Item() = 0;

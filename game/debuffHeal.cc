@@ -23,3 +23,7 @@ void DebuffHeal::printItem() {
   cout << "Debuff: " << setw(12) << debuffString.at(debuff);
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }
+
+unique_ptr<Item> DebuffHeal::clone() const {
+  return make_unique<DebuffHeal>(*this);
+}
