@@ -17,6 +17,7 @@ int Stats::getStat(StatName s) const {
     case SPEED:
       return speed;
   }
+  throw std::out_of_range("Unexpected StatName");
 }
 
 void Stats::setStat(StatName s, int newValue) {
