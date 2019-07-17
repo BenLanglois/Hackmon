@@ -51,10 +51,10 @@ unique_ptr<Move> StatMove::clone() const {
 
 void StatMove::printMove() {
   cout << left << "Name: " << setw(20) << name;
-  cout << "Type: " << setw(12) << typeString[family.type];
+  cout << "Type: " << setw(12) << typeString.at(family.type);
   cout << "Move Type: " << setw(18) << "Stat Move";
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
   cout << "Accuracy: " << setw(18) << accuracy << "%";
-  cout << "Stat: " << setw(10) << statString[stat];
+  cout << "Stat: " << setw(10) << statString.at(stat);
   cout << "Strength: " << setw(12) << strength;
 }

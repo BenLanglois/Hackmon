@@ -14,8 +14,8 @@ using namespace std;
 template<typename T>
 void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   while (cin >> inVar) {
-    if (inVar > rangeMin && inVar < rangeMax) break;
-    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin+1 << "<= # <= " << rangeMax-1 << ")" << endl;
+    if (inVar >= rangeMin && inVar <= rangeMax) break;
+    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
   }
 }
 
@@ -121,12 +121,12 @@ int main() {
           cout << "Here is a list of the 8 HACKMON types:" << endl;
           printTypeList();
           cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
-          getValidValueRange(hackmonType, 0, 9);
+          getValidValueRange(hackmonType, 1, 8);
 
           if (hackmonSelect == 'h') {
             // print out Hackerdex with numbers beside it
             cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
-            getValidValueRange(hackmonNumber, 0, 21);
+            getValidValueRange(hackmonNumber, 1, 20);
           } else {
 
             newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
@@ -148,39 +148,39 @@ int main() {
           cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
           cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
           for (int k=0; k<3; k++) {
-            getValidValueRange(hackmonMove, 0, (int)moveList.size()); // FIXME: remove casting
-            hackmonMoves.emplace_back(make_unique<Move>(moveList[hackmonMove-1]));
+            getValidValueRange(hackmonMove, 1, (int)moveList.size()-1); // FIXME: remove casting
+            hackmonMoves.emplace_back(make_unique<Move>(moveList.at(hackmonMove-1)));
           }
 
           if (numberOfMovesToSelect == 4) {
-            getValidValueRange(newHackmonSpecialMove, 0, (int)moveList.size()); // FIXME: remove casting
+            getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()-1); // FIXME: remove casting
           }
 
           if (hackmonSelect == 'o') {
             cout << "Now lets set your HACKMON stats." << endl;
             cout << "What would you like your maximum health points(HP) to be? (1 <= # <= 200)" << endl;
-            getValidValueRange(newHackmonHp, 0, 201);
+            getValidValueRange(newHackmonHp, 1, 200);
 
             cout << "What would you like your base attack level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonAttack, 0, 11);
+            getValidValueRange(newHackmonAttack, 1, 10);
 
             cout << "What would you like your base defense level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonDefense, 0, 11);
+            getValidValueRange(newHackmonDefense, 1, 10);
 
             cout << "What would you like your base speed level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonSpeed, 0, 11);
+            getValidValueRange(newHackmonSpeed, 1, 10);
 
             Species createdHackmonSpecies(
               newHackmonSpecies,
-              *moveList[newHackmonSpecialMove],
+              *moveList.at(newHackmonSpecialMove),
               Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
               newHackmonFamily
             );
 
-            hackerdex[(Type)hackmonType].emplace_back(createdHackmonSpecies);
+            hackerdex.at((Type)hackmonType).emplace_back(createdHackmonSpecies);
             speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
           } else {
-            speciesToUse = &hackerdex[(Type)hackmonType].back();
+            speciesToUse = &hackerdex.at((Type)hackmonType).back();
           }
 
           Hackmon newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
@@ -193,8 +193,8 @@ int main() {
           cout << "Which items would you like to select? Please type " << numberOfItems;
           cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
           for (int k=0; k<numberOfItems; k++) {
-            getValidValueRange(itemNumber, 0, (int)itemList.size()); // FIXME: remove cast
-            if (p==0) items1.emplace_back(make_unique<Item>(itemList[itemNumber-1])); else items2.emplace_back(itemList[itemNumber-1]);
+            getValidValueRange(itemNumber, 1, (int)itemList.size()-1); // FIXME: remove cast
+            if (p==0) items1.emplace_back(make_unique<Item>(itemList.at(itemNumber-1))); else items2.emplace_back(itemList.at(itemNumber-1));
           }
         }
       }
