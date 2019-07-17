@@ -21,7 +21,7 @@ bool ActionQueue::isEmpty() {
 }
 
 void ActionQueue::doNextAction() {
-  list<tuple<Action * const, Player * const, const vector<size_t>>> highestPriority = theQueue.rbegin()->second;
+  list<tuple<Action * const, Player * const, const vector<size_t>>> &highestPriority = theQueue.rbegin()->second;
   RandomGenerator rng {0, static_cast<unsigned>(highestPriority.size()-1)};
   unsigned actionIndex = rng.getRandom();
   auto actionIter = highestPriority.begin();
