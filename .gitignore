@@ -9,6 +9,9 @@
 *.o
 *.d
 
+# Executable
+game/game
+
 # Other
 .DS_Store
 .vscode
