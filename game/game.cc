@@ -10,6 +10,7 @@
 #include "species.h"
 #include "stats.h"
 #include "gameConstants.h"
+#include "globalConstants.h"
 #include "actionQueue.h"
 #include "switch.h"
 

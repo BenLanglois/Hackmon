@@ -1,5 +1,5 @@
-#ifndef GLOBALCONSTANTS_H_
-#define GLOBALCONSTANTS_H_
+#ifndef GLOBAL_CONSTANTS_H_
+#define GLOBAL_CONSTANTS_H_
 
 unsigned numberBattling;
 int numberParty = 6;
