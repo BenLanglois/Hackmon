@@ -17,3 +17,8 @@ Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> &&moves, Stats sta
   mobility{make_unique<Mobile>(*this)},
   currentMove{nullptr},
   debuff{HEALTHY} {}
+
+void Hackmon::restore() {
+  stats.restoreBaseStats();
+  mobility.reset(new Mobile(*this));
+}
