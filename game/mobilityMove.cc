@@ -16,6 +16,7 @@ MobilityMove::MobilityMove(const std::string name, const Scope scope, const unsi
   Move{name, scope, accuracy, family}, mobility{mobility} {}
 
 void MobilityMove::doMoveOverride(Hackmon &target) const {
+  cout << target.name << " is now " << mobilityStringVerb.at(mobility) << "." << endl;
   target.mobility = toMobility(mobility, target);
 }
 

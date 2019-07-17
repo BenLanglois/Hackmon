@@ -72,5 +72,5 @@ void Stats::restoreBaseStats() {
 }
 
 void Stats::printStats() {
-  cout << "HP: " << hp << "/" << maxHp << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed << endl;
+  cout << "HP: " << hp << "/" << maxHp << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed;
 }

@@ -16,7 +16,10 @@ MobilityHeal::MobilityHeal(const string name, const Scope scope, MobilityName mo
 
 void MobilityHeal::useItemOverride(Hackmon &target) const {
   if (target.mobility->name() == mobility) {
+    cout << target.name << " is no longer " << mobilityStringVerb.at(target.mobility->name()) << "." << endl;
     target.mobility = make_unique<Mobile>(target);
+  } else {
+    cout << endl;
   }
 }
 
