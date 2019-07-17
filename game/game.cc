@@ -86,6 +86,7 @@ int main() {
   fillSpecialMoveList();
   fillMoveList();
   fillItemList();
+  fillHackerdex();
 
   string name1;
   string name2;

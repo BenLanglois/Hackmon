@@ -56,6 +56,8 @@ void fillMoveList();
 /* Hackerdex */
 extern std::map<Type, std::vector<Species>> hackerdex;
 
+void fillHackerdex();
+
 /* Item List*/
 extern std::vector<std::unique_ptr<Item>> itemList;
 
