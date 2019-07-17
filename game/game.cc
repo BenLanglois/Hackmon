@@ -181,7 +181,7 @@ int main() {
           }
 
           if (numberOfMovesToSelect == 4) {
-            getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()-1); // FIXME: remove casting
+            getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()); // FIXME: remove casting
           }
 
           if (hackmonSelect == 'o') {
