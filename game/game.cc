@@ -350,7 +350,9 @@ int main() {
                   cout << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currHackmon.moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
-                    cout << moveIndex+1 << ": " << currHackmon.moves.at(moveIndex)->name << endl;
+                    cout << moveIndex+1 << ": ";
+                    currHackmon.moves.at(moveIndex)->printMove();
+                    cout << endl;
                   }
 
                   // pick one from list
