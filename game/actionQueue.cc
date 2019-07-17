@@ -15,7 +15,7 @@ void ActionQueue::push(const int priority, Action * const action, Player * const
   theQueue.at(priority).emplace_back(tuple<Action * const, Player * const, const vector<size_t>> {action, player, targets});
 }
 
-bool ActionQueue::empty() {
+bool ActionQueue::isEmpty() {
   return theQueue.empty();
 }
 

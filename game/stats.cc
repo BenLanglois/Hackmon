@@ -1,5 +1,6 @@
+#include <iostream>
 #include "stats.h"
-
+using namespace std;
 
 Stats::Stats(int maxHp, int baseAttack, int baseDefense, int baseSpeed) :
       maxHp{maxHp}, baseAttack{baseAttack}, baseDefense{baseDefense}, baseSpeed{baseSpeed},
@@ -61,4 +62,8 @@ void Stats::setStat(StatName s, int newValue) {
 
 int Stats::getMaxHP() const {
   return maxHp;
+}
+
+void Stats::printStats() {
+  cout << "HP: " << hp << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed << endl;
 }

@@ -342,13 +342,25 @@ int main() {
             }
           }
 
+          while (!actionQueue.isEmpty()) {
+            actionQueue.doNextAction();
+          }
 
-          // implement items
-          // then move - order based on hackmon speed
           // output active hackmon stats
+          cout << endl << endl;
+          cout << "----- ROUND " << loopCounter << " STATS -----" << endl;
+          for (int p=0; p<2; ++p) {
+            Player &currPlayer = (p == 0 ? p1 : p2);
+            cout << currPlayer.name << ":" << endl;
+            for (unsigned h=0; h<numberBattling; ++h) {
+              cout << currPlayer.party.at(h)->name << ": ";
+              currPlayer.party.at(h)->stats.printStats();
+            }
+            cout << endl;
+          }
         }
 
-        // output winner
+        // output winner (if winner)
         string winner;
         if (!p1.partyAlive()) {
           winner = p2.name;
