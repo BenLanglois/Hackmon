@@ -83,9 +83,9 @@ void printItemList() {
 }
 
 int main() {
-  fillSpecialMoveList(specialMoveList);
-  fillMoveList(moveList);
-  fillItemList(itemList);
+  fillSpecialMoveList();
+  fillMoveList();
+  fillItemList();
 
   string name1;
   string name2;

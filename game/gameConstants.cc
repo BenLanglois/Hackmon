@@ -6,7 +6,11 @@
 
 using namespace std;
 
-void fillSpecialMoveList(vector<unique_ptr<Move>> & specialMoveList) {
+vector<unique_ptr<Move>> moveList;
+vector<unique_ptr<Move>> specialMoveList;
+vector<unique_ptr<Item>> itemList;
+
+void fillSpecialMoveList() {
   specialMoveList.emplace_back(make_unique<StatMove>("Tail Whip", SINGLE, 100, Family(NORMAL), DEFENSE, 5));
   specialMoveList.emplace_back(make_unique<MobilityMove>("Yawn", SINGLE, 100, Family(NORMAL), SLEEP));
   specialMoveList.emplace_back(make_unique<StatMove>("Fire Spin", SINGLE, 100, Family(FIRE), HP, 5));
@@ -25,7 +29,7 @@ void fillSpecialMoveList(vector<unique_ptr<Move>> & specialMoveList) {
   specialMoveList.emplace_back(make_unique<MobilityMove>("Hypnosis", SINGLE, 100, Family(PSYCHIC), SLEEP));
 }
 
-void fillMoveList(vector<unique_ptr<Move>> & moveList) {
+void fillMoveList() {
     // normal
   moveList.emplace_back(make_unique<StatMove>("Growl", SINGLE, 100, Family(NORMAL), ATTACK, 2));
   moveList.emplace_back(make_unique<StatMove>("Quick Attack", SINGLE, 100, Family(NORMAL), HP, 4));
@@ -76,7 +80,7 @@ void fillMoveList(vector<unique_ptr<Move>> & moveList) {
   moveList.emplace_back(make_unique<MobilityMove>("Confusion", ALL, 40, Family(PSYCHIC), CONFUSION));
 }
 
-void fillItemList(vector<unique_ptr<Item>> & itemList) {
+void fillItemList() {
   // hp potion
   itemList.emplace_back(make_unique<Potion>("Potion", SINGLE, HP, 50));
   itemList.emplace_back(make_unique<Potion>("Super Potion", SINGLE, HP, 100));
@@ -89,3 +93,94 @@ void fillItemList(vector<unique_ptr<Item>> & itemList) {
   itemList.emplace_back(make_unique<DebuffHeal>("Burn Heal", SINGLE, BURNED));
   itemList.emplace_back(make_unique<DebuffHeal>("Ice Heal", SINGLE, FROZEN));
 }
+
+std::map<Type, std::vector<Species>> hackerdex = {
+  { NORMAL,
+    std::vector<Species> {
+      Species("Brown Puppy",
+        *specialMoveList.at(BROWN_PUPPY),
+        Stats(90, 6, 5, 8),
+        std::vector<Family>{Family(NORMAL)}),
+      Species("Sleepy Sloth",
+        *specialMoveList.at(SLEEPY_SLOTH),
+        Stats(130, 5, 4, 3),
+        std::vector<Family>{Family(NORMAL)})}
+  },
+  { FIRE,
+    std::vector<Species> {
+      Species("Spicy Lizard",
+        *specialMoveList.at(SPICY_LIZARD),
+        Stats(120, 7, 5, 7),
+        std::vector<Family>{Family(FIRE)}),
+      Species("Flaming Dog",
+        *specialMoveList.at(FLAMING_DOG),
+        Stats(140, 8, 6, 7),
+        std::vector<Family>{Family(FIRE)})}
+  },
+  { WATER,
+    std::vector<Species> {
+      Species("Moist Turtle",
+        *specialMoveList.at(MOIST_TURTLE),
+        Stats(120, 6, 6, 8),
+        std::vector<Family>{Family(WATER)}),
+      Species("Slow Duck",
+        *specialMoveList.at(SLOW_DUCK),
+        Stats(100, 4, 6, 4),
+        std::vector<Family>{Family(WATER)})}
+  },
+  { ELECTRIC,
+    std::vector<Species> {
+      Species("Sparky Mouse",
+        *specialMoveList.at(SPARKY_MOUSE),
+        Stats(150, 7, 7, 7),
+        std::vector<Family>{Family(ELECTRIC)}),
+      Species("Exploding Orb",
+        *specialMoveList.at(EXPLODING_ORB),
+        Stats(140, 8, 2, 5),
+        std::vector<Family>{Family(ELECTRIC)})}
+  },
+  { GRASS,
+    std::vector<Species> {
+      Species("Bulb Dinosaur",
+        *specialMoveList.at(BULB_DINOSAUR),
+        Stats(120, 5, 8, 7),
+        std::vector<Family>{Family(GRASS)}),
+      Species("Dancing Flower",
+        *specialMoveList.at(DANCING_FLOWER),
+        Stats(100, 5, 5, 9),
+        std::vector<Family>{Family(GRASS)})}
+  },
+  { FIGHTING,
+    std::vector<Species> {
+      Species("Karate Kid",
+        *specialMoveList.at(KARATE_KID),
+        Stats(130, 8, 7, 7),
+        std::vector<Family>{Family(FIGHTING)}),
+      Species("Monkey Man",
+        *specialMoveList.at(MONKEY_MAN),
+        Stats(170, 6, 5, 8),
+        std::vector<Family>{Family(FIGHTING)})}
+  },
+  { GROUND,
+    std::vector<Species> {
+      Species("Rock Guy",
+        *specialMoveList.at(ROCK_GUY),
+        Stats(120, 5, 9, 6),
+        std::vector<Family>{Family(GROUND)}),
+      Species("Armless Groundhog",
+        *specialMoveList.at(ARMLESS_GROUNDHOG),
+        Stats(150, 6, 6, 6),
+        std::vector<Family>{Family(GROUND)})}
+  },
+  { PSYCHIC,
+    std::vector<Species> {
+      Species("Spoon Wizard",
+        *specialMoveList.at(SPOON_WIZARD),
+        Stats(180, 7, 5, 6),
+        std::vector<Family>{Family(PSYCHIC)}),
+      Species("Voodoo Anteater",
+        *specialMoveList.at(VOODOO_ANTEATER),
+        Stats(140, 5, 8, 7),
+        std::vector<Family>{Family(PSYCHIC)})}
+  }
+};
