@@ -166,12 +166,14 @@ int main() {
           printTypeList();
           cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
           getValidValueRange(hackmonType, 1, 8);
+          --hackmonType;
 
           if (hackmonSelect == 'h') {
-            cout << endl << "Here is a list of the HACKMON of type " << typeString.at((Type)(hackmonType-1)) << "." << endl;
+            cout << endl << "Here is a list of the HACKMON of type " << typeString.at((Type)hackmonType) << "." << endl;
             printHackerdexAtType(hackmonType);
-            cout << "Which HACKMON would you like to select? (1 <= # <= " << hackerdex.at((Type)(hackmonType-1)).size() << ")" << endl;
+            cout << "Which HACKMON would you like to select? (1 <= # <= " << hackerdex.at((Type)hackmonType).size() << ")" << endl;
             getValidValueRange(hackmonNumber, 1, 20);
+            hackmonNumber--;
           } else {
 
             newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
@@ -188,7 +190,7 @@ int main() {
           }
 
           int numberOfMovesToSelect = (hackmonSelect == 'h') ? 3 : 4;
-          cout << "Here is a list of the " << moveList.size() << " HACKMON moves:" << endl;
+          cout << endl << "Here is a list of the " << moveList.size() << " HACKMON moves:" << endl;
           printMoveList();
           cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
           cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
@@ -225,7 +227,7 @@ int main() {
             hackerdex.at((Type)hackmonType).emplace_back(createdHackmonSpecies);
             speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
           } else {
-            speciesToUse = &hackerdex.at((Type)hackmonType).back();
+            speciesToUse = &hackerdex.at((Type)hackmonType).at(hackmonNumber);
           }
 
           unique_ptr<Hackmon> newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
