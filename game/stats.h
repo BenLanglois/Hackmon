@@ -18,6 +18,7 @@ class Stats {
     int getStat(StatName) const;
     void setStat(StatName, int);
     int getMaxHP() const;
+    void restoreBaseStats();
     void printStats();
 };
 
