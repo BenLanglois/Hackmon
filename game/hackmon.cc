@@ -21,4 +21,5 @@ Hackmon::Hackmon(string hackmonName, vector<unique_ptr<Move>> &&moves, Stats sta
 void Hackmon::restore() {
   stats.restoreBaseStats();
   mobility.reset(new Mobile(*this));
+  debuff = HEALTHY;
 }

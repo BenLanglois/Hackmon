@@ -22,6 +22,7 @@ std::unique_ptr<Mobility> toMobility(MobilityName mobilityName, Hackmon &hackmon
     case SLEEP:
       return std::make_unique<Sleep>(hackmon);
   }
+  throw std::out_of_range("Unexpected mobilityName");
 }
 
 #endif
