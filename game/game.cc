@@ -229,7 +229,7 @@ int main() {
             );
 
             hackerdex.at((Type)hackmonType).emplace_back(createdHackmonSpecies);
-            speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
+            speciesToUse = &hackerdex.at((Type)hackmonType).back(); // FIXME: get from species list
           } else {
             speciesToUse = &hackerdex.at((Type)hackmonType).at(hackmonNumber);
           }
