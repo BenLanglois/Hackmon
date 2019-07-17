@@ -120,7 +120,7 @@ int main() {
     cout << "Myself...I study HACKMON as a profession." << endl << endl;
     cout << "First, what is your name? (player 1)" << endl;
     cin >> name1;
-    cout << endl << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
+    cout << endl << "Right! So your name is " << name1 << "! What is the name of your friend? (player 2)" << endl;
     cin >> name2;
 
     cout << endl << "Your very own HACKMON legend is about to unfold!" << endl;
