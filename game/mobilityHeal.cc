@@ -16,3 +16,7 @@ void MobilityHeal::useItemOverride(Hackmon &target) const {
     target.mobility = make_unique<Mobile>(target);
   }
 }
+
+unique_ptr<Item> MobilityHeal::clone() const {
+  return make_unique<MobilityHeal>(*this);
+}

@@ -12,6 +12,7 @@ class DebuffHeal: public Item {
 
 public:
   DebuffHeal(const std::string, const Scope, const DebuffName);
+  virtual std::unique_ptr<Item> clone() const override;
 };
 
 #endif
