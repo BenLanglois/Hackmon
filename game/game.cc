@@ -22,8 +22,9 @@ const string yellow("\033[1;33m");
 const string cyan("\033[0;36m");
 const string magenta("\033[0;35m");
 const string purple("\033[1;35m");
-const string white("\033[0;37m");
+const string white("\033[1;37m");
 const string reset("\033[0m");
+const string clearScreen("\033c");
 
 template<typename T>
 void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
@@ -134,7 +135,7 @@ int main() {
 
   while (gameLoop) {
     // pregame -----------------------------------------------------------------
-    cout << "\033c" << endl; // clears terminal
+    cout << clearScreen;
     cout << cyan << "Now your story begins..." << endl << endl;
     cout << "Hello there! Welcome to the world of " << white << "HACKMON" << cyan << "!" << endl << endl;
     cout << "My name is ROB HACKMAN! People call me the " << white << "HACKMON" << cyan << " PROF!" << endl; // FIXME: add timers to these statementd
@@ -147,8 +148,45 @@ int main() {
     cout << cyan << "! What is the name of your friend? " << yellow << "(player 2)" << reset << endl;
     cin >> name2;
 
-    cout << endl << cyan << "Your very own " << white << "HACKMON" << cyan << " legend is about to unfold!" << endl;
+    cout << endl << cyan << "Would you like to read an explanation about the mechanics of the game? (y/n)" << endl;
+    if (getValidValueOneOf<char>('y', 'n') == 'y') {
+      cout << clearScreen;
+      cout << cyan << "HOW TO PLAY ----------------------------------------------------------------------------------------" << endl;
+      cout << endl;
+      cout << cyan << "You win the game by causing all " << white << "HACKMON" << cyan << " on your opponent's team to faint. Both players will select a team of " << white << "HACKMON" << cyan << " to" << endl;
+      cout << cyan << "battle against each other. You will also select a list of moves for each of your " << white << "HACKMON" << cyan << " to learn. These moves can" << endl;
+      cout << cyan << "either lower the stats of an enemy " << white << "HACKMON" << cyan << ", inflict a mobility effect upon them, or inflict a debuff upon them. Each" << endl;
+      cout << cyan << "" << white << "HACKMON" << cyan << " has four stats:" << endl;
+      cout << cyan << "- HP: The amount of health the " << white << "HACKMON" << cyan << " has left. The " << white << "HACKMON" << cyan << " will faint if its HP drops to 0." << endl;
+      cout << cyan << "- ATTACK: Affects the " << white << "HACKMON" << cyan << "'s damage-dealing moves and is used to determine how much the target's HP will drop." << endl;
+      cout << cyan << "- DEFENSE: Represents how resistant the " << white << "HACKMON" << cyan << " is to losing HP." << endl;
+      cout << cyan << "- SPEED: Determines the order in which " << white << "HACKMON" << cyan << " will move in each round." << endl;
+      cout << cyan << endl;
+      cout << cyan << "If a " << white << "HACKMON" << cyan << " is inflicted by a mobility effect, then it may be unable to make a move on their turn. There are three" << endl;
+      cout << cyan << "types of mobility effects:" << endl;
+      cout << cyan << "- SLEEP: The " << white << "HACKMON" << cyan << " will be unable to move until it wakes up. SLEEP can last for up to 4 turns." << endl;
+      cout << cyan << "- PARALYSIS: The " << white << "HACKMON" << cyan << " may be unable to move on its turn. PARALYSIS will last forever unless it is cured." << endl;
+      cout << cyan << "- CONFUSION: The " << white << "HACKMON" << cyan << " may hurt itself on its turn, preventing it from moving. CONFUSION will last for 5 turns." << endl;
+      cout << cyan << endl;
+      cout << cyan << "A debuff will lower the stats of a " << white << "HACKMON" << cyan << " until it is cured or until the " << white << "HACKMON" << cyan << " is inflicted by another debuff. There" << endl;
+      cout << cyan << "are three types of debuffs:" << endl;
+      cout << cyan << "- POISONED: Lowers the " << white << "HACKMON" << cyan << "'s ATTACK." << endl;
+      cout << cyan << "- BURNED: Lowers the " << white << "HACKMON" << cyan << "'s DEFENSE." << endl;
+      cout << cyan << "- FROZEN: Lowers the " << white << "HACKMON" << cyan << "'s SPEED." << endl;
+      cout << cyan << endl;
+      cout << cyan << "Before the game starts, you will also get to choose items which you can use on your turn instead of making a move." << endl;
+      cout << cyan << "Unlike moves, items affect your own " << white << "HACKMON" << cyan << ". Items can raise the stat of a " << white << "HACKMON" << cyan << " or remove a mobility effect or debuff" << endl;
+      cout << cyan << "from a " << white << "HACKMON" << cyan << "." << endl;
+      cout << cyan << endl;
+      cout << cyan << "Items and moves also have a scope which determines if they will affect one " << white << "HACKMON" << cyan << " or all " << white << "HACKMON" << cyan << " in the party." << endl;
+      cout << endl;
+      cout << cyan << "----------------------------------------------------------------------------------------------------" << endl;
+    }
+
+    cout << endl;
+    cout << cyan << "Your very own " << white << "HACKMON" << cyan << " legend is about to unfold!" << endl;
     cout <<  "A world of dream and adventures with " << white << "HACKMON" << cyan << " Awaits! Let’s go!" << reset << endl;
+    cout << endl;
 
     while (playerLoop) {
       party1.clear();
@@ -318,7 +356,7 @@ int main() {
             }
           }
 
-          cout << "\033c" << endl; // clears terminal
+          cout << clearScreen;
         }
 
         // loop (check if all pokemon of one player have fainted)
@@ -521,7 +559,7 @@ int main() {
               }
             }
 
-            cout << "\033c" << endl; // clears terminal
+            cout << clearScreen;
           }
 
           // Execute all actions selected by the players
@@ -597,5 +635,3 @@ int main() {
     }
   }
 }
-
-// cout << "" << endl;
