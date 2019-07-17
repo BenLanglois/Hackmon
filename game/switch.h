@@ -1,3 +1,6 @@
+#ifndef SWITCH_H
+#define SWITCH_H
+
 #include <vector>
 
 #include "action.h"
@@ -9,3 +12,5 @@ class Switch: public Action {
 public:
   Switch();
 };
+
+#endif

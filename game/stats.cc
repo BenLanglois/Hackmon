@@ -65,5 +65,5 @@ int Stats::getMaxHP() const {
 }
 
 void Stats::printStats() {
-  cout << "HP: " << hp << "/" << maxHP << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed << endl;
+  cout << "HP: " << hp << "/" << maxHp << "   ATTACK: " << attack << "   DEFENSE: " << defense << "   SPEED: " << speed << endl;
 }
