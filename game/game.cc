@@ -11,6 +11,7 @@
 #include "stats.h"
 #include "gameConstants.h"
 #include "actionQueue.h"
+#include "switch.h"
 
 using namespace std;
 
@@ -272,16 +273,24 @@ int main() {
         const int itemPriority = 99;
         const int switchPriority = 100; // We all know that numbers stop at 100
 
+        // Need this to store the switch actions somewhere
+        Switch theSwitch;
+
         while (p1.partyAlive() && p2.partyAlive()) {
           cout << "-------- ROUND " << ++loopCounter << " --------" << endl << endl;
 
-          // choose move/use item/swap for each hackmon
+          // The priority queue of actions
           ActionQueue actionQueue;
+
+          // choose move/use item/swap for each hackmon
           for (int p=0; p<2; ++p) {
             Player &currPlayer = (p == 0 ? p1 : p2);
             Player &otherPlayer = (p == 0 ? p2 : p1);
 
             for (unsigned h=0; h<numberBattling; ++h) {
+              if (!currPlayer.isAlive(h)) {
+                continue;
+              }
               Hackmon &currHackmon = *currPlayer.party.at(h);
               cout << currPlayer.name << ", please select for " << currHackmon.name << endl;
 
@@ -313,7 +322,7 @@ int main() {
 
 
               if (action == 'm') {
-                  // output list of moves
+                  // Hackmon does a move
                   cout << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currHackmon.moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
@@ -370,15 +379,18 @@ int main() {
 
               } else if (action == 'i') {
                 // output list of items
-                cout << "Here is a list of the available moves:" << endl;
-
-                // pick one from list
-                // add to pMove vector
+                cout << "Here is a list of the available items:" << endl;
 
               } else {
-                // output list of hackmon from numberBattling to end
-                // pick one from list
-                // call p.swapHackmon on indices
+                // Switch Hackmon
+                cout << "Which Hackmon will you swap " << currHackmon.name << " for?" << endl;
+                for (size_t index = 0; index < numberParty - currPlayer.nextAlive; ++index) {
+                  cout << index + 1 << ". " << currPlayer.party.at(index + currPlayer.nextAlive)->name << endl;
+                }
+                size_t selectedHackmonIndex;
+                getValidValueRange<size_t>(selectedHackmonIndex, 1, numberParty - currPlayer.nextAlive);
+                selectedHackmonIndex += currPlayer.nextAlive - 1;
+                actionQueue.push(switchPriority, &theSwitch, &currPlayer, vector<size_t>{h, selectedHackmonIndex});
               }
             }
           }

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = game
-MODULES = action actionQueue confusion debuff debuffHeal debuffMove family hackmon item mobile mobility
+MODULES = action actionQueue confusion debuff debuffHeal debuffMove family game hackmon item mobile mobility
 MODULES += mobilityHeal mobilityMove move paralysis player potion randomGen sleep species statMove stats
 ADDITIONAL_FILES = game.cc actionInfo.h debuffInfo.h mobilityInfo.h statInfo.h mobilityUtility.h
 OBJECTS = ${MODULES:=.o}
