@@ -399,7 +399,7 @@ int main() {
                   if (currHackmon.debuff.stat == SPEED) {
                     speed -= currHackmon.debuff.strength;
                   }
-                  actionQueue.push(speed, &selectedMove, &currPlayer, targets);
+                  actionQueue.push(speed, &selectedMove, &otherPlayer, targets);
 
               } else if (action == 'i') {
                 // output list of items
