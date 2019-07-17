@@ -11,6 +11,6 @@ class ActionQueue {
 public:
   ActionQueue();
   void push(const int, Action *, Player *, const std::vector<size_t>);
-  bool empty();
+  bool isEmpty();
   void doNextAction();
 };
