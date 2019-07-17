@@ -444,6 +444,7 @@ int main() {
             }
           }
 
+          // Execute all actions selected by the players
           while (!actionQueue.isEmpty()) {
             actionQueue.doNextAction();
           }
