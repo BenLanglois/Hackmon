@@ -336,7 +336,7 @@ int main() {
                   getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currHackmon.moves.size()+1);
                   --selectedMoveIndex; // Make zero-indexed
 
-                  // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
+                  // Hard-coded move logic for 1v1 and 2v2 battles starts here ------------
                   Move &selectedMove = *currHackmon.moves.at(selectedMoveIndex);
                   vector<size_t> targets;
 
@@ -370,7 +370,7 @@ int main() {
                       }
                     }
                   }
-                  // Hard-coded logic for 1v1 and 2v2 battles ends here --------------
+                  // Hard-coded move logic for 1v1 and 2v2 battles ends here --------------
 
                   // add to playerMove vector
                   int speed = currHackmon.stats.getStat(SPEED);
@@ -389,7 +389,7 @@ int main() {
                 getValidValueRange<size_t>(selectedItemIndex, 1, currPlayer.items.size());
                 --selectedItemIndex; // zero-index
 
-                // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
+                // Hard-coded item logic for 1v1 and 2v2 battles starts here ------------
                 Item &selectedItem = *currPlayer.items.at(selectedItemIndex);
                 vector<size_t> targets;
 
@@ -422,7 +422,7 @@ int main() {
                     }
                   }
                 }
-                // Hard-coded logic for 1v1 and 2v2 battles ends here --------------
+                // Hard-coded item logic for 1v1 and 2v2 battles ends here --------------
 
                 // Move item from player's item list to itemsThisRound vector
                 itemsThisRound.emplace_back(unique_ptr<Item> {nullptr});
