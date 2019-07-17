@@ -11,11 +11,12 @@
 #include "family.h"
 
 class Species {
-  std::string speciesName;
   Move &specialMove;
   Stats stats;
   std::vector<Family> family;
  public:
+  std::string speciesName;
+  
   Species(const std::string, Move &, Stats, std::vector<Family>);
 
   std::unique_ptr<Hackmon> createHackmon(std::vector<std::unique_ptr<Move>> &&, const std::string);

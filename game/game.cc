@@ -82,6 +82,16 @@ void printItemList() {
   }
 }
 
+void printHackerdexAtType(int t) {
+  int i = 0;
+  vector<Species> speciesForType = hackerdex.at((Type)(t-1));
+  for (auto& sp : speciesForType) {
+    cout << ++i << ". ";
+    sp.speciesName;
+    cout << endl;
+  }
+}
+
 int main() {
   fillSpecialMoveList();
   fillMoveList();
@@ -102,6 +112,7 @@ int main() {
 
   while (gameLoop) {
     // pregame -----------------------------------------------------------------
+    // FIXME: clear terminal
     cout << "Now your story begins..." << endl;
     cout << "Hello there! Welcome to the world of HACKMON!" << endl;
     cout << "My name is ROB HACKMAN! People call me the HACKMON PROF!" << endl; // FIXME: add timers to these statementd
@@ -109,17 +120,17 @@ int main() {
     cout << "For some people, HACKMON are pets. Others use them for fights." << endl;
     cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)" << endl;
     cin >> name1;
-    cout << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
+    cout << endl << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
     cin >> name2;
 
-    cout << "Your very own HACKMON legend is about to unfold!" << endl;
-    cout <<  "A world of dream and adventures with HACKMON Awaits! Let’s go!" << endl;
+    cout << endl << "Your very own HACKMON legend is about to unfold!" << endl;
+    cout <<  "A world of dream and adventures with HACKMON Awaits! Let’s go!" << endl << endl;
 
     while (playerLoop) {
       cout << "Would you like to battle 1 vs 1 or 2 vs 2? (1/2)" << endl;
       numberBattling = getValidValueOneOf<int>(1, 2);
 
-      cout << "...Okay! It’s time to get started!" << endl;
+      cout << "...Okay! It’s time to get started!" << endl << endl;
 
       for (int p=0; p<2; p++) {
         // reset party unique pointers
@@ -157,7 +168,7 @@ int main() {
           getValidValueRange(hackmonType, 1, 8);
 
           if (hackmonSelect == 'h') {
-            // print out Hackerdex with numbers beside it
+            printHackerdexAtType(hackmonType);
             cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
             getValidValueRange(hackmonNumber, 1, 20);
           } else {
