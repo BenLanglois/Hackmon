@@ -14,6 +14,7 @@ class MobilityMove: public Move {
 public:
   MobilityMove(const std::string, const Scope, unsigned, Family, MobilityName);
   virtual std::unique_ptr<Move> clone() const override;
+  virtual void printMove() override;
 };
 
 #endif

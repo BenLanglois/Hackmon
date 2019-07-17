@@ -1,9 +1,11 @@
 #include <string>
+#include <iostream>
+#include <iomanip>
 
 #include "debuffHeal.h"
 #include "debuff.h"
 #include "hackmon.h"
-
+#include "globalConstants.h"
 
 using namespace std;
 
@@ -14,4 +16,10 @@ void DebuffHeal::useItemOverride(Hackmon &target) const {
   if (target.debuff.name == debuff) {
     target.debuff = Debuff{HEALTHY};
   }
+}
+
+void DebuffHeal::printItem() {
+  cout << left << "Item: " << setw(16) << "Debuff Heal";
+  cout << "Debuff: " << setw(12) << debuffString.at(debuff);
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
 }

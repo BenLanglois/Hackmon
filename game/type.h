@@ -3,6 +3,7 @@
 
 #include <map>
 #include <utility>
+#include <string>
 
 enum Type {
   NORMAL,
@@ -15,6 +16,17 @@ enum Type {
   PSYCHIC,
 };
 
+// Hackmon Type to String
+std::map<Type, std::string> typeString = {
+  {NORMAL, "Normal"},
+  {FIRE, "Fire"},
+  {WATER, "Water"},
+  {ELECTRIC, "Electric"},
+  {GRASS, "Grass"},
+  {FIGHTING, "Fighting"},
+  {GROUND, "Ground"},
+  {PSYCHIC, "Psychic"}
+};
 
 const std::map<Type, std::map<Type,size_t>> typeChart = {
   {NORMAL, std::map<Type,size_t>{{NORMAL, 2}, {FIRE, 2}, {WATER, 2}, {ELECTRIC, 2},
