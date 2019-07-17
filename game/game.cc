@@ -83,6 +83,10 @@ void printItemList() {
 }
 
 int main() {
+  fillSpecialMoveList(specialMoveList);
+  fillMoveList(moveList);
+  fillItemList(itemList);
+
   string name1;
   string name2;
   unsigned numberBattling;
