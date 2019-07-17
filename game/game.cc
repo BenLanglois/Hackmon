@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 #include "hackmon.h"
 #include "player.h"
@@ -9,6 +10,9 @@
 #include "species.h"
 #include "stats.h"
 #include "gameConstants.h"
+#include "actionQueue.h"
+#include "switch.h"
+
 using namespace std;
 
 template<typename T>
@@ -19,12 +23,37 @@ void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   }
 }
 
-template<typename R>
-void getValidValueOneOf(R& inVar, R a, R b) {
+template <typename T>
+bool _isOneOf(T key, T first) {
+  return key == first;
+}
+
+template <typename T, typename... Rest>
+bool _isOneOf(T key, T first, Rest... rest) {
+  return key == first ? true : _isOneOf(key, rest...);
+}
+
+template <typename T>
+void _printValues(T first) {
+  cout << first;
+}
+
+template <typename T, typename... Rest>
+void _printValues(T first, Rest... rest) {
+  cout << first << "/";
+  _printValues(rest...);
+}
+
+template <typename T, typename... Rest>
+T getValidValueOneOf(Rest... values) {
+  T inVar;
   while (cin >> inVar) {
-    if (inVar == a || inVar == b) break;
-    else cout << "...Uh oh, that's not an option. Try again! (" << a << "/" << b << ")" << endl;
+    if (_isOneOf(inVar, values...)) break;
+    else cout << "...Uh oh, that's not an option. Try again! (";
+    _printValues(values...); // print out valid values
+    cout << ")" << endl;
   }
+  return inVar;
 }
 
 void printTypeList() {
@@ -84,7 +113,7 @@ int main() {
 
     while (playerLoop) {
       cout << "Would you like to battle 1 vs 1 or 2 vs 2? (1/2)" << endl;
-      getValidValueOneOf(numberBattling, (unsigned)1, (unsigned)2); // FIXME: remove casting?
+      numberBattling = getValidValueOneOf<int>(1, 2);
 
       cout << "...Okay! It’s time to get started!" << endl;
 
@@ -116,7 +145,7 @@ int main() {
           int itemNumber;
 
           cout << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
-          getValidValueOneOf(hackmonSelect, 'h', 'o');
+          hackmonSelect = getValidValueOneOf<char>('h', 'o');
 
           cout << "Here is a list of the 8 HACKMON types:" << endl;
           printTypeList();
@@ -135,7 +164,7 @@ int main() {
           }
 
           cout << "Awesome! Would you like to name your HACKMON? (y/n)" << endl;
-          getValidValueOneOf(wantNameHackmon, 'y', 'n');
+          wantNameHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (wantNameHackmon == 'y') {
             cout << "What would you like the name of your HACKMON to be?" << endl;
@@ -238,61 +267,203 @@ int main() {
         }
 
         // loop (check if all pokemon of one player have fainted)
-        int loopCounter = 1;
-        cout << "Time to Battle!" << endl;
+        int loopCounter = 0;
+        cout << "Time to battle!" << endl;
+
+        const int itemPriority = 99;
+        const int switchPriority = 100; // We all know that numbers stop at 100
+
+        // Need this to store the switch actions somewhere
+        Switch theSwitch;
 
         while (p1.partyAlive() && p2.partyAlive()) {
-          cout << "-------- ROUND " << loopCounter++ << " --------" << endl << endl;
+          cout << "-------- ROUND " << ++loopCounter << " --------" << endl << endl;
+
+          // The priority queue of actions
+          ActionQueue actionQueue;
+          // The list of actions to be used this round
+          vector<unique_ptr<Item>> itemsThisRound;
 
           // choose move/use item/swap for each hackmon
-          vector<Move> p1Moves; // FIXME: wrong implementation of vector of moves
-          vector<Move> p2Moves;
-          for (int p=0; p<2; p++) {
-            Player &curPlayer = (p==0 ? p1 : p2);
+          for (int p=0; p<2; ++p) {
+            Player &currPlayer = (p == 0 ? p1 : p2);
+            Player &otherPlayer = (p == 0 ? p2 : p1);
 
-            for (unsigned h=0; h<numberBattling; h++) {
-              cout << curPlayer.name << " please select for " << curPlayer.party.at(h)->name << endl;
+            for (unsigned h=0; h<numberBattling; ++h) {
+              if (!currPlayer.isAlive(h)) {
+                continue;
+              }
+              Hackmon &currHackmon = *currPlayer.party.at(h);
+              cout << currPlayer.name << ", please select for " << currHackmon.name << endl;
 
               char action;
-              cout << "Would you like to perform an action or swap out your HACKMON with another in your party? (a/s)" << endl;
-              getValidValueOneOf(action, 'a', 's');
-
-              if (action == 'a') {
-                char moveItem;
-                if (curPlayer.items.size() != 0) {
-                  cout << "Would you like to move against your opponent or use an item? (m/i)" << endl;
-                  getValidValueOneOf(moveItem, 'm', 'i');
+              if (currPlayer.items.size() > 0) {
+                // Able to use items
+                if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
+                  // Able to switch
+                  cout << "Will you make a move against your opponent, use an item, "
+                       << "or swap out your HACKMON with another in your party? (m/i/s)" << endl;
+                  action = getValidValueOneOf<char>('m', 'i', 's');
                 } else {
-                  moveItem = 'm';
+                  // Unable to switch
+                  cout << "Will you make a move against your opponent or use an item? (m/i) " << endl;
+                  action = getValidValueOneOf<char>('m', 'i');
                 }
+              } else {
+                // Unable to use items
+                if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
+                  // Able to switch
+                  cout << "Will you make a move against your opponent "
+                       << "or swap out your HACKMON with another in your party? (m/s)" << endl;
+                  action = getValidValueOneOf<char>('m', 's');
+                } else {
+                  // Unable to switch
+                  action = 'm';
+                }
+              }
 
-                if (moveItem == 'm') {
-                  cout << "Here is a list of the available moves" << endl;
-                  // cout << /* moves list */ << endl;
+
+              if (action == 'm') {
+                  // Hackmon does a move
+                  cout << "Here is a list of the available moves:" << endl;
+                  for (size_t moveIndex = 0; moveIndex < currHackmon.moves.size(); ++moveIndex) {
+                    // Give one-indexed list of moves
+                    cout << moveIndex+1 << ": " << currHackmon.moves.at(moveIndex)->name << endl;
+                  }
 
                   // pick one from list
-                  // add to pMove vector
-                } else {
-                  // output list of items
-                  // pick one from list
-                  // add to pMove vector
+                  size_t selectedMoveIndex;
+                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currHackmon.moves.size()+1);
+                  --selectedMoveIndex; // Make zero-indexed
+
+                  // Hard-coded move logic for 1v1 and 2v2 battles starts here ------------
+                  Move &selectedMove = *currHackmon.moves.at(selectedMoveIndex);
+                  vector<size_t> targets;
+
+                  if (numberBattling == 1) {
+                    targets.emplace_back(0);
+                  } else {
+                    if (selectedMove.scope == SINGLE) {
+                      // select targets (if needed)
+                      if (!otherPlayer.isAlive(0)) {
+                        targets.emplace_back(1);
+                      } else if (!otherPlayer.isAlive(1)) {
+                        targets.emplace_back(0);
+                      } else {
+                        // Both possible targets are still alive
+                        cout << "Which enemy should " << currHackmon.name << " target?" << endl;
+                        cout << "1. " << otherPlayer.party.at(0)->name << endl;
+                        cout << "2. " << otherPlayer.party.at(1)->name << endl;
+                        size_t targetIndex;
+                        getValidValueRange<size_t>(targetIndex, 1, 2);
+                        --targetIndex;
+                        targets.emplace_back(targetIndex);
+                      }
+
+                    } else {
+                      // attack all targets
+                      if (otherPlayer.isAlive(0)) {
+                        targets.emplace_back(0);
+                      }
+                      if (otherPlayer.isAlive(1)) {
+                        targets.emplace_back(1);
+                      }
+                    }
+                  }
+                  // Hard-coded move logic for 1v1 and 2v2 battles ends here --------------
+
+                  // add to playerMove vector
+                  int speed = currHackmon.stats.getStat(SPEED);
+                  if (currHackmon.debuff.stat == SPEED) {
+                    speed -= currHackmon.debuff.strength;
+                  }
+                  actionQueue.push(speed, &selectedMove, &currPlayer, targets);
+
+              } else if (action == 'i') {
+                // output list of items
+                cout << "Here is a list of the available items:" << endl;
+                for (size_t index = 0; index < currPlayer.items.size(); ++index) {
+                  cout << index + 1 << ". " << currPlayer.items.at(index)->name << endl;
                 }
+                size_t selectedItemIndex;
+                getValidValueRange<size_t>(selectedItemIndex, 1, currPlayer.items.size());
+                --selectedItemIndex; // zero-index
+
+                // Hard-coded item logic for 1v1 and 2v2 battles starts here ------------
+                Item &selectedItem = *currPlayer.items.at(selectedItemIndex);
+                vector<size_t> targets;
+
+                if (numberBattling == 1) {
+                  targets.emplace_back(0);
+                } else {
+                  if (selectedItem.scope == SINGLE) {
+                    // select targets (if needed)
+                    if (!currPlayer.isAlive(0)) {
+                      targets.emplace_back(1);
+                    } else if (!currPlayer.isAlive(1)) {
+                      targets.emplace_back(0);
+                    } else {
+                      // Both possible targets are still alive
+                      cout << "Which HACKMON should receive the item?" << endl;
+                      cout << "1. " << currPlayer.party.at(0)->name << endl;
+                      cout << "2. " << currPlayer.party.at(1)->name << endl;
+                      size_t targetIndex;
+                      getValidValueRange<size_t>(targetIndex, 1, 2);
+                      --targetIndex;
+                      targets.emplace_back(targetIndex);
+                    }
+                  } else {
+                    // give item to all hackmon
+                    if (currPlayer.isAlive(0)) {
+                      targets.emplace_back(0);
+                    }
+                    if (currPlayer.isAlive(1)) {
+                      targets.emplace_back(1);
+                    }
+                  }
+                }
+                // Hard-coded item logic for 1v1 and 2v2 battles ends here --------------
+
+                // Move item from player's item list to itemsThisRound vector
+                itemsThisRound.emplace_back(unique_ptr<Item> {nullptr});
+                swap(itemsThisRound.back(), currPlayer.items.at(selectedItemIndex));
+                currPlayer.items.erase(currPlayer.items.begin() + selectedItemIndex);
+                actionQueue.push(itemPriority, itemsThisRound.back().get(), &currPlayer, targets);
 
               } else {
-                // output list of hackmon from numberBattling to end
-                // pick one from list
-                // call p.swapHackmon on indices
+                // Switch Hackmon
+                cout << "Which Hackmon will you swap " << currHackmon.name << " for?" << endl;
+                for (size_t index = 0; index < numberParty - currPlayer.nextAlive; ++index) {
+                  cout << index + 1 << ". " << currPlayer.party.at(index + currPlayer.nextAlive)->name << endl;
+                }
+                size_t selectedHackmonIndex;
+                getValidValueRange<size_t>(selectedHackmonIndex, 1, numberParty - currPlayer.nextAlive);
+                selectedHackmonIndex += currPlayer.nextAlive - 1; // Set to actual index into party vector
+                actionQueue.push(switchPriority, &theSwitch, &currPlayer, vector<size_t>{h, selectedHackmonIndex});
               }
             }
           }
 
+          // Execute all actions selected by the players
+          while (!actionQueue.isEmpty()) {
+            actionQueue.doNextAction();
+          }
 
-          // implement items
-          // then move - order based on hackmon speed
           // output active hackmon stats
+          cout << endl << endl;
+          cout << "----- ROUND " << loopCounter << " STATS -----" << endl;
+          for (int p=0; p<2; ++p) {
+            Player &currPlayer = (p == 0 ? p1 : p2);
+            cout << currPlayer.name << ":" << endl;
+            for (unsigned h=0; h<numberBattling; ++h) {
+              cout << currPlayer.party.at(h)->name << ": ";
+              currPlayer.party.at(h)->stats.printStats();
+            }
+            cout << endl;
+          }
         }
 
-        // output winner
+        // output winner (if winner)
         string winner;
         if (!p1.partyAlive()) {
           winner = p2.name;
@@ -311,11 +482,11 @@ int main() {
         cout << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;
         cout << "Would you two trainers like to battle again? (y/n)" << endl;
-        getValidValueOneOf(playAgain, 'y', 'n');
+        playAgain = getValidValueOneOf<char>('y', 'n');
 
         if (playAgain == 'y') {
           cout << "Would you like to battle with the same HACKMON? (y/n)" << endl;
-          getValidValueOneOf(keepHackmon, 'y', 'n');
+          keepHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (keepHackmon == 'y') {
             // FIXME: reset Hackmon levels

@@ -1,10 +1,12 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "move.h"
 #include "family.h"
 #include "player.h"
 #include "hackmon.h"
+#include "mobilityInfo.h"
 
 using namespace std;
 
@@ -17,13 +19,12 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
   // requires: targets must be distinct and attachHackmon must have already been called
 
   if (!hackmon->mobility->canMove()) {
-    // FIXME: Print "can't move" or something
-    // or, should that be the responsibility of mobility?
+    cout << hackmon->name << " cannot move! They are " << mobilityStringVerb.at(hackmon->mobility->name()) << "." << endl;
     return;
   }
 
   if (rng.getRandom() > accuracy) {
-    // FIXME: Print "move missed" or something
+    cout << "Oh no! The move missed!" << endl;
     return;
   }
 
@@ -32,9 +33,10 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     // Call doMoveOverride method for each target
     target = player.getHackmon(target_index);
     if (target != nullptr) {
+      cout << hackmon->name << " used " << name << " against " << target->name << "." << endl;
       doMoveOverride(*target);
     } else {
-      // FIXME: Print "move failed" or something
+      cout << "Oh no! The move failed!" << endl;
     }
   }
 }
