@@ -14,7 +14,7 @@ o
 3
 Chika-Poo
 n
-4
+2
 5
 6
 7
@@ -26,7 +26,7 @@ h
 8
 1
 n
-8
+2
 9
 10
 1
@@ -38,7 +38,7 @@ h
 1
 y
 Alice
-21
+2
 22
 23
 o
@@ -46,7 +46,7 @@ o
 Gojoe
 y
 Flipp
-24
+2
 25
 26
 27
@@ -59,7 +59,7 @@ h
 2
 y
 GroundlessArmhog
-28
+2
 29
 30
 2
@@ -68,8 +68,3 @@ GroundlessArmhog
 
 3
 3
-
-m
-1
-m
-2
