@@ -24,3 +24,4 @@ debug: CXXFLAGS += -g
 debug: ${EXEC}
 
 local: CXX = g++-9
+local: ${EXEC}
