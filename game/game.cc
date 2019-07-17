@@ -117,7 +117,8 @@ int main() {
     cout << "My name is ROB HACKMAN! People call me the HACKMON PROF!" << endl; // FIXME: add timers to these statementd
     cout << "This world is inhabited by creatures called HACKMON!" << endl;
     cout << "For some people, HACKMON are pets. Others use them for fights." << endl;
-    cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)" << endl;
+    cout << "Myself...I study HACKMON as a profession." << endl << endl;
+    cout << "First, what is your name? (player 1)" << endl;
     cin >> name1;
     cout << endl << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
     cin >> name2;
@@ -158,17 +159,18 @@ int main() {
           Species* speciesToUse;
           int itemNumber;
 
-          cout << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
+          cout << endl << "For HACKMON #" << h+1 << ", would you like to see the Hackerdex (h) or create your own (o)? (h/o)" << endl;
           hackmonSelect = getValidValueOneOf<char>('h', 'o');
 
-          cout << "Here is a list of the 8 HACKMON types:" << endl;
+          cout << endl << "Here is a list of the 8 HACKMON types:" << endl;
           printTypeList();
           cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
           getValidValueRange(hackmonType, 1, 8);
 
           if (hackmonSelect == 'h') {
+            cout << endl << "Here is a list of the HACKMON of type " << typeString.at((Type)(hackmonType-1)) << "." << endl;
             printHackerdexAtType(hackmonType);
-            cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
+            cout << "Which HACKMON would you like to select? (1 <= # <= " << hackerdex.at((Type)(hackmonType-1)).size() << ")" << endl;
             getValidValueRange(hackmonNumber, 1, 20);
           } else {
 
