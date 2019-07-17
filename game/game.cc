@@ -103,7 +103,6 @@ int main() {
 
   string name1;
   string name2;
-  unsigned numberBattling;
   vector<unique_ptr<Hackmon>> party1;
   vector<unique_ptr<Hackmon>> party2;
   vector<unique_ptr<Item>> items1;

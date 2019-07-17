@@ -1,6 +1,7 @@
 #include <vector>
 #include <memory>
 #include <utility>
+#include <iostream>
 
 #include "player.h"
 #include "hackmon.h"
@@ -34,9 +35,9 @@ void Player::swapHackmon(unsigned index1, unsigned index2) {
 // always be swapped to contain alive hackmon (if available)
 bool Player::partyAlive() {
   for (unsigned i=0; i<numberBattling; i++) {
-    if (!isAlive(i)) return false;
+    if (isAlive(i)) return true;
   }
-  return true;
+  return false;
 }
 
 // increment win count
