@@ -18,9 +18,13 @@ using namespace std;
 
 template<typename T>
 void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
-  while (cin >> inVar) {
-    if (inVar >= rangeMin && inVar <= rangeMax) break;
-    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
+  while (true) {
+    if ((cin >> inVar) && inVar >= rangeMin && inVar <= rangeMax) {
+      break;
+    }
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
   }
 }
 
