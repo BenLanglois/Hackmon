@@ -18,18 +18,9 @@ bool Player::isAlive(unsigned index) {
 }
 
 // move calls this function -- returns nullptr if no hackmon left
-Hackmon* Player::getHackmon(unsigned index) {
-  if (isAlive(index)) {
-    return party.at(index).get();
-  }
-  else {
-    if (nextAlive < party.size()) {
-      swapHackmon(index, nextAlive++);
-      return party.at(index).get();
-    }
-    else {
-      return nullptr;
-    }
+void Player::hasFainted(unsigned index) {
+  if (nextAlive < party.size()) {
+    swapHackmon(index, nextAlive++);
   }
 }
 
