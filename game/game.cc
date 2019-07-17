@@ -115,7 +115,7 @@ int main() {
 
   while (gameLoop) {
     // pregame -----------------------------------------------------------------
-    // FIXME: clear terminal
+    cout << "\033c" << endl; // clears terminal
     cout << "Now your story begins..." << endl;
     cout << "Hello there! Welcome to the world of HACKMON!" << endl;
     cout << "My name is ROB HACKMAN! People call me the HACKMON PROF!" << endl; // FIXME: add timers to these statementd
@@ -205,6 +205,7 @@ int main() {
 
           if (numberOfMovesToSelect == 4) {
             getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()); // FIXME: remove casting
+            --newHackmonSpecialMove; // reindex to 0
           }
 
           if (hackmonSelect == 'o') {
@@ -256,10 +257,6 @@ int main() {
       while (battleLoop) {
         // battle ------------------------------------------------------------------
         cout << endl << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
-        cout << "First lets see which HACKMON you've chosen!" << endl;
-        // show players all chosen hackmon
-        p1.printParty();
-        p2.printParty();
 
         // players choose starting pokemon
         int inBattleIndex;
@@ -269,8 +266,10 @@ int main() {
           Player &curPlayer = (p==0 ? p1 : p2);
 
           cout << "Now " << curPlayer.name << ", lets choose your starting HACKMON!" << endl << endl;
-          cout << "Here is a list of your chosen HACKMON!" << endl;
-          curPlayer.printParty();
+          cout << "Lets see which HACKMON you both have chosen!" << endl;
+          // show players all chosen hackmon
+          p1.printParty();
+          p2.printParty();
 
           cout << "Please select " << numberBattling << " HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
           for (unsigned m=0; m<numberBattling; m++) {
@@ -286,7 +285,7 @@ int main() {
             }
           }
 
-          // FIXME: clear screen to hide p1 starting pokemon
+          cout << "\033c" << endl; // clears terminal
         }
 
         // loop (check if all pokemon of one player have fainted)
@@ -466,6 +465,8 @@ int main() {
                 actionQueue.push(switchPriority, &theSwitch, &currPlayer, vector<size_t>{h, selectedHackmonIndex});
               }
             }
+
+            cout << "\033c" << endl; // clears terminal
           }
 
           // Execute all actions selected by the players
