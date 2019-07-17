@@ -265,7 +265,7 @@ int main() {
           Player &curPlayer = (p==0 ? p1 : p2);
 
           cout << "Now " << curPlayer.name << ", lets choose your starting HACKMON!" << endl << endl;
-          cout << "Here is a list of your chose HACKMON!" << endl;
+          cout << "Here is a list of your chosen HACKMON!" << endl;
           curPlayer.printParty();
 
           cout << "Please select " << numberBattling << " HACKMON from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << endl;
@@ -352,7 +352,7 @@ int main() {
 
                   // pick one from list
                   size_t selectedMoveIndex;
-                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currHackmon.moves.size()+1);
+                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(1), currHackmon.moves.size());
                   --selectedMoveIndex; // Make zero-indexed
 
                   // Hard-coded move logic for 1v1 and 2v2 battles starts here ------------
@@ -370,7 +370,7 @@ int main() {
                         targets.emplace_back(0);
                       } else {
                         // Both possible targets are still alive
-                        cout << "Which enemy should " << currHackmon.name << " target?" << endl;
+                        cout << "Which enemy should " << currHackmon.name << " target? (1/2)" << endl;
                         cout << "1. " << otherPlayer.party.at(0)->name << endl;
                         cout << "2. " << otherPlayer.party.at(1)->name << endl;
                         size_t targetIndex;
@@ -404,6 +404,7 @@ int main() {
                 for (size_t index = 0; index < currPlayer.items.size(); ++index) {
                   cout << index + 1 << ". " << currPlayer.items.at(index)->name << endl;
                 }
+                cout << endl << "Please select a item (1 <= # <= " << currPlayer.items.size() << ")" << endl;
                 size_t selectedItemIndex;
                 getValidValueRange<size_t>(selectedItemIndex, 1, currPlayer.items.size());
                 --selectedItemIndex; // zero-index
