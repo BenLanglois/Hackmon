@@ -24,7 +24,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
   }
 
   if (rng.getRandom() > accuracy) {
-    cout << "Oh no! The move missed!" << endl;
+    cout << hackmon->name << " tried to use " << name << ". Oh no! The move missed!" << endl;
     return;
   }
 
@@ -36,7 +36,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
       cout << hackmon->name << " used " << name << " against " << target->name << "." << endl;
       doMoveOverride(*target);
     } else {
-      cout << "Oh no! The move failed!" << endl;
+      cout << hackmon->name << " tried to use " << name << ". Oh no! The move failed!" << endl;
     }
   }
 }
