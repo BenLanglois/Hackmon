@@ -15,10 +15,12 @@ ${EXEC}: ${OBJECTS}
 ${EXEC}.zip: ${ZIPPED}
 	zip ${EXEC} ${ZIPPED}
 
-.PHONY: clean debug
+.PHONY: clean debug local
 
 clean:
 	rm -f ${OBJECTS} ${EXEC} ${DEPENDS} ${EXEC}.zip
 
 debug: CXXFLAGS += -g
 debug: ${EXEC}
+
+local: CXX = g++-9
