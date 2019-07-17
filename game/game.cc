@@ -10,6 +10,7 @@
 #include "species.h"
 #include "stats.h"
 #include "gameConstants.h"
+#include "actionQueue.h"
 
 using namespace std;
 
@@ -78,11 +79,7 @@ int main() {
     cout << "For some people, HACKMON are pets. Others use them for fights." << endl;
     cout << "Myself...I study HACKMON as a profession. First, what is your name? (player 1)" << endl;
     cin >> name1;
-<<<<<<< Updated upstream
     cout << "Right! So your name is" << name1 << "! What is the name of your friend? (player 2)" << endl;
-=======
-    cout << "Right! So your name is" << p1.name << "! What is the name of your friend? (player 2)" << endl;
->>>>>>> Stashed changes
     cin >> name2;
 
     cout << "Your very own HACKMON legend is about to unfold!" << endl;
@@ -248,8 +245,7 @@ int main() {
           cout << "-------- ROUND " << ++loopCounter << " --------" << endl << endl;
 
           // choose move/use item/swap for each hackmon
-          unordered_map<const int, vector<Action*>> actions; // FIXME: wrong implementation of vector of moves
-          vector<Action*> p2Actions;
+          ActionQueue actionQueue;
           for (int p=0; p<2; ++p) {
             Player &currPlayer = (p == 0 ? p1 : p2);
             vector<Action*> &currPlayerActions = (p == 0 ? p1Actions : p2Actions);
