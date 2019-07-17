@@ -14,7 +14,10 @@ DebuffHeal::DebuffHeal(const string name, const Scope scope, const DebuffName de
 
 void DebuffHeal::useItemOverride(Hackmon &target) const {
   if (target.debuff.name == debuff) {
+    cout << target.name << " is no longer " << debuffString.at(target.debuff.name) << "." << endl;
     target.debuff = Debuff{HEALTHY};
+  } else {
+    cout << endl;
   }
 }
 

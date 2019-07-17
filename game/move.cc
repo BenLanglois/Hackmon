@@ -32,7 +32,7 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
     // Call doMoveOverride method for each target
     if (player.isAlive(targetIndex)) {
       Hackmon &target = *player.party.at(targetIndex);
-      cout << hackmon->name << " used " << name << " against " << target.name << "." << endl;
+      cout << hackmon->name << " used " << name << " against " << target.name << ". ";
       doMoveOverride(target);
       if (!player.isAlive(targetIndex)) {
         cout << target.name << " fainted!" << endl;

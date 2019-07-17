@@ -484,9 +484,12 @@ int main() {
             for (unsigned h=0; h<numberBattling; ++h) {
               cout << currPlayer.party.at(h)->name << ": ";
               currPlayer.party.at(h)->stats.printStats();
+              cout << "   MOBILITY: " << mobilityStringVerb.at(currPlayer.party.at(h)->mobility->name());
+              cout << "   DEBUFF: " << debuffString.at(currPlayer.party.at(h)->debuff.name) << endl;
             }
             cout << endl;
           }
+          cout << endl << endl;
         }
 
         // output winner (if winner)
@@ -503,7 +506,7 @@ int main() {
         char playAgain;
         char keepHackmon;
 
-        cout << "ROB HACKMAN here! Congrats to " << winner << "for the win!" << endl; // FIXME: add timers to these statementd
+        cout << "ROB HACKMAN here! Congrats to " << winner << " for the win!" << endl; // FIXME: add timers to these statement
         cout << "Here is the current scores:" << endl;
         cout << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;

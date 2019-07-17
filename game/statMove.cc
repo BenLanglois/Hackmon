@@ -37,11 +37,19 @@ void StatMove::doMoveOverride(Hackmon &target) const {
                       / max(1, targetDefenseStat)
     );
 
+    cout << target.name << "'s HP was lowered from " << target.stats.getStat(HP) << " to ";
+
     target.stats.setStat(HP, target.stats.getStat(HP) - damage);
+
+    cout << target.stats.getStat(HP) << "." << endl;
 
   } else {
     // We don't care about effectiveness, ATTACK, or DEFENSE for non-damage stat moves
+    cout << target.name << "'s " << statString.at(stat) << " was lowered. from " << target.stats.getStat(stat);
+
     target.stats.setStat(stat, target.stats.getStat(stat) - strength);
+
+    cout << " to " << target.stats.getStat(stat) << "." << endl;
   }
 }
 

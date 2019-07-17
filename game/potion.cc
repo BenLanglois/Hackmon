@@ -12,6 +12,8 @@ Potion::Potion(const string name, const Scope scope, const StatName stat, const 
   Item{name, scope}, stat{stat}, strength{strength} {}
 
 void Potion::useItemOverride(Hackmon &target) const {
+  cout << target.name << "'s " << statString.at(stat) << "increased from " << target.stats.getStat(stat);
+  cout << " to " << target.stats.getStat(stat) + strength << "." << endl;
   target.stats.setStat(stat, target.stats.getStat(stat) + strength);
 }
 

@@ -13,7 +13,7 @@ void Item::doActionOverride(Player &player, const std::vector<size_t> &targets) 
   for (size_t target_index: targets) {
     Hackmon &target = *player.party.at(target_index);
 
-    cout << player.name << " used " << name << " on " << target.name << "." << endl;
+    cout << player.name << " used " << name << " on " << target.name << ". ";
     // the target will never be nullptr since items are used before moves
     useItemOverride(target);
   }

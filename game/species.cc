@@ -6,7 +6,7 @@
 using namespace std;
 
 Species::Species(const string speciesName, Move &specialMove, Stats stats, vector<Family> family):
-  speciesName{speciesName}, specialMove{specialMove}, stats{stats}, family{family} {}
+  specialMove{specialMove}, stats{stats}, family{family}, speciesName{speciesName} {}
 
 unique_ptr<Hackmon> Species::createHackmon(vector<unique_ptr<Move>> &&moves, const string hackmonName = string()) {
   vector<unique_ptr<Move>> hackmonMoves = move(moves);
@@ -16,4 +16,8 @@ unique_ptr<Hackmon> Species::createHackmon(vector<unique_ptr<Move>> &&moves, con
     move->attachHackmon(h.get());
   }
   return h;
+}
+
+void Species::addArt(vector<string> artVector) {
+  art = artVector;
 }

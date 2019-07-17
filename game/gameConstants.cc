@@ -187,4 +187,165 @@ void fillHackerdex() {
           std::vector<Family>{Family(PSYCHIC)})}
     }
   };
+
+  vector<string> design;
+
+  design.emplace_back("     __\n");
+  design.emplace_back("(___()'`;\n");
+  design.emplace_back("/,    /`\n");
+  design.emplace_back("\\\"--\\\n");
+  hackerdex[NORMAL].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("     ^ ^\n");
+  design.emplace_back(" (\"\(-_-)/\")\n");
+  design.emplace_back("    (( ))\n");
+  design.emplace_back("((...) (...))\n");
+  hackerdex[NORMAL].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("       /\\\n");
+  design.emplace_back("      p  q\n");
+  design.emplace_back("  _\\| \\  / |/_\n");
+  design.emplace_back("    \\//  \\/\n");
+  design.emplace_back("     `|  |`\n");
+  design.emplace_back("      |  | ,/_\n");
+  design.emplace_back("  _\\, |  |//\\\n");
+  design.emplace_back("   /\\|  ;/\n");
+  design.emplace_back("     \\;  \\\n");
+  design.emplace_back("       '. \\\n");
+  design.emplace_back("  .-.    \\ |\n");
+  design.emplace_back("  `   '.__//\n");
+  design.emplace_back("       `\"`\n");
+  hackerdex[FIRE].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("     /\\    /\\\n");
+  design.emplace_back("  /\\/  \\/\\/  \\/\\\n");
+  design.emplace_back("/   _______     \\\n");
+  design.emplace_back("|  |    |    \\   |\n");
+  design.emplace_back("|   \\   /  ^ |   /\n");
+  design.emplace_back(" \\ / \\_/   0  \\ /\n");
+  design.emplace_back("  /            \\\n");
+  design.emplace_back(" /    ____      0\n");
+  design.emplace_back("/      /  \\___ _/\n");
+  hackerdex[FIRE].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("              __\n");
+  design.emplace_back("   .,-;-;-,. /'_\\\n");
+  design.emplace_back(" _/_/_/_|_\\_\\) /\n");
+  design.emplace_back("'-<_><_><_><_>=/\\\n");
+  design.emplace_back(" `/_/====/_/-'\\_\\\n");
+  design.emplace_back("  \"\"     \"\"    \"\"\n");
+  hackerdex[WATER].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("          ..\n");
+  design.emplace_back("         ( '`<\n");
+  design.emplace_back("          )(\n");
+  design.emplace_back("   ( ----'  '.\n");
+  design.emplace_back("   (         ;\n");
+  design.emplace_back("    (_______,'\n");
+  design.emplace_back("~^~^~^~^~^~^~^~^~\n");
+  hackerdex[WATER].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("          ___\n");
+  design.emplace_back(" _  _  .-'   '-.\n");
+  design.emplace_back("(.)(.)/         \\\n");
+  design.emplace_back(" /@@             ;\n");
+  design.emplace_back("o_\\-mm-......-mm`~~~~~~\n");
+  hackerdex[ELECTRIC].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("        ,--.!,\n");
+  design.emplace_back("     __/   -*-\n");
+  design.emplace_back("   ,d08b.  '|`\n");
+  design.emplace_back("   0088MM\n");
+  design.emplace_back("   `9MMP'\n");
+  hackerdex[ELECTRIC].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back(" ,--.\n");
+  design.emplace_back("`.`_.`\\\n");
+  design.emplace_back("     \\ \\\n");
+  design.emplace_back("      \\ \\\n");
+  design.emplace_back("       \\ \\\n");
+  design.emplace_back("        \\ `-''^^^^^''-.\n");
+  design.emplace_back("         \\             `-._\n");
+  design.emplace_back("         >>   >  <  <__    ^'-----...,,_\n");
+  design.emplace_back("        //__/`---'\\__\\`'\"\"\"\"'\"'\"'\"'''''``\n");
+  design.emplace_back("       `\"`\"\"      `\"\"`\"\n");
+  hackerdex[GRASS].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("         __/)\n");
+  design.emplace_back("      .-(__(=:\n");
+  design.emplace_back("   |\\ |    \\)\n");
+  design.emplace_back("   \\ ||\n");
+  design.emplace_back("    \\||\n");
+  design.emplace_back("     \\|\n");
+  design.emplace_back("      |\n");
+  hackerdex[GRASS].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("  ,.\n");
+  design.emplace_back("  \\-'__\n");
+  design.emplace_back(" / o.__o____\n");
+  design.emplace_back(" \\/_/ /.___/--,\n");
+  design.emplace_back("   ||\\'\n");
+  design.emplace_back("   | /\n");
+  design.emplace_back("   \\_\\\n");
+  design.emplace_back("   -''\n");
+  hackerdex[FIGHTING].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("      __\n");
+  design.emplace_back(" w  c(..)o   (\n");
+  design.emplace_back("  \\__(-)    __)\n");
+  design.emplace_back("      /\\   (\n");
+  design.emplace_back("     /(_)___)\n");
+  design.emplace_back("     w /|\n");
+  design.emplace_back("      | \\n");
+  design.emplace_back("      m  m\n");
+  hackerdex[FIGHTING].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("    _______\n");
+  design.emplace_back("---'   ____)\n");
+  design.emplace_back("      (_____)\n");
+  design.emplace_back("      (_____)\n");
+  design.emplace_back("      (____)\n");
+  design.emplace_back("---.__(___)\n");
+  hackerdex[GROUND].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("    ....,\n");
+  design.emplace_back("   /     \\\n");
+  design.emplace_back("   | |   |\n");
+  design.emplace_back("   0,    |\n");
+  design.emplace_back("  ,|     |,\n");
+  design.emplace_back(":\":\":\":\":\":\":\n");
+  hackerdex[GROUND].at(1).addArt(design);
+
+  design.clear();
+  design.emplace_back("     __/\\__\n");
+  design.emplace_back(". _  \\''//\n");
+  design.emplace_back("-( )-/_||_\\n");
+  design.emplace_back(" .'. \\_()_/\n");
+  design.emplace_back("  |   | . \\\n");
+  design.emplace_back("  |   | .  \\\n");
+  design.emplace_back(" .'. ,\\_____'.\n");
+  hackerdex[PSYCHIC].at(0).addArt(design);
+
+  design.clear();
+  design.emplace_back("       _.---._    /\\\\n");
+  design.emplace_back("    ./'       \"--`\\//\n");
+  design.emplace_back("  ./              o \\\\n");
+  design.emplace_back(" /./\\  )______   \\__ \\\\n");
+  design.emplace_back("./  / /\\ \\   | \\ \\  \\ \\\n");
+  design.emplace_back("   / /  \\ \\  | |\\ \\  \\7\\n");
+  design.emplace_back("    "     "    "  "\n");
+  hackerdex[PSYCHIC].at(1).addArt(design);
 }
