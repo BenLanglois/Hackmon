@@ -281,6 +281,8 @@ int main() {
 
           // The priority queue of actions
           ActionQueue actionQueue;
+          // The list of actions to be used this round
+          vector<unique_ptr<Item>> itemsThisRound;
 
           // choose move/use item/swap for each hackmon
           for (int p=0; p<2; ++p) {
@@ -295,7 +297,7 @@ int main() {
               cout << currPlayer.name << ", please select for " << currHackmon.name << endl;
 
               char action;
-              if (currPlayer.items.size() != 0) {
+              if (currPlayer.items.size() > 0) {
                 // Able to use items
                 if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
                   // Able to switch
@@ -334,11 +336,10 @@ int main() {
                   getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currHackmon.moves.size()+1);
                   --selectedMoveIndex; // Make zero-indexed
 
+                  // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
                   Move &selectedMove = *currHackmon.moves.at(selectedMoveIndex);
-
                   vector<size_t> targets;
 
-                  // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
                   if (numberBattling == 1) {
                     targets.emplace_back(0);
                   } else {
@@ -380,6 +381,52 @@ int main() {
               } else if (action == 'i') {
                 // output list of items
                 cout << "Here is a list of the available items:" << endl;
+                for (size_t index = 0; index < currPlayer.items.size(); ++index) {
+                  cout << index + 1 << ". " << currPlayer.items.at(index)->name << endl;
+                }
+                size_t selectedItemIndex;
+                getValidValueRange<size_t>(selectedItemIndex, 1, currPlayer.items.size());
+                --selectedItemIndex; // zero-index
+
+                // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
+                Item &selectedItem = *currPlayer.items.at(selectedItemIndex);
+                vector<size_t> targets;
+
+                if (numberBattling == 1) {
+                  targets.emplace_back(0);
+                } else {
+                  if (selectedItem.scope == SINGLE) {
+                    // select targets (if needed)
+                    if (!currPlayer.isAlive(0)) {
+                      targets.emplace_back(1);
+                    } else if (!currPlayer.isAlive(1)) {
+                      targets.emplace_back(0);
+                    } else {
+                      // Both possible targets are still alive
+                      cout << "Which HACKMON should receive the item?" << endl;
+                      cout << "0. " << currPlayer.party.at(0)->name << endl;
+                      cout << "1. " << currPlayer.party.at(1)->name << endl;
+                      size_t targetIndex;
+                      getValidValueRange<size_t>(targetIndex, 0, 1);
+                      targets.emplace_back(targetIndex);
+                    }
+                  } else {
+                    // give item to all hackmon
+                    if (currPlayer.isAlive(0)) {
+                      targets.emplace_back(0);
+                    }
+                    if (currPlayer.isAlive(1)) {
+                      targets.emplace_back(1);
+                    }
+                  }
+                }
+                // Hard-coded logic for 1v1 and 2v2 battles ends here --------------
+
+                // Move item from player's item list to itemsThisRound vector
+                itemsThisRound.emplace_back(unique_ptr<Item> {nullptr});
+                swap(itemsThisRound.back(), currPlayer.items.at(selectedItemIndex));
+                currPlayer.items.erase(currPlayer.items.begin() + selectedItemIndex);
+                actionQueue.push(itemPriority, itemsThisRound.back().get(), &currPlayer, targets);
 
               } else {
                 // Switch Hackmon
@@ -389,7 +436,7 @@ int main() {
                 }
                 size_t selectedHackmonIndex;
                 getValidValueRange<size_t>(selectedHackmonIndex, 1, numberParty - currPlayer.nextAlive);
-                selectedHackmonIndex += currPlayer.nextAlive - 1;
+                selectedHackmonIndex += currPlayer.nextAlive - 1; // Set to actual index into party vector
                 actionQueue.push(switchPriority, &theSwitch, &currPlayer, vector<size_t>{h, selectedHackmonIndex});
               }
             }
