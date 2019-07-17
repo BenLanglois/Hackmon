@@ -71,6 +71,7 @@ void printTypeList() {
 void printMoveList() {
   int i = 0;
   for (auto& move : moveList) {
+    if (i < 9) cout << " "; 
     cout << ++i << ". ";
     move->printMove();
     cout << endl;
