@@ -36,7 +36,12 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
       doMoveOverride(target);
       if (!player.isAlive(targetIndex)) {
         cout << target.name << " fainted!" << endl;
-        player.hasFainted(targetIndex);
+
+        string oldTargetName = target.name;
+        bool successfulSwitch = player.hasFainted(targetIndex);
+        if (successfulSwitch) {
+          cout << oldTargetName << " has been swapped out with " << player.party.at(targetIndex)->name << "." << endl;
+        }
       }
     } else {
       cout << hackmon->name << " tried to use " << name << ". Oh no! The move failed!" << endl;

@@ -24,7 +24,7 @@ class Player {
   bool isAlive(unsigned);
 
   // move calls this function -- returns nullptr if no hackmon left
-  void hasFainted(unsigned);
+  bool hasFainted(unsigned);
 
   // index1 from inBattle vector, index2 from party not in inBattle and not fainted
   void swapHackmon(unsigned, unsigned);

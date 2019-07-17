@@ -19,10 +19,12 @@ bool Player::isAlive(unsigned index) {
 }
 
 // move calls this function -- returns nullptr if no hackmon left
-void Player::hasFainted(unsigned index) {
+bool Player::hasFainted(unsigned index) {
   if (nextAlive < party.size()) {
     swapHackmon(index, nextAlive++);
+    return true;
   }
+  return false;
 }
 
 // index1 from party, index2 from party not in battle and not fainted

@@ -289,7 +289,7 @@ int main() {
 
         // loop (check if all pokemon of one player have fainted)
         int loopCounter = 0;
-        cout << endl << "Time to battle!" << endl;
+        cout << endl << "Time to battle!" << endl << endl;
 
         const int itemPriority = 99;
         const int switchPriority = 100; // We all know that numbers stop at 100
@@ -315,7 +315,11 @@ int main() {
                 continue;
               }
               Hackmon &currHackmon = *currPlayer.party.at(h);
-              cout << currPlayer.name << ", please select for " << currHackmon.name << endl;
+              cout << currPlayer.name << ", please select for " << currHackmon.name << endl << endl;
+              cout << currHackmon.name << "'s stats:" << endl;
+              currHackmon.stats.printStats();
+              cout << "   MOBILITY: " << mobilityStringVerb.at(currHackmon.mobility->name());
+              cout << "   DEBUFF: " << debuffString.at(currHackmon.debuff.name) << endl << endl;
 
               char action;
               if (currPlayer.items.size() > 0) {
@@ -346,7 +350,7 @@ int main() {
 
               if (action == 'm') {
                   // Hackmon does a move
-                  cout << "Here is a list of the available moves:" << endl;
+                  cout << endl << "Here is a list of the available moves:" << endl;
                   for (size_t moveIndex = 0; moveIndex < currHackmon.moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
                     cout << moveIndex+1 << ": ";
@@ -404,9 +408,11 @@ int main() {
 
               } else if (action == 'i') {
                 // output list of items
-                cout << "Here is a list of the available items:" << endl;
+                cout << endl << "Here is a list of the available items:" << endl;
                 for (size_t index = 0; index < currPlayer.items.size(); ++index) {
-                  cout << index + 1 << ". " << currPlayer.items.at(index)->name << endl;
+                  cout << index + 1 << ". ";
+                  currPlayer.items.at(index)->printItem();
+                  cout << endl;
                 }
                 cout << endl << "Please select a item (1 <= # <= " << currPlayer.items.size() << ")" << endl;
                 size_t selectedItemIndex;
@@ -509,7 +515,7 @@ int main() {
             hackmon->restore();
           }
         }
-        
+
         // postgame ----------------------------------------------------------------
         char playAgain;
         char keepHackmon;
