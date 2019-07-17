@@ -90,8 +90,6 @@ int main() {
   vector<unique_ptr<Item>> items1;
   vector<unique_ptr<Item>> items2;
 
-  int numberParty = 6;
-  int numberOfItems = 3;
   bool gameLoop = true;
   bool battleLoop = true;
   bool playerLoop = true;
@@ -177,7 +175,7 @@ int main() {
           cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
           cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
           for (int k=0; k<3; k++) {
-            getValidValueRange(hackmonMove, 1, (int)moveList.size()-1); // FIXME: remove casting
+            getValidValueRange(hackmonMove, 1, (int)moveList.size()); // FIXME: remove casting
             hackmonMoves.emplace_back(moveList.at(hackmonMove-1)->clone());
           }
 
@@ -222,7 +220,7 @@ int main() {
           cout << "Which items would you like to select? Please type " << numberOfItems;
           cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
           for (int k=0; k<numberOfItems; k++) {
-            getValidValueRange(itemNumber, 1, (int)itemList.size()-1); // FIXME: remove cast
+            getValidValueRange(itemNumber, 1, (int)itemList.size()); // FIXME: remove cast
             if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
           }
         }

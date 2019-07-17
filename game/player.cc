@@ -5,11 +5,9 @@
 #include "player.h"
 #include "hackmon.h"
 #include "statInfo.h"
+#include "globalConstants.h"
 using namespace std;
 
-// FIXME: remove these 2 later
-unsigned numberBattling;
-int numberParty;
 
 // FIXME: numberBattling global variable unsigned int
 Player::Player(string name, vector<unique_ptr<Hackmon>> &&party, vector<unique_ptr<Item>> &&items):
