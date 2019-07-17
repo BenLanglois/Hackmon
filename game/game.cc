@@ -352,10 +352,11 @@ int main() {
                       } else {
                         // Both possible targets are still alive
                         cout << "Which enemy should " << currHackmon.name << " target?" << endl;
-                        cout << "0. " << otherPlayer.party.at(0)->name << endl;
-                        cout << "1. " << otherPlayer.party.at(1)->name << endl;
+                        cout << "1. " << otherPlayer.party.at(0)->name << endl;
+                        cout << "2. " << otherPlayer.party.at(1)->name << endl;
                         size_t targetIndex;
-                        getValidValueRange<size_t>(targetIndex, 0, 1);
+                        getValidValueRange<size_t>(targetIndex, 1, 2);
+                        --targetIndex;
                         targets.emplace_back(targetIndex);
                       }
 
@@ -404,10 +405,11 @@ int main() {
                     } else {
                       // Both possible targets are still alive
                       cout << "Which HACKMON should receive the item?" << endl;
-                      cout << "0. " << currPlayer.party.at(0)->name << endl;
-                      cout << "1. " << currPlayer.party.at(1)->name << endl;
+                      cout << "1. " << currPlayer.party.at(0)->name << endl;
+                      cout << "2. " << currPlayer.party.at(1)->name << endl;
                       size_t targetIndex;
-                      getValidValueRange<size_t>(targetIndex, 0, 1);
+                      getValidValueRange<size_t>(targetIndex, 1, 2);
+                      --targetIndex;
                       targets.emplace_back(targetIndex);
                     }
                   } else {
