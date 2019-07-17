@@ -34,7 +34,9 @@ void Move::doActionOverride(Player &player, const std::vector<size_t> &targets) 
       Hackmon &target = *player.party.at(targetIndex);
       cout << hackmon->name << " used " << name << " against " << target.name << "." << endl;
       doMoveOverride(target);
-      player.hasFainted(targetIndex);
+      if (!player.isAlive(targetIndex)) {
+        player.hasFainted(targetIndex);
+      }
     } else {
       cout << hackmon->name << " tried to use " << name << ". Oh no! The move failed!" << endl;
     }
