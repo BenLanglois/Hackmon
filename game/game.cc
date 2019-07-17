@@ -279,10 +279,11 @@ int main() {
           ActionQueue actionQueue;
           for (int p=0; p<2; ++p) {
             Player &currPlayer = (p == 0 ? p1 : p2);
-            vector<Action*> &currPlayerActions = (p == 0 ? p1Actions : p2Actions);
+            Player &otherPlayer = (p == 0 ? p2 : p1);
 
             for (unsigned h=0; h<numberBattling; ++h) {
-              cout << currPlayer.name << " please select for " << currPlayer.party.at(h)->name << endl;
+              Hackmon &currHackmon = *currPlayer.party.at(h);
+              cout << currPlayer.name << ", please select for " << currHackmon.name << endl;
 
               char action;
               if (currPlayer.items.size() != 0) {
@@ -314,18 +315,58 @@ int main() {
               if (action == 'm') {
                   // output list of moves
                   cout << "Here is a list of the available moves:" << endl;
-                  for (size_t moveIndex = 0; moveIndex < currPlayer.party.at(h)->moves.size(); ++moveIndex) {
+                  for (size_t moveIndex = 0; moveIndex < currHackmon.moves.size(); ++moveIndex) {
                     // Give one-indexed list of moves
-                    cout << moveIndex+1 << ": " << currPlayer.party.at(h)->moves.at(moveIndex)->name << endl;
+                    cout << moveIndex+1 << ": " << currHackmon.moves.at(moveIndex)->name << endl;
                   }
 
                   // pick one from list
                   size_t selectedMoveIndex;
-                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currPlayer.party.at(h)->moves.size()+1);
+                  getValidValueRange(selectedMoveIndex, static_cast<size_t>(0), currHackmon.moves.size()+1);
                   --selectedMoveIndex; // Make zero-indexed
 
+                  Move &selectedMove = *currHackmon.moves.at(selectedMoveIndex);
+
+                  vector<size_t> targets;
+
+                  // Hard-coded logic for 1v1 and 2v2 battles starts here ------------
+                  if (numberBattling == 1) {
+                    targets.emplace_back(0);
+                  } else {
+                    if (selectedMove.scope == SINGLE) {
+                      // select targets (if needed)
+                      if (!otherPlayer.isAlive(0)) {
+                        targets.emplace_back(1);
+                      } else if (!otherPlayer.isAlive(1)) {
+                        targets.emplace_back(0);
+                      } else {
+                        // Both possible targets are still alive
+                        cout << "Which enemy should " << currHackmon.name << " target?" << endl;
+                        cout << "0. " << otherPlayer.party.at(0)->name << endl;
+                        cout << "1. " << otherPlayer.party.at(1)->name << endl;
+                        size_t targetIndex;
+                        getValidValueRange<size_t>(targetIndex, 0, 1);
+                        targets.emplace_back(targetIndex);
+                      }
+
+                    } else {
+                      // attack all targets
+                      if (otherPlayer.isAlive(0)) {
+                        targets.emplace_back(0);
+                      }
+                      if (otherPlayer.isAlive(1)) {
+                        targets.emplace_back(1);
+                      }
+                    }
+                  }
+                  // Hard-coded logic for 1v1 and 2v2 battles ends here --------------
+
                   // add to playerMove vector
-                  currPlayerActions.emplace_back(currPlayer.party.at(h)->moves.at(selectedMoveIndex));
+                  int speed = currHackmon.stats.getStat(SPEED);
+                  if (currHackmon.debuff.stat == SPEED) {
+                    speed -= currHackmon.debuff.strength;
+                  }
+                  actionQueue.push(speed, &selectedMove, &currPlayer, targets);
 
               } else if (action == 'i') {
                 // output list of items
