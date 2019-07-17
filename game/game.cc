@@ -172,7 +172,7 @@ int main() {
             cout << endl << "Here is a list of the HACKMON of type " << typeString.at((Type)hackmonType) << "." << endl;
             printHackerdexAtType(hackmonType);
             cout << "Which HACKMON would you like to select? (1 <= # <= " << hackerdex.at((Type)hackmonType).size() << ")" << endl;
-            getValidValueRange(hackmonNumber, 1, 20);
+            getValidValueRange(hackmonNumber, 1, (int)hackerdex.at((Type)hackmonType).size());
             hackmonNumber--;
           } else {
 
@@ -235,7 +235,7 @@ int main() {
           if (p==0) party1.emplace_back(move(newHackmon)); else party2.emplace_back(move(newHackmon));
           cout << endl << "Great! " << (p==0 ? party1.back()->name : party2.back()->name) << " has been added to your party!" << endl << endl;
 
-          cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
+          cout << "Now, lets select some items to put in your bag! Here is a list of the available items:" << endl;
           printItemList();
           cout << "Which items would you like to select? Please type " << numberOfItems;
           cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
