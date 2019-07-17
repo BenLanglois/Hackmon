@@ -12,6 +12,7 @@ class MobilityHeal: public Item {
 
 public:
   MobilityHeal(const std::string, const Scope, MobilityName);
+  virtual std::unique_ptr<Item> clone() const override;
 };
 
 #endif

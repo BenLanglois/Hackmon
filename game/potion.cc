@@ -11,3 +11,7 @@ Potion::Potion(const string name, const Scope scope, const StatName stat, const 
 void Potion::useItemOverride(Hackmon &target) const {
   target.stats.setStat(stat, target.stats.getStat(stat) + strength);
 }
+
+unique_ptr<Item> Potion::clone() const {
+  return make_unique<Potion>(*this);
+}

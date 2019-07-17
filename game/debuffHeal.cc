@@ -15,3 +15,7 @@ void DebuffHeal::useItemOverride(Hackmon &target) const {
     target.debuff = Debuff{HEALTHY};
   }
 }
+
+unique_ptr<Item> DebuffHeal::clone() const {
+  return make_unique<DebuffHeal>(*this);
+}
