@@ -301,19 +301,19 @@ int main() {
                 // Able to use items
                 if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
                   // Able to switch
-                  cout << "Will you make a move against your oppoent, use an item, "
+                  cout << "Will you make a move against your opponent, use an item, "
                        << "or swap out your HACKMON with another in your party? (m/i/s)" << endl;
                   action = getValidValueOneOf<char>('m', 'i', 's');
                 } else {
                   // Unable to switch
-                  cout << "Will you make a move against your oppoent or use an item? (m/i) " << endl;
+                  cout << "Will you make a move against your opponent or use an item? (m/i) " << endl;
                   action = getValidValueOneOf<char>('m', 'i');
                 }
               } else {
                 // Unable to use items
                 if (currPlayer.nextAlive < static_cast<unsigned>(numberParty)) {
                   // Able to switch
-                  cout << "Will you make a move against your oppoent "
+                  cout << "Will you make a move against your opponent "
                        << "or swap out your HACKMON with another in your party? (m/s)" << endl;
                   action = getValidValueOneOf<char>('m', 's');
                 } else {
