@@ -26,8 +26,8 @@ unique_ptr<Move> DebuffMove::clone() const {
 void DebuffMove::printMove() {
   cout << left << "Name: " << setw(20) << name;
   cout << "Type: " << setw(12) << typeString.at(family.type);
-  cout << "Move Type: " << setw(18) << "Mobility Move";
+  cout << "Move Type: " << setw(18) << "Debuff Move";
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==0 ? "Single" : "All");
-  cout << "Accuracy: " << setw(18) << accuracy << "%";
+  cout << "Accuracy: " << accuracy << (accuracy==100 ? setw(10) : setw(11)) << "%";
   cout << "Debuff: " << setw(12) << debuffString.at(debuff.name);
 }

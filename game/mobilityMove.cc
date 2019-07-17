@@ -29,6 +29,6 @@ void MobilityMove::printMove() {
   cout << "Type: " << setw(12) << typeString.at(family.type);
   cout << "Move Type: " << setw(18) << "Mobility Move";
   if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
-  cout << "Accuracy: " << setw(18) << accuracy << "%";
+  cout << "Accuracy: " << accuracy << (accuracy==100 ? setw(10) : setw(11)) << "%";
   cout << "Mobility: " << setw(12) << mobilityString.at(mobility);
 }
