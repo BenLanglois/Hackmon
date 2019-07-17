@@ -13,7 +13,7 @@ using namespace std;
 ActionQueue::ActionQueue() {}
 
 void ActionQueue::push(const int priority, Action * const action, Player * const player, const vector<size_t> targets) {
-  theQueue.at(priority).emplace_back(tuple<Action * const, Player * const, const vector<size_t>> {action, player, targets});
+  theQueue[priority].emplace_back(tuple<Action * const, Player * const, const vector<size_t>> {action, player, targets});
 }
 
 bool ActionQueue::isEmpty() {
