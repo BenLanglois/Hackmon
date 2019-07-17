@@ -31,6 +31,8 @@ public:
 
   Move(const std::string, const Scope, const unsigned, const Family);
 
+  virtual void printMove() = 0;
+
   virtual ~Move() = 0;
 };
 

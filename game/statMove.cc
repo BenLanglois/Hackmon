@@ -1,10 +1,14 @@
 #include <string>
+#include <iostream>
+#include <iomanip>
 
 #include "statMove.h"
 #include "statInfo.h"
 #include "family.h"
 #include "hackmon.h"
-
+#include "type.h"
+#include "globalConstants.h"
+#include "actionInfo.h"
 using namespace std;
 
 StatMove::StatMove(const std::string name, const Scope scope, const unsigned accuracy,
@@ -43,4 +47,14 @@ void StatMove::doMoveOverride(Hackmon &target) const {
 
 unique_ptr<Move> StatMove::clone() const {
   return make_unique<StatMove>(*this);
+}
+
+void StatMove::printMove() {
+  cout << left << "Name: " << setw(20) << name;
+  cout << "Type: " << setw(12) << typeString.at(family.type);
+  cout << "Move Type: " << setw(18) << "Stat Move";
+  if (numberBattling > 1) cout << "Scope: " << setw(18) << (scope==SINGLE ? "Single" : "All");
+  cout << "Accuracy: " << setw(18) << accuracy << "%";
+  cout << "Stat: " << setw(10) << statString.at(stat);
+  cout << "Strength: " << setw(12) << strength;
 }

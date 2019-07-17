@@ -4,6 +4,7 @@
 #include "statInfo.h"
 #include <map>
 #include <utility>
+#include <string>
 
 enum DebuffName {
   HEALTHY,
@@ -17,6 +18,13 @@ std::map<DebuffName, StatName> debuffMap = {
   {POISONED, ATTACK},
   {BURNED, DEFENSE},
   {FROZEN, SPEED}
+};
+
+std::map<DebuffName, std::string> debuffString = {
+  {HEALTHY, "Healthy"},
+  {POISONED, "Posioned"},
+  {BURNED, "Burned"},
+  {FROZEN, "Frozen"}
 };
 
 #endif

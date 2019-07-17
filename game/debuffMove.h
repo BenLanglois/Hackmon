@@ -14,6 +14,7 @@ public:
   DebuffMove(const std::string, const Scope, const unsigned,
              const Family, const Debuff);
   virtual std::unique_ptr<Move> clone() const override;
+  virtual void printMove() override;
 };
 
 #endif

@@ -23,18 +23,6 @@
 #include "mobilityHeal.h"
 #include "debuffHeal.h"
 
-// Hackmon Type to String
-const std::map<Type, std::string> typeString = {
-  {NORMAL, "Normal"},
-  {FIRE, "Fire"},
-  {WATER, "Water"},
-  {ELECTRIC, "Electric"},
-  {GRASS, "Grass"},
-  {FIGHTING, "Fighting"},
-  {GROUND, "Ground"},
-  {PSYCHIC, "Psychic"}
-};
-
 enum HACKERDEX_NAMES {
   BROWN_PUPPY,
   SLEEPY_SLOTH,
@@ -53,7 +41,7 @@ enum HACKERDEX_NAMES {
   SPOON_WIZARD,
   VOODOO_ANTEATER
 };
-/* Special Move List */ 
+/* Special Move List */
 
 std::vector<std::unique_ptr<Move>> specialMoveList = {
   std::make_unique<StatMove>(std::string("Tail Whip"), SINGLE, 100, Family(NORMAL), DEFENSE, 5),
@@ -124,7 +112,7 @@ std::vector<std::unique_ptr<Move>> moveList = {
   std::make_unique<StatMove>(std::string("Barrier Break"), ALL, 60, Family(PSYCHIC), DEFENSE, 3),
   std::make_unique<StatMove>(std::string("Psywave"), ALL, 100, Family(PSYCHIC), HP, 2),
   std::make_unique<MobilityMove>(std::string("Telekinesis"), SINGLE, 50, Family(PSYCHIC), PARALYSIS),
-  std::make_unique<MobilityMove>(std::string("Confusion"), ALL, 40, Family(PSYCHIC), CONFUSION) 
+  std::make_unique<MobilityMove>(std::string("Confusion"), ALL, 40, Family(PSYCHIC), CONFUSION)
 };
 
 /* Hackerdex */
@@ -145,18 +133,18 @@ std::map<Type, std::vector<Species>> hackerdex = {
       Species(std::string("Spicy Lizard"),
         *specialMoveList.at(SPICY_LIZARD),
         Stats(120, 7, 5, 7),
-        std::vector<Family>{Family(FIRE)}),   
+        std::vector<Family>{Family(FIRE)}),
       Species(std::string("Flaming Dog"),
         *specialMoveList.at(FLAMING_DOG),
         Stats(140, 8, 6, 7),
         std::vector<Family>{Family(FIRE)})}
   },
   { WATER,
-    std::vector<Species> {  
+    std::vector<Species> {
       Species(std::string("Moist Turtle"),
         *specialMoveList.at(MOIST_TURTLE),
         Stats(120, 6, 6, 8),
-        std::vector<Family>{Family(WATER)}),   
+        std::vector<Family>{Family(WATER)}),
       Species(std::string("Slow Duck"),
         *specialMoveList.at(SLOW_DUCK),
         Stats(100, 4, 6, 4),
@@ -167,7 +155,7 @@ std::map<Type, std::vector<Species>> hackerdex = {
       Species(std::string("Sparky Mouse"),
         *specialMoveList.at(SPARKY_MOUSE),
         Stats(150, 7, 7, 7),
-        std::vector<Family>{Family(ELECTRIC)}),   
+        std::vector<Family>{Family(ELECTRIC)}),
       Species(std::string("Exploding Orb"),
         *specialMoveList.at(EXPLODING_ORB),
         Stats(140, 8, 2, 5),
@@ -178,18 +166,18 @@ std::map<Type, std::vector<Species>> hackerdex = {
       Species(std::string("Bulb Dinosaur"),
         *specialMoveList.at(BULB_DINOSAUR),
         Stats(120, 5, 8, 7),
-        std::vector<Family>{Family(GRASS)}),   
+        std::vector<Family>{Family(GRASS)}),
       Species(std::string("Dancing Flower"),
         *specialMoveList.at(DANCING_FLOWER),
         Stats(100, 5, 5, 9),
         std::vector<Family>{Family(GRASS)})}
   },
-  { FIGHTING, 
+  { FIGHTING,
     std::vector<Species> {
       Species(std::string("Karate Kid"),
         *specialMoveList.at(KARATE_KID),
         Stats(130, 8, 7, 7),
-        std::vector<Family>{Family(FIGHTING)}),   
+        std::vector<Family>{Family(FIGHTING)}),
       Species(std::string("Monkey Man"),
         *specialMoveList.at(MONKEY_MAN),
         Stats(170, 6, 5, 8),
@@ -200,18 +188,18 @@ std::map<Type, std::vector<Species>> hackerdex = {
       Species(std::string("Rock Guy"),
         *specialMoveList.at(ROCK_GUY),
         Stats(120, 5, 9, 6),
-        std::vector<Family>{Family(GROUND)}),   
+        std::vector<Family>{Family(GROUND)}),
       Species(std::string("Armless Groundhog"),
         *specialMoveList.at(ARMLESS_GROUNDHOG),
         Stats(150, 6, 6, 6),
         std::vector<Family>{Family(GROUND)})}
   },
-  { PSYCHIC,  
+  { PSYCHIC,
     std::vector<Species> {
       Species(std::string("Spoon Wizard"),
         *specialMoveList.at(SPOON_WIZARD),
         Stats(180, 7, 5, 6),
-        std::vector<Family>{Family(PSYCHIC)}),   
+        std::vector<Family>{Family(PSYCHIC)}),
       Species(std::string("Voodoo Anteater"),
         *specialMoveList.at(VOODOO_ANTEATER),
         Stats(140, 5, 8, 7),
@@ -220,19 +208,18 @@ std::map<Type, std::vector<Species>> hackerdex = {
 };
 
 /* Item List*/
-
-const std::vector<Item> itemList = {
+std::vector<std::unique_ptr<Item>> itemList = {
   // hp potion
-  Potion(std::string("Potion"), SINGLE, HP, 50),
-  Potion(std::string("Super Potion"), SINGLE, HP, 100),
-  Potion(std::string("Multi-Potion"), ALL, HP, 30),
+  std::make_unique<Potion>(std::string("Potion"), SINGLE, HP, 50),
+  std::make_unique<Potion>(std::string("Super Potion"), SINGLE, HP, 100),
+  std::make_unique<Potion>(std::string("Multi-Potion"), ALL, HP, 30),
   // mobility heals
-  MobilityHeal(std::string("Awakening"), SINGLE, SLEEP),
-  MobilityHeal(std::string("Paralyze Heal"), SINGLE, PARALYSIS),
+  std::make_unique<MobilityHeal>(std::string("Awakening"), SINGLE, SLEEP),
+  std::make_unique<MobilityHeal>(std::string("Paralyze Heal"), SINGLE, PARALYSIS),
   // debuff heals
-  DebuffHeal(std::string("Antidote"), SINGLE, POISONED),
-  DebuffHeal(std::string("Burn Heal"), SINGLE, BURNED),
-  DebuffHeal(std::string("Ice Heal"), SINGLE, FROZEN),
+  std::make_unique<DebuffHeal>(std::string("Antidote"), SINGLE, POISONED),
+  std::make_unique<DebuffHeal>(std::string("Burn Heal"), SINGLE, BURNED),
+  std::make_unique<DebuffHeal>(std::string("Ice Heal"), SINGLE, FROZEN),
 };
 
 #endif

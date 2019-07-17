@@ -15,6 +15,7 @@ public:
   const std::string name;
   const Scope scope;
   Item(const std::string, const Scope);
+  virtual void printItem() = 0;
   virtual ~Item() = 0;
 };
 

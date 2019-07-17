@@ -12,6 +12,7 @@ class MobilityHeal: public Item {
 
 public:
   MobilityHeal(const std::string, const Scope, MobilityName);
+  virtual void printItem() override;
 };
 
 #endif

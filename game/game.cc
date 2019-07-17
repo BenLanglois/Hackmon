@@ -17,8 +17,8 @@ using namespace std;
 template<typename T>
 void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   while (cin >> inVar) {
-    if (inVar > rangeMin && inVar < rangeMax) break;
-    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin+1 << "<= # <= " << rangeMax-1 << ")" << endl;
+    if (inVar >= rangeMin && inVar <= rangeMax) break;
+    else cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
   }
 }
 
@@ -53,6 +53,31 @@ T getValidValueOneOf(Rest... values) {
     cout << ")" << endl;
   }
   return inVar;
+}
+
+void printTypeList() {
+  int i = 0;
+  for (auto const& type : typeString) {
+    cout << ++i << ". " << type.second << endl;
+  }
+}
+
+void printMoveList() {
+  int i = 0;
+  for (auto& move : moveList) {
+    cout << ++i << ". ";
+    move->printMove();
+    cout << endl;
+  }
+}
+
+void printItemList() {
+  int i = 0;
+  for (auto& item : itemList) {
+    cout << ++i << ". ";
+    item->printItem();
+    cout << endl;
+  }
 }
 
 int main() {
@@ -109,6 +134,7 @@ int main() {
           string newHackmonSpecies;
           string newHackmonName;
           vector<Family> newHackmonFamily;
+          int newHackmonSpecialMove;
           int newHackmonHp;
           int newHackmonAttack;
           int newHackmonDefense;
@@ -121,16 +147,17 @@ int main() {
           hackmonSelect = getValidValueOneOf<char>('h', 'o');
 
           cout << "Here is a list of the 8 HACKMON types:" << endl;
-          cout << /* type list */ << endl;
+          printTypeList();
           cout << "Which type would you like your HACKMON to be? (1 <= # <= 8)" << endl;
-          getValidValueRange(hackmonType, 0, 9);
+          getValidValueRange(hackmonType, 1, 8);
 
           if (hackmonSelect == 'h') {
             // print out Hackerdex with numbers beside it
             cout << "Which HACKMON would you like to select? (1 <= # <= 20)" << endl;
-            getValidValueRange(hackmonNumber, 0, 21);
+            getValidValueRange(hackmonNumber, 1, 20);
           } else {
-            newHackmonFamily.emplace_back(/* family object - typeList[newHackmonType] */);
+
+            newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
             cout << "What would you like the name of your species to be?" << endl;
             cin >> newHackmonSpecies;
           }
@@ -144,40 +171,44 @@ int main() {
           }
 
           int numberOfMovesToSelect = (hackmonSelect == 'h') ? 3 : 4;
-          cout << "Here is a list of the # HACKMON moves:" << endl;
-          cout << /* move list */ << endl;
+          cout << "Here is a list of the " << moveList.size() << " HACKMON moves:" << endl;
+          printMoveList();
           cout << "Which moves would you like your HACKMON to have? Please type " << numberOfMovesToSelect;
-          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
-          for (int k=0; k<numberOfMovesToSelect; k++) {
-            cin >> hackmonMove; // FIXME: add num check
-            hackmonMoves.emplace_back(make_unique<Move>(/*MoveList[hackmonMove-1]*/));
+          cout  << " numbers separated by spaces (1 <= # <= " << moveList.size() << ")" << endl;
+          for (int k=0; k<3; k++) {
+            getValidValueRange(hackmonMove, 1, (int)moveList.size()-1); // FIXME: remove casting
+            hackmonMoves.emplace_back(make_unique<Move>(moveList.at(hackmonMove-1)));
+          }
+
+          if (numberOfMovesToSelect == 4) {
+            getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()-1); // FIXME: remove casting
           }
 
           if (hackmonSelect == 'o') {
             cout << "Now lets set your HACKMON stats." << endl;
             cout << "What would you like your maximum health points(HP) to be? (1 <= # <= 200)" << endl;
-            getValidValueRange(newHackmonHp, 0, 201);
+            getValidValueRange(newHackmonHp, 1, 200);
 
             cout << "What would you like your base attack level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonAttack, 0, 11);
+            getValidValueRange(newHackmonAttack, 1, 10);
 
             cout << "What would you like your base defense level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonDefense, 0, 11);
+            getValidValueRange(newHackmonDefense, 1, 10);
 
             cout << "What would you like your base speed level to be? (1 <= # <= 10)" << endl;
-            getValidValueRange(newHackmonSpeed, 0, 11);
+            getValidValueRange(newHackmonSpeed, 1, 10);
 
             Species createdHackmonSpecies(
               newHackmonSpecies,
-              /*type move list[newHackmonSpecialMove]*/,
+              *moveList.at(newHackmonSpecialMove),
               Stats(newHackmonHp, newHackmonAttack, newHackmonDefense, newHackmonSpeed),
-              newHackmonFamily,
+              newHackmonFamily
             );
 
-            // add species to species list
+            hackerdex.at((Type)hackmonType).emplace_back(createdHackmonSpecies);
             speciesToUse = &createdHackmonSpecies; // FIXME: get from species list
           } else {
-            speciesToUse = &/*typelist[hackmonType]*/;
+            speciesToUse = &hackerdex.at((Type)hackmonType).back();
           }
 
           Hackmon newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
@@ -186,12 +217,12 @@ int main() {
           cout << "Great! " << newHackmon.name << "has been added to your party!" << endl << endl;
 
           cout << "Now, lets select some items to put in your bag! Here is a list of the available items" << endl;
-          cout << /* items list */ << endl;
+          printItemList();
           cout << "Which items would you like to select? Please type " << numberOfItems;
-          cout  << " numbers separated by spaces (1 <= # <= ?)" << endl;
+          cout  << " numbers separated by spaces (1 <= # <= " << itemList.size() << ")" << endl;
           for (int k=0; k<numberOfItems; k++) {
-            cin >> itemNumber; // FIXME: add num check
-            if (p==0) items1.emplace_back(make_unique<Item>(/*ItemList[itemNumber-1]*/)); else items2.emplace_back(/*ItemList[itemNumber-1]*/);
+            getValidValueRange(itemNumber, 1, (int)itemList.size()-1); // FIXME: remove cast
+            if (p==0) items1.emplace_back(make_unique<Item>(itemList.at(itemNumber-1))); else items2.emplace_back(itemList.at(itemNumber-1));
           }
         }
       }
