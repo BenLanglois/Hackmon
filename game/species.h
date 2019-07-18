@@ -23,6 +23,8 @@ class Species {
   std::unique_ptr<Hackmon> createHackmon(std::vector<std::unique_ptr<Move>> &&, const std::string);
 
   void addArt(std::vector<std::string>);
+
+  void printSpecies();
 };
 
 #endif

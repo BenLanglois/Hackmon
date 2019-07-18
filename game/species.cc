@@ -1,8 +1,11 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <iostream>
+#include <iomanip>
 
 #include "species.h"
+#include "statInfo.h"
 using namespace std;
 
 Species::Species(const string speciesName, Move &specialMove, Stats stats, vector<Family> family):
@@ -20,4 +23,12 @@ unique_ptr<Hackmon> Species::createHackmon(vector<unique_ptr<Move>> &&moves, con
 
 void Species::addArt(vector<string> artVector) {
   art = artVector;
+}
+
+void Species::printSpecies() {
+  cout << left << setw(19) << speciesName;
+  cout << " HP: " << setw(10) << stats.getStat(HP);
+  cout << " Attack: " << setw(10) << stats.getStat(ATTACK);
+  cout << " Defense: " << setw(10) << stats.getStat(DEFENSE);
+  cout << " Speed: " << setw(10) << stats.getStat(SPEED);
 }

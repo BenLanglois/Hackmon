@@ -92,7 +92,8 @@ void printHackerdexAtType(int t) {
   vector<Species> speciesForType = hackerdex.at((Type)t);
   for (auto& sp : speciesForType) {
     cout << ++i << ". ";
-    cout << sp.speciesName << endl;
+    sp.printSpecies();
+    cout << endl;
   }
 }
 
