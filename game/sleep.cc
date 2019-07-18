@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(5,10)}, duration{rng.getRandom()} {}
+Sleep::Sleep(Hackmon & h) : Mobility{h}, rng{RandomGenerator(1,4)}, duration{rng.getRandom()} {}
 
 bool Sleep::canMoveOverride() {
   --duration;

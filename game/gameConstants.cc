@@ -307,7 +307,7 @@ void fillHackerdex() {
   design.emplace_back("      /\\   (\n");
   design.emplace_back("     /(_)___)\n");
   design.emplace_back("     w /|\n");
-  design.emplace_back("      | \\n");
+  design.emplace_back("      | \\\n");
   design.emplace_back("      m  m\n");
   hackerdex[FIGHTING].at(1).addArt(design);
 
@@ -332,7 +332,7 @@ void fillHackerdex() {
   design.clear();
   design.emplace_back("     __/\\__\n");
   design.emplace_back(". _  \\''//\n");
-  design.emplace_back("-( )-/_||_\\n");
+  design.emplace_back("-( )-/_||_\\\n");
   design.emplace_back(" .'. \\_()_/\n");
   design.emplace_back("  |   | . \\\n");
   design.emplace_back("  |   | .  \\\n");
@@ -340,12 +340,12 @@ void fillHackerdex() {
   hackerdex[PSYCHIC].at(0).addArt(design);
 
   design.clear();
-  design.emplace_back("       _.---._    /\\\\n");
+  design.emplace_back("       _.---._    /\\\\\n");
   design.emplace_back("    ./'       \"--`\\//\n");
-  design.emplace_back("  ./              o \\\\n");
-  design.emplace_back(" /./\\  )______   \\__ \\\\n");
+  design.emplace_back("  ./              o \\\\\n");
+  design.emplace_back(" /./\\  )______   \\__ \\\\\n");
   design.emplace_back("./  / /\\ \\   | \\ \\  \\ \\\n");
-  design.emplace_back("   / /  \\ \\  | |\\ \\  \\7\\n");
+  design.emplace_back("   / /  \\ \\  | |\\ \\  \\7\\\n");
   design.emplace_back("    "     "    "  "\n");
   hackerdex[PSYCHIC].at(1).addArt(design);
 }
