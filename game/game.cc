@@ -34,7 +34,7 @@ void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
     }
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
+    cout << red << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << reset << endl;
   }
 }
 
@@ -64,9 +64,9 @@ T getValidValueOneOf(Rest... values) {
   T inVar;
   while (cin >> inVar) {
     if (_isOneOf(inVar, values...)) break;
-    else cout << "...Uh oh, that's not an option. Try again! (";
+    else cout << red << "...Uh oh, that's not an option. Try again! (";
     _printValues(values...); // print out valid values
-    cout << ")" << endl;
+    cout << ")" << reset << endl;
   }
   return inVar;
 }
@@ -305,7 +305,7 @@ int main() {
           wantNameHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (wantNameHackmon == 'y') {
-            cout << cyan << "What would you like the name of your " << white << "HACKMON" << cyan << " to be?" << reset << endl;
+            cout << endl << cyan << "What would you like the name of your " << white << "HACKMON" << cyan << " to be?" << reset;
             hackmonName = getName();
           }
 
