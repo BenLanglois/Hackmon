@@ -204,7 +204,7 @@ void fillHackerdex() {
 
   design.clear();
   design.emplace_back("     ^ ^\n");
-  design.emplace_back(" (\"\(-_-)/\")\n");
+  design.emplace_back(" (\"\\(-_-)/\")\n");
   design.emplace_back("    (( ))\n");
   design.emplace_back("((...) (...))\n");
   hackerdex.at(1).addArt(design);

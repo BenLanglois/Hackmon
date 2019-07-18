@@ -314,7 +314,7 @@ int main() {
                 getValidValueRange(secondHackmonType, 1, 8);
                 --secondHackmonType;
 
-                if (secondHackmonType == hackmonType) cout << red << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)(# != " << hackmonType+1 << ")";
+                if (secondHackmonType == hackmonType) cout << red << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)(# != " << hackmonType+1 << ")" << reset << endl;
               }
 
               newHackmonFamily.emplace_back(Family(static_cast<Type>(secondHackmonType)));
@@ -328,7 +328,7 @@ int main() {
           wantNameHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (wantNameHackmon == 'y') {
-            cout << endl << cyan << "What would you like the name of your " << white << "HACKMON" << cyan << " to be?" << reset;
+            cout << endl << cyan << "What would you like the name of your " << white << "HACKMON" << cyan << " to be?" << reset << endl;
             hackmonName = getName();
           }
 
@@ -393,6 +393,8 @@ int main() {
       Player p1(name1, move(party1), move(items1));
       Player p2(name2, move(party2), move(items2));
 
+      battleLoop = true;
+
       while (battleLoop) {
         cout << clearScreen;
         // battle ------------------------------------------------------------------
@@ -403,6 +405,8 @@ int main() {
         vector<int> inBattleIndexes;
 
         for (int p=0; p<2; p++) {
+          inBattleIndexes.clear();
+
           Player &curPlayer = (p==0 ? p1 : p2);
 
           cout << cyan << "Now " << red << curPlayer.name << cyan << ", lets choose your starting " << white << "HACKMON" << cyan << "!" << endl << endl;
@@ -416,8 +420,23 @@ int main() {
 
           cout << red << curPlayer.name << cyan << " please select " << numberBattling << " " << white << "HACKMON" << cyan << " from your list above" << (numberBattling > 1 ? " (on separate lines)." : ".") << reset << endl;
           for (unsigned m=0; m<numberBattling; m++) {
-            getValidValueRange(inBattleIndex, 1, numberParty);
-            inBattleIndexes.emplace_back(--inBattleIndex);
+            while (true) {
+              getValidValueRange(inBattleIndex, 1, numberParty);
+              --inBattleIndex;
+              bool inVector = false;
+              for (auto const& index : inBattleIndexes) {
+                if (index == inBattleIndex) {
+                  inVector = true;
+                  break;
+                }
+              }
+              if (!inVector){
+                inBattleIndexes.emplace_back(inBattleIndex);
+                break;
+              } else {
+                cout << red << "...Uh oh, please choose an index that hasn't already been selected. Try again!" << reset << endl;
+              }
+            }
           }
           cout << endl;
 
@@ -700,7 +719,7 @@ int main() {
 
         printRob();
         cout << cyan << "ROB HACKMAN here! Congrats to " << red << winner << cyan << " for the win!" << endl;
-        cout << "Here is the current scores:" << endl;
+        cout << "Here are the current scores:" << endl;
         cout << red << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;
         cout << cyan << "Would you two trainers like to battle again? " << yellow << "(y/n)" << reset << endl;
@@ -710,9 +729,7 @@ int main() {
           cout << cyan << "Would you like to battle with the same " << white << "HACKMON" << cyan << "? " << yellow << "(y/n)" << reset << endl;
           keepHackmon = getValidValueOneOf<char>('y', 'n');
 
-          if (keepHackmon == 'y') {
-            battleLoop = true;
-          } else {
+          if (keepHackmon == 'n') {
             battleLoop = false;
             playerLoop = true;
           }
