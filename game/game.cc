@@ -266,6 +266,7 @@ int main() {
         for (int h=0; h<numberParty; h++) {
           char hackmonSelect;
           int hackmonType;
+          int secondHackmonType;
           int hackmonNumber;
           char wantNameHackmon;
           char wantTwoTypes;
@@ -306,12 +307,18 @@ int main() {
             cout << endl << cyan << "Would you like your " << white << "HACKMON" << cyan << " to have two types? " << yellow << "(y/n)" << reset << endl;
             wantTwoTypes = getValidValueOneOf<char>('y', 'n');
 
+            secondHackmonType = hackmonType;
+
             if (wantTwoTypes == 'y') {
               cout << endl << cyan << "Which second type would you like your " << white << "HACKMON" << cyan << " to be? " << yellow << "(1 <= # <= 8)(# != " << hackmonType+1 << ")" << reset << endl;
-              getValidValueRange(hackmonType, 1, 8);
-              --hackmonType;
+              while (secondHackmonType == hackmonType) {
+                getValidValueRange(secondHackmonType, 1, 8);
+                --secondHackmonType;
 
-              newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
+                if (secondHackmonType == hackmonType) cout << red << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)(# != " << hackmonType+1 << ")";
+              }
+
+              newHackmonFamily.emplace_back(Family((Type)secondHackmonType)); // FIXME: remove casting
             }
 
             cout << cyan << endl << "What would you like the name of your species to be?" << reset << endl;
@@ -330,7 +337,7 @@ int main() {
           cout << endl << cyan << "Here is a list of the " << moveList.size() << " " << white << "HACKMON" << cyan << " moves:" << endl;
           printMoveList();
           cout << "Which moves would you like your " << white << "HACKMON" << cyan << " to have? Please type " << numberOfMovesToSelect;
-          cout  << " numbers separated by spaces " << yellow << "(1 <= # <= " << moveList.size() << ")" << reset << endl;
+          cout  << " numbers on separate lines " << yellow << "(1 <= # <= " << moveList.size() << ")" << reset << endl;
           for (int k=0; k<3; k++) {
             getValidValueRange(hackmonMove, 1, (int)moveList.size()); // FIXME: remove casting
             hackmonMoves.emplace_back(moveList.at(hackmonMove-1)->clone());
@@ -377,7 +384,7 @@ int main() {
         cout << cyan << "Now, lets select some items to put in your bag! Here is a list of the available items:" << endl;
         printItemList();
         cout << "Which items would you like to select? Please type " << numberOfItems;
-        cout  << " numbers separated by spaces " << yellow << "(1 <= # <= " << itemList.size() << ")" << reset << endl;
+        cout  << " numbers on separate lines " << yellow << "(1 <= # <= " << itemList.size() << ")" << reset << endl;
         for (int k=0; k<numberOfItems; k++) {
           getValidValueRange(itemNumber, 1, (int)itemList.size()); // FIXME: remove cast
           if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
@@ -388,6 +395,7 @@ int main() {
       Player p2(name2, move(party2), move(items2));
 
       while (battleLoop) {
+        cout << clearScreen;
         // battle ------------------------------------------------------------------
         cout << endl << cyan << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
 
@@ -407,7 +415,7 @@ int main() {
           p2.printParty();
           cout << cyan;
 
-          cout << red << curPlayer.name << cyan << " please select " << numberBattling << " " << white << "HACKMON" << cyan << " from your list above" << (numberBattling > 1 ? " (separated by spaces)." : ".") << reset << endl;
+          cout << red << curPlayer.name << cyan << " please select " << numberBattling << " " << white << "HACKMON" << cyan << " from your list above" << (numberBattling > 1 ? " (on separate lines)." : ".") << reset << endl;
           for (unsigned m=0; m<numberBattling; m++) {
             getValidValueRange(inBattleIndex, 1, numberParty);
             inBattleIndexes.emplace_back(--inBattleIndex);
@@ -453,6 +461,23 @@ int main() {
               }
               Hackmon &currHackmon = *currPlayer.party.at(h);
               cout << red << currPlayer.name << cyan << ", please select for " << magenta << currHackmon.name << endl << endl;
+
+              // output hackmon currently battling & their type
+              cout << white << "HACKMON " << purple << "IN BATTLE" << endl;
+              for (int x=0; x<2; ++x) {
+                Player &player = (x == 0 ? p1 : p2);
+                cout << player.name << ": ";
+                for (unsigned y=0; y<numberBattling; ++y) {
+                  cout << player.party.at(y)->name << " (";
+                  for (size_t f=0; f<player.party.at(y)->family.size(); ++f) {
+                    if (f!=0) cout << ", ";
+                    cout << typeString.at(player.party.at(y)->family.at(f).type);
+                  }
+                  cout << ")   ";
+                }
+                cout << endl;
+              }
+              cout << endl;
 
               if (visuals == 'y' && currHackmon.art.size()) {
                 cout << white;
@@ -683,7 +708,7 @@ int main() {
         playAgain = getValidValueOneOf<char>('y', 'n');
 
         if (playAgain == 'y') {
-          cout << "Would you like to battle with the same " << white << "HACKMON" << cyan << "? " << yellow << "(y/n)" << reset << endl;
+          cout << cyan << "Would you like to battle with the same " << white << "HACKMON" << cyan << "? " << yellow << "(y/n)" << reset << endl;
           keepHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (keepHackmon == 'y') {

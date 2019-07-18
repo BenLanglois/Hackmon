@@ -199,7 +199,7 @@ void fillHackerdex() {
   design.emplace_back("     __\n");
   design.emplace_back("(___()'`;\n");
   design.emplace_back("/,    /`\n");
-  design.emplace_back("\\\"--\\\n");
+  design.emplace_back("\\\\\"--\\\\\n");
   hackerdex.at(0).addArt(design);
 
   design.clear();
