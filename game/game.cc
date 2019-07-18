@@ -133,6 +133,8 @@ int main() {
   vector<unique_ptr<Item>> items1;
   vector<unique_ptr<Item>> items2;
 
+  char visuals;
+
   bool gameLoop = true;
   bool battleLoop = true;
   bool playerLoop = true;
@@ -202,7 +204,10 @@ int main() {
       items1.clear();
       items2.clear();
 
-      cout << cyan << "Would you like to battle 1 vs 1 or 2 vs 2? " << yellow << "(1/2)" << reset << endl;
+      cout << cyan << endl << "Would you like the added bonus of " << white << "HACKMON" << cyan << " visuals? " << yellow << "(y/n)" << reset << endl;
+      visuals = getValidValueOneOf<char>('y', 'n');
+
+      cout << cyan << endl << "Would you like to battle 1 vs 1 or 2 vs 2? " << yellow << "(1/2)" << reset << endl;
       numberBattling = getValidValueOneOf<int>(1, 2);
 
       cout << cyan << "...Okay! It’s time to get started!" << endl;
@@ -395,6 +400,15 @@ int main() {
               }
               Hackmon &currHackmon = *currPlayer.party.at(h);
               cout << red << currPlayer.name << cyan << ", please select for " << magenta << currHackmon.name << endl << endl;
+
+              if (visuals == 'y' && currHackmon.art.size()) {
+                cout << white;
+                for (auto const& l : currHackmon.art) {
+                  cout << l;
+                }
+                cout << endl << magenta;
+              }
+
               cout << currHackmon.name <<  cyan << "'s stats:" << magenta << endl;
               currHackmon.stats.printStats();
               cout << magenta << "   MOBILITY: " << mobilityStringVerb.at(currHackmon.mobility->name());
