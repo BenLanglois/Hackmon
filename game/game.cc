@@ -114,6 +114,12 @@ void printHackerdexAtType(int t) {
   cout << cyan;
 }
 
+string trimString(string &s) {
+  size_t start = s.find_first_not_of(" ");
+  size_t end = s.find_last_not_of(" ");
+  return s.substr(start, end-start+1);
+}
+
 int main() {
   fillSpecialMoveList();
   fillMoveList();
@@ -141,12 +147,16 @@ int main() {
     cout << "For some people, " << white << "HACKMON" << cyan << " are pets. Others use them for fights." << endl;
     cout << "Myself...I study " << white << "HACKMON" << cyan << " as a profession." << endl << endl;
     cout << "First, what is your name? " << yellow << "(player 1)" << reset << endl;
-    cin >> name1;
+    getline(cin, name1);
+    name1 = trimString(name1);
     cout << endl << cyan << "Right! So your name is " << red << name1;
     cout << cyan << "! What is the name of your friend? " << yellow << "(player 2)" << reset << endl;
-    cin >> name2;
+    getline(cin, name2);
+    name2 = trimString(name2);
+    cout << cyan << "Welcome " << red << name2 << cyan << "!" << endl;
+    cout << endl;
 
-    cout << endl << cyan << "Would you like to read an explanation about the mechanics of the game? (y/n)" << endl;
+    cout << cyan << "Would you like to read an explanation about the mechanics of the game? " << yellow << "(y/n)" << reset << endl;
     if (getValidValueOneOf<char>('y', 'n') == 'y') {
       cout << clearScreen;
       cout << cyan << "HOW TO PLAY ----------------------------------------------------------------------------------------" << endl;
@@ -245,7 +255,8 @@ int main() {
 
             newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
             cout << cyan << "What would you like the name of your species to be?" << reset << endl;
-            cin >> newHackmonSpecies;
+            getline(cin, newHackmonSpecies);
+            newHackmonSpecies = trimString(newHackmonSpecies);
           }
 
           cout << endl << cyan << "Awesome! Would you like to name your " << white << "HACKMON" << cyan << "? " << yellow << "(y/n)" << reset << endl;
@@ -253,7 +264,8 @@ int main() {
 
           if (wantNameHackmon == 'y') {
             cout << cyan << "What would you like the name of your " << white << "HACKMON" << cyan << " to be?" << reset << endl;
-            cin >> hackmonName;
+            getline(cin, hackmonName);
+            hackmonName = trimString(hackmonName);
           }
 
           int numberOfMovesToSelect = (hackmonSelect == 'h') ? 3 : 4;
