@@ -67,4 +67,9 @@ void fillItemList();
 extern std::vector<std::string> RobHackman;
 
 void fillRobHackman();
+
+/* Hackmon ascii art */
+extern std::vector<std::string> HackmonTitle;
+
+void fillTitle();
 #endif

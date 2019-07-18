@@ -374,3 +374,14 @@ void fillRobHackman() {
   RobHackman.emplace_back("  |          \\/  |ROB|  |");
   RobHackman.emplace_back("  |   |          \\___/  |");
 }
+
+vector<string> HackmonTitle;
+
+void fillTitle() {
+  HackmonTitle.emplace_back("  _    _            _                          ");
+  HackmonTitle.emplace_back(" | |  | |          | |                         ");
+  HackmonTitle.emplace_back(" | |__| | __ _  ___| | ___ __ ___   ___  _ __  ");
+  HackmonTitle.emplace_back(" |  __  |/ _` |/ __| |/ / '_ ` _ \\ / _ \\| '_ \\ ");
+  HackmonTitle.emplace_back(" | |  | | (_| | (__|   <| | | | | | (_) | | | |");
+  HackmonTitle.emplace_back(" |_|  |_|\\__,_|\\___|_|\\_\\_| |_| |_|\\___/|_| |_|");
+}

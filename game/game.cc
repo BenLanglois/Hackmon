@@ -138,6 +138,14 @@ void printRob() {
   cout << cyan;
 }
 
+void printTitle() {
+  cout << white << purple;
+  for (auto& t : HackmonTitle) {
+    cout << t << endl;
+  }
+  cout << cyan;
+}
+
 void trimString(string &s) {
   size_t start = s.find_first_not_of(" ");
   if (start == string::npos) {
@@ -169,6 +177,7 @@ int main() {
   fillItemList();
   fillHackerdex();
   fillRobHackman();
+  fillTitle();
 
   string name1;
   string name2;
@@ -186,7 +195,8 @@ int main() {
   while (gameLoop) {
     // pregame -----------------------------------------------------------------
     cout << clearScreen;
-    cout << cyan << "Now your story begins..." << endl << endl;
+    printTitle();
+    cout << cyan << endl << "Now your story begins..." << endl << endl;
     cout << "Hello there! Welcome to the world of " << white << "HACKMON" << cyan << "!" << endl << endl;
     printRob();
     cout << "My name is ROB HACKMAN! People call me the " << white << "HACKMON" << cyan << " PROF!" << endl;
