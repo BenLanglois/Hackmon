@@ -189,7 +189,7 @@ int main() {
     cout << cyan << "Now your story begins..." << endl << endl;
     cout << "Hello there! Welcome to the world of " << white << "HACKMON" << cyan << "!" << endl << endl;
     printRob();
-    cout << "My name is ROB HACKMAN! People call me the " << white << "HACKMON" << cyan << " PROF!" << endl; // FIXME: add timers to these statementd
+    cout << "My name is ROB HACKMAN! People call me the " << white << "HACKMON" << cyan << " PROF!" << endl;
     cout << "This world is inhabited by creatures called " << white << "HACKMON" << cyan << "!" << endl << endl;
     cout << "For some people, " << white << "HACKMON" << cyan << " are pets. Others use them for fights." << endl;
     cout << "Myself...I study " << white << "HACKMON" << cyan << " as a profession." << endl << endl;
@@ -256,7 +256,6 @@ int main() {
       cout << cyan << "...Okay! It’s time to get started!" << endl;
 
       for (int p=0; p<2; p++) {
-        // reset party unique pointers
         int itemNumber;
 
         cout << endl << endl << red << (p==0 ? name1 : name2);
@@ -302,7 +301,7 @@ int main() {
             getValidValueRange(hackmonType, 1, 8);
             --hackmonType;
 
-            newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
+            newHackmonFamily.emplace_back(Family(static_cast<Type>(hackmonType)));
 
             cout << endl << cyan << "Would you like your " << white << "HACKMON" << cyan << " to have two types? " << yellow << "(y/n)" << reset << endl;
             wantTwoTypes = getValidValueOneOf<char>('y', 'n');
@@ -318,7 +317,7 @@ int main() {
                 if (secondHackmonType == hackmonType) cout << red << "...Uh oh, that's not an option. Try again! (1 <= # <= 8)(# != " << hackmonType+1 << ")";
               }
 
-              newHackmonFamily.emplace_back(Family((Type)secondHackmonType)); // FIXME: remove casting
+              newHackmonFamily.emplace_back(Family(static_cast<Type>(secondHackmonType)));
             }
 
             cout << cyan << endl << "What would you like the name of your species to be?" << reset << endl;
@@ -339,12 +338,12 @@ int main() {
           cout << "Which moves would you like your " << white << "HACKMON" << cyan << " to have? Please type " << numberOfMovesToSelect;
           cout  << " numbers on separate lines " << yellow << "(1 <= # <= " << moveList.size() << ")" << reset << endl;
           for (int k=0; k<3; k++) {
-            getValidValueRange(hackmonMove, 1, (int)moveList.size()); // FIXME: remove casting
+            getValidValueRange(hackmonMove, 1, static_cast<int>(moveList.size()));
             hackmonMoves.emplace_back(moveList.at(hackmonMove-1)->clone());
           }
 
           if (numberOfMovesToSelect == 4) {
-            getValidValueRange(newHackmonSpecialMove, 1, (int)moveList.size()); // FIXME: remove casting
+            getValidValueRange(newHackmonSpecialMove, 1, static_cast<int>(moveList.size()));
             --newHackmonSpecialMove; // reindex to 0
           }
 
@@ -370,7 +369,7 @@ int main() {
             );
 
             hackerdex.emplace_back(createdHackmonSpecies);
-            speciesToUse = &hackerdex.back(); // FIXME: get from species list
+            speciesToUse = &hackerdex.back();
           } else {
             speciesToUse = &hackerdex.at(hackmonNumber);
           }
@@ -386,7 +385,7 @@ int main() {
         cout << "Which items would you like to select? Please type " << numberOfItems;
         cout  << " numbers on separate lines " << yellow << "(1 <= # <= " << itemList.size() << ")" << reset << endl;
         for (int k=0; k<numberOfItems; k++) {
-          getValidValueRange(itemNumber, 1, (int)itemList.size()); // FIXME: remove cast
+          getValidValueRange(itemNumber, 1, static_cast<int>(itemList.size()));
           if (p==0) items1.emplace_back(itemList.at(itemNumber-1)->clone()); else items2.emplace_back(itemList.at(itemNumber-1)->clone());
         }
       }
@@ -397,7 +396,7 @@ int main() {
       while (battleLoop) {
         cout << clearScreen;
         // battle ------------------------------------------------------------------
-        cout << endl << cyan << "It looks like you two trainers are ready to battle!" << endl; // FIXME: add timers to these statementd
+        cout << endl << cyan << "It looks like you two trainers are ready to battle!" << endl;
 
         // players choose starting pokemon
         int inBattleIndex;
@@ -535,7 +534,7 @@ int main() {
                   getValidValueRange<size_t>(selectedMoveIndex, 1, currHackmon.moves.size());
                   --selectedMoveIndex; // Make zero-indexed
 
-                  // Hard-coded move logic for 1v1 and 2v2 battles starts here ------------
+                  // move logic for NvN battles starts here ------------
                   Move &selectedMove = *currHackmon.moves.at(selectedMoveIndex);
                   vector<size_t> targets;
 
@@ -570,7 +569,7 @@ int main() {
                       }
                     }
                   }
-                  // Hard-coded move logic for 1v1 and 2v2 battles ends here --------------
+                  // move logic for NvN battles ends here --------------
 
                   // add to playerMove vector
                   int speed = currHackmon.stats.getStat(SPEED);
@@ -592,7 +591,7 @@ int main() {
                 getValidValueRange<size_t>(selectedItemIndex, 1, currPlayer.items.size());
                 --selectedItemIndex; // zero-index
 
-                // Hard-coded item logic for 1v1 and 2v2 battles starts here ------------
+                // item logic for NvN battles starts here ------------
                 Item &selectedItem = *currPlayer.items.at(selectedItemIndex);
                 vector<size_t> targets;
 
@@ -626,7 +625,7 @@ int main() {
                     }
                   }
                 }
-                // Hard-coded item logic for 1v1 and 2v2 battles ends here --------------
+                // item logic for NvN battles ends here --------------
 
                 // Move item from player's item list to itemsThisRound vector
                 itemsThisRound.emplace_back(unique_ptr<Item> {nullptr});
@@ -700,7 +699,7 @@ int main() {
         char keepHackmon;
 
         printRob();
-        cout << cyan << "ROB HACKMAN here! Congrats to " << red << winner << cyan << " for the win!" << endl; // FIXME: add timers to these statement
+        cout << cyan << "ROB HACKMAN here! Congrats to " << red << winner << cyan << " for the win!" << endl;
         cout << "Here is the current scores:" << endl;
         cout << red << p1.name << ": " << p1.winTotal << endl;
         cout << p2.name << ": " << p2.winTotal << endl << endl;
@@ -712,7 +711,6 @@ int main() {
           keepHackmon = getValidValueOneOf<char>('y', 'n');
 
           if (keepHackmon == 'y') {
-            // FIXME: reset Hackmon levels
             battleLoop = true;
           } else {
             battleLoop = false;
