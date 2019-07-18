@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <memory>
 #include <unordered_map>
@@ -26,14 +27,27 @@ const string white("\033[1;37m");
 const string reset("\033[0m");
 const string clearScreen("\033c");
 
+template <typename T>
+T readFromInput() {
+  T rtn;
+  string input;
+  stringstream ss;
+  if (getline(cin, input)) {
+    ss << input;
+    ss >> rtn;
+    return rtn;
+  } else {
+    throw std::out_of_range("Unexpected end of file");
+  }
+}
+
 template<typename T>
 void getValidValueRange(T& inVar, T rangeMin, T rangeMax) {
   while (true) {
-    if ((cin >> inVar) && inVar >= rangeMin && inVar <= rangeMax) {
+    inVar = readFromInput<T>();
+    if (inVar >= rangeMin && inVar <= rangeMax) {
       break;
     }
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "...Uh oh, that's not an option. Try again! (" << rangeMin << "<= # <= " << rangeMax << ")" << endl;
   }
 }
@@ -62,7 +76,8 @@ void _printValues(T first, Rest... rest) {
 template <typename T, typename... Rest>
 T getValidValueOneOf(Rest... values) {
   T inVar;
-  while (cin >> inVar) {
+  while (true) {
+    inVar = readFromInput<T>();
     if (_isOneOf(inVar, values...)) break;
     else cout << "...Uh oh, that's not an option. Try again! (";
     _printValues(values...); // print out valid values
@@ -137,7 +152,9 @@ string getName() {
   string s;
   while (true){
     cout << reset;
-    getline(cin, s);
+    if (!getline(cin, s)) {
+      throw std::out_of_range("Unexpected end of file");
+    }
     trimString(s);
     if (s.size() > 0) {
       return s;
@@ -230,7 +247,7 @@ int main() {
       items1.clear();
       items2.clear();
 
-      cout << cyan << endl << "Would you like the added bonus of " << white << "HACKMON" << cyan << " visuals? " << yellow << "(y/n)" << reset << endl;
+      cout << cyan << "Would you like the added bonus of " << white << "HACKMON" << cyan << " visuals? " << yellow << "(y/n)" << reset << endl;
       visuals = getValidValueOneOf<char>('y', 'n');
 
       cout << cyan << endl << "Would you like to battle 1 vs 1 or 2 vs 2? " << yellow << "(1/2)" << reset << endl;
