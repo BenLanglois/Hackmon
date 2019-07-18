@@ -54,7 +54,7 @@ extern std::vector<std::unique_ptr<Move>> moveList;
 void fillMoveList();
 
 /* Hackerdex */
-extern std::map<Type, std::vector<Species>> hackerdex;
+extern std::vector<Species> hackerdex;
 
 void fillHackerdex();
 
@@ -62,4 +62,9 @@ void fillHackerdex();
 extern std::vector<std::unique_ptr<Item>> itemList;
 
 void fillItemList();
+
+/* Rob Ascii Art */
+extern std::vector<std::string> RobHackman;
+
+void fillRobHackman();
 #endif

@@ -94,99 +94,105 @@ void fillItemList() {
   itemList.emplace_back(make_unique<DebuffHeal>("Ice Heal", SINGLE, FROZEN));
 }
 
-std::map<Type, std::vector<Species>> hackerdex;
+std::vector<Species> hackerdex;
 
 void fillHackerdex() {
-  hackerdex = {
-    { NORMAL,
-      std::vector<Species> {
-        Species("Brown Puppy",
-          *specialMoveList.at(BROWN_PUPPY),
-          Stats(17, 6, 5, 8),
-          std::vector<Family>{Family(NORMAL)}),
-        Species("Sleepy Sloth",
-          *specialMoveList.at(SLEEPY_SLOTH),
-          Stats(19, 5, 4, 3),
-          std::vector<Family>{Family(NORMAL)})}
-    },
-    { FIRE,
-      std::vector<Species> {
-        Species("Spicy Lizard",
-          *specialMoveList.at(SPICY_LIZARD),
-          Stats(20, 7, 5, 7),
-          std::vector<Family>{Family(FIRE)}),
-        Species("Flaming Dog",
-          *specialMoveList.at(FLAMING_DOG),
-          Stats(22, 8, 6, 7),
-          std::vector<Family>{Family(FIRE)})}
-    },
-    { WATER,
-      std::vector<Species> {
-        Species("Moist Turtle",
-          *specialMoveList.at(MOIST_TURTLE),
-          Stats(22, 6, 6, 8),
-          std::vector<Family>{Family(WATER)}),
-        Species("Slow Duck",
-          *specialMoveList.at(SLOW_DUCK),
-          Stats(20, 4, 6, 4),
-          std::vector<Family>{Family(WATER)})}
-    },
-    { ELECTRIC,
-      std::vector<Species> {
-        Species("Sparky Mouse",
-          *specialMoveList.at(SPARKY_MOUSE),
-          Stats(18, 7, 7, 7),
-          std::vector<Family>{Family(ELECTRIC)}),
-        Species("Exploding Orb",
-          *specialMoveList.at(EXPLODING_ORB),
-          Stats(23, 8, 2, 5),
-          std::vector<Family>{Family(ELECTRIC)})}
-    },
-    { GRASS,
-      std::vector<Species> {
-        Species("Bulb Dinosaur",
-          *specialMoveList.at(BULB_DINOSAUR),
-          Stats(21, 5, 8, 7),
-          std::vector<Family>{Family(GRASS)}),
-        Species("Dancing Flower",
-          *specialMoveList.at(DANCING_FLOWER),
-          Stats(22, 5, 5, 9),
-          std::vector<Family>{Family(GRASS)})}
-    },
-    { FIGHTING,
-      std::vector<Species> {
-        Species("Karate Kid",
-          *specialMoveList.at(KARATE_KID),
-          Stats(18, 8, 7, 7),
-          std::vector<Family>{Family(FIGHTING)}),
-        Species("Monkey Man",
-          *specialMoveList.at(MONKEY_MAN),
-          Stats(20, 6, 5, 8),
-          std::vector<Family>{Family(FIGHTING)})}
-    },
-    { GROUND,
-      std::vector<Species> {
-        Species("Rock Guy",
-          *specialMoveList.at(ROCK_GUY),
-          Stats(22, 5, 9, 6),
-          std::vector<Family>{Family(GROUND)}),
-        Species("Armless Groundhog",
-          *specialMoveList.at(ARMLESS_GROUNDHOG),
-          Stats(21, 6, 6, 6),
-          std::vector<Family>{Family(GROUND)})}
-    },
-    { PSYCHIC,
-      std::vector<Species> {
-        Species("Spoon Wizard",
-          *specialMoveList.at(SPOON_WIZARD),
-          Stats(19, 7, 5, 6),
-          std::vector<Family>{Family(PSYCHIC)}),
-        Species("Voodoo Anteater",
-          *specialMoveList.at(VOODOO_ANTEATER),
-          Stats(22, 5, 8, 7),
-          std::vector<Family>{Family(PSYCHIC)})}
-    }
-  };
+  hackerdex.emplace_back(
+    Species("Brown Puppy",
+      *specialMoveList.at(BROWN_PUPPY),
+      Stats(17, 6, 5, 8),
+      std::vector<Family>{Family(NORMAL)})
+  );
+  hackerdex.emplace_back(
+    Species("Sleepy Sloth",
+      *specialMoveList.at(SLEEPY_SLOTH),
+      Stats(19, 5, 4, 3),
+      std::vector<Family>{Family(NORMAL)})
+  );
+  hackerdex.emplace_back(
+    Species("Spicy Lizard",
+      *specialMoveList.at(SPICY_LIZARD),
+      Stats(20, 7, 5, 7),
+      std::vector<Family>{Family(FIRE)})
+  );
+  hackerdex.emplace_back(
+    Species("Flaming Dog",
+      *specialMoveList.at(FLAMING_DOG),
+      Stats(22, 8, 6, 7),
+      std::vector<Family>{Family(FIRE)})
+  );
+  hackerdex.emplace_back(
+    Species("Moist Turtle",
+      *specialMoveList.at(MOIST_TURTLE),
+      Stats(22, 6, 6, 8),
+      std::vector<Family>{Family(WATER)})
+  );
+  hackerdex.emplace_back(
+    Species("Slow Duck",
+      *specialMoveList.at(SLOW_DUCK),
+      Stats(20, 4, 6, 4),
+      std::vector<Family>{Family(WATER)})
+  );
+  hackerdex.emplace_back(
+    Species("Sparky Mouse",
+      *specialMoveList.at(SPARKY_MOUSE),
+      Stats(18, 7, 7, 7),
+      std::vector<Family>{Family(ELECTRIC)})
+  );
+  hackerdex.emplace_back(
+    Species("Exploding Orb",
+      *specialMoveList.at(EXPLODING_ORB),
+      Stats(23, 8, 2, 5),
+      std::vector<Family>{Family(ELECTRIC)})
+  );
+  hackerdex.emplace_back(
+    Species("Bulb Dinosaur",
+      *specialMoveList.at(BULB_DINOSAUR),
+      Stats(21, 5, 8, 7),
+      std::vector<Family>{Family(GRASS)})
+  );
+  hackerdex.emplace_back(
+    Species("Dancing Flower",
+      *specialMoveList.at(DANCING_FLOWER),
+      Stats(22, 5, 5, 9),
+      std::vector<Family>{Family(GRASS)})
+  );
+  hackerdex.emplace_back(
+    Species("Karate Kid",
+      *specialMoveList.at(KARATE_KID),
+      Stats(18, 8, 7, 7),
+      std::vector<Family>{Family(FIGHTING)})
+  );
+  hackerdex.emplace_back(
+    Species("Monkey Man",
+      *specialMoveList.at(MONKEY_MAN),
+      Stats(20, 6, 5, 8),
+      std::vector<Family>{Family(FIGHTING)})
+  );
+  hackerdex.emplace_back(
+    Species("Rock Guy",
+      *specialMoveList.at(ROCK_GUY),
+      Stats(22, 5, 9, 6),
+      std::vector<Family>{Family(GROUND)})
+  );
+  hackerdex.emplace_back(
+    Species("Armless Groundhog",
+      *specialMoveList.at(ARMLESS_GROUNDHOG),
+      Stats(21, 6, 6, 6),
+      std::vector<Family>{Family(GROUND)})
+  );
+  hackerdex.emplace_back(
+    Species("Spoon Wizard",
+      *specialMoveList.at(SPOON_WIZARD),
+      Stats(19, 7, 5, 6),
+      std::vector<Family>{Family(PSYCHIC)})
+  );
+  hackerdex.emplace_back(
+    Species("Voodoo Anteater",
+      *specialMoveList.at(VOODOO_ANTEATER),
+      Stats(22, 5, 8, 7),
+      std::vector<Family>{Family(PSYCHIC)})
+  );
 
   vector<string> design;
 
@@ -194,14 +200,14 @@ void fillHackerdex() {
   design.emplace_back("(___()'`;\n");
   design.emplace_back("/,    /`\n");
   design.emplace_back("\\\"--\\\n");
-  hackerdex[NORMAL].at(0).addArt(design);
+  hackerdex.at(0).addArt(design);
 
   design.clear();
   design.emplace_back("     ^ ^\n");
   design.emplace_back(" (\"\(-_-)/\")\n");
   design.emplace_back("    (( ))\n");
   design.emplace_back("((...) (...))\n");
-  hackerdex[NORMAL].at(1).addArt(design);
+  hackerdex.at(1).addArt(design);
 
   design.clear();
   design.emplace_back("       /\\\n");
@@ -217,7 +223,7 @@ void fillHackerdex() {
   design.emplace_back("  .-.    \\ |\n");
   design.emplace_back("  `   '.__//\n");
   design.emplace_back("       `\"`\n");
-  hackerdex[FIRE].at(0).addArt(design);
+  hackerdex.at(2).addArt(design);
 
   design.clear();
   design.emplace_back("     /\\    /\\\n");
@@ -229,7 +235,7 @@ void fillHackerdex() {
   design.emplace_back("  /            \\\n");
   design.emplace_back(" /    ____      0\n");
   design.emplace_back("/      /  \\___ _/\n");
-  hackerdex[FIRE].at(1).addArt(design);
+  hackerdex.at(3).addArt(design);
 
   design.clear();
   design.emplace_back("              __\n");
@@ -238,7 +244,7 @@ void fillHackerdex() {
   design.emplace_back("'-<_><_><_><_>=/\\\n");
   design.emplace_back(" `/_/====/_/-'\\_\\\n");
   design.emplace_back("  \"\"     \"\"    \"\"\n");
-  hackerdex[WATER].at(0).addArt(design);
+  hackerdex.at(4).addArt(design);
 
   design.clear();
   design.emplace_back("          ..\n");
@@ -248,7 +254,7 @@ void fillHackerdex() {
   design.emplace_back("   (         ;\n");
   design.emplace_back("    (_______,'\n");
   design.emplace_back("~^~^~^~^~^~^~^~^~\n");
-  hackerdex[WATER].at(1).addArt(design);
+  hackerdex.at(5).addArt(design);
 
   design.clear();
   design.emplace_back("          ___\n");
@@ -256,7 +262,7 @@ void fillHackerdex() {
   design.emplace_back("(.)(.)/         \\\n");
   design.emplace_back(" /@@             ;\n");
   design.emplace_back("o_\\-mm-......-mm`~~~~~~\n");
-  hackerdex[ELECTRIC].at(0).addArt(design);
+  hackerdex.at(6).addArt(design);
 
   design.clear();
   design.emplace_back("        ,--.!,\n");
@@ -264,7 +270,7 @@ void fillHackerdex() {
   design.emplace_back("   ,d08b.  '|`\n");
   design.emplace_back("   0088MM\n");
   design.emplace_back("   `9MMP'\n");
-  hackerdex[ELECTRIC].at(1).addArt(design);
+  hackerdex.at(7).addArt(design);
 
   design.clear();
   design.emplace_back(" ,--.\n");
@@ -277,7 +283,7 @@ void fillHackerdex() {
   design.emplace_back("         >>   >  <  <__    ^'-----...,,_\n");
   design.emplace_back("        //__/`---'\\__\\`'\"\"\"\"'\"'\"'\"'''''``\n");
   design.emplace_back("       `\"`\"\"      `\"\"`\"\n");
-  hackerdex[GRASS].at(0).addArt(design);
+  hackerdex.at(8).addArt(design);
 
   design.clear();
   design.emplace_back("         __/)\n");
@@ -287,7 +293,7 @@ void fillHackerdex() {
   design.emplace_back("    \\||\n");
   design.emplace_back("     \\|\n");
   design.emplace_back("      |\n");
-  hackerdex[GRASS].at(1).addArt(design);
+  hackerdex.at(9).addArt(design);
 
   design.clear();
   design.emplace_back("  ,.\n");
@@ -298,7 +304,7 @@ void fillHackerdex() {
   design.emplace_back("   | /\n");
   design.emplace_back("   \\_\\\n");
   design.emplace_back("   -''\n");
-  hackerdex[FIGHTING].at(0).addArt(design);
+  hackerdex.at(10).addArt(design);
 
   design.clear();
   design.emplace_back("      __\n");
@@ -309,7 +315,7 @@ void fillHackerdex() {
   design.emplace_back("     w /|\n");
   design.emplace_back("      | \\\n");
   design.emplace_back("      m  m\n");
-  hackerdex[FIGHTING].at(1).addArt(design);
+  hackerdex.at(11).addArt(design);
 
   design.clear();
   design.emplace_back("    _______\n");
@@ -318,7 +324,7 @@ void fillHackerdex() {
   design.emplace_back("      (_____)\n");
   design.emplace_back("      (____)\n");
   design.emplace_back("---.__(___)\n");
-  hackerdex[GROUND].at(0).addArt(design);
+  hackerdex.at(12).addArt(design);
 
   design.clear();
   design.emplace_back("    ....,\n");
@@ -327,7 +333,7 @@ void fillHackerdex() {
   design.emplace_back("   0,    |\n");
   design.emplace_back("  ,|     |,\n");
   design.emplace_back(":\":\":\":\":\":\":\n");
-  hackerdex[GROUND].at(1).addArt(design);
+  hackerdex.at(13).addArt(design);
 
   design.clear();
   design.emplace_back("     __/\\__\n");
@@ -337,7 +343,7 @@ void fillHackerdex() {
   design.emplace_back("  |   | . \\\n");
   design.emplace_back("  |   | .  \\\n");
   design.emplace_back(" .'. ,\\_____'.\n");
-  hackerdex[PSYCHIC].at(0).addArt(design);
+  hackerdex.at(14).addArt(design);
 
   design.clear();
   design.emplace_back("       _.---._    /\\\\\n");
@@ -347,5 +353,24 @@ void fillHackerdex() {
   design.emplace_back("./  / /\\ \\   | \\ \\  \\ \\\n");
   design.emplace_back("   / /  \\ \\  | |\\ \\  \\7\\\n");
   design.emplace_back("    "     "    "  "\n");
-  hackerdex[PSYCHIC].at(1).addArt(design);
+  hackerdex.at(15).addArt(design);
+}
+
+vector<string> RobHackman;
+
+void fillRobHackman() {
+  RobHackman.emplace_back("           .--\"\"-.");
+  RobHackman.emplace_back("          /   ..  \\");
+  RobHackman.emplace_back("         |___|__|_|____");
+  RobHackman.emplace_back("         | /_   _`|");
+  RobHackman.emplace_back("         \\( O \\ O )");
+  RobHackman.emplace_back("          |    > |");
+  RobHackman.emplace_back("          |\\ \\_/ /");
+  RobHackman.emplace_back("          | \\___/|");
+  RobHackman.emplace_back("      ___/:      :\\__");
+  RobHackman.emplace_back("    /`   \\:      :/  `\\");
+  RobHackman.emplace_back("   /     `\\      /`    \\");
+  RobHackman.emplace_back("  ;        '\\  /'.___.  ;");
+  RobHackman.emplace_back("  |          \\/  |ROB|  |");
+  RobHackman.emplace_back("  |   |          \\___/  |");
 }

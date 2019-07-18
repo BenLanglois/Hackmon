@@ -103,14 +103,22 @@ void printItemList() {
   cout << cyan;
 }
 
-void printHackerdexAtType(int t) {
+void printHackerdex() {
   cout << magenta;
   int i = 0;
-  vector<Species> speciesForType = hackerdex.at((Type)t);
-  for (auto& sp : speciesForType) {
+  for (auto& sp : hackerdex) {
+    if (i < 9) cout << " ";
     cout << ++i << ". ";
     sp.printSpecies();
     cout << endl;
+  }
+  cout << cyan;
+}
+
+void printRob() {
+  cout << red;
+  for (auto& a : RobHackman) {
+    cout << a << endl;
   }
   cout << cyan;
 }
@@ -143,6 +151,7 @@ int main() {
   fillMoveList();
   fillItemList();
   fillHackerdex();
+  fillRobHackman();
 
   string name1;
   string name2;
@@ -162,6 +171,7 @@ int main() {
     cout << clearScreen;
     cout << cyan << "Now your story begins..." << endl << endl;
     cout << "Hello there! Welcome to the world of " << white << "HACKMON" << cyan << "!" << endl << endl;
+    printRob();
     cout << "My name is ROB HACKMAN! People call me the " << white << "HACKMON" << cyan << " PROF!" << endl; // FIXME: add timers to these statementd
     cout << "This world is inhabited by creatures called " << white << "HACKMON" << cyan << "!" << endl << endl;
     cout << "For some people, " << white << "HACKMON" << cyan << " are pets. Others use them for fights." << endl;
@@ -176,8 +186,8 @@ int main() {
 
     cout << cyan << "Would you like to read an explanation about the mechanics of the game? " << yellow << "(y/n)" << reset << endl;
     if (getValidValueOneOf<char>('y', 'n') == 'y') {
-      cout << clearScreen;
-      cout << cyan << "HOW TO PLAY ----------------------------------------------------------------------------------------" << endl;
+      cout << clearScreen << endl;
+      cout << white << "HOW TO PLAY ----------------------------------------------------------------------------------------" << endl;
       cout << endl;
       cout << cyan << "You win the game by causing all " << white << "HACKMON" << cyan << " on your opponent's team to faint. Both players will select a team of " << white << "HACKMON" << cyan << " to" << endl;
       cout << cyan << "battle against each other. You will also select a list of moves for each of your " << white << "HACKMON" << cyan << " to learn. These moves can" << endl;
@@ -206,7 +216,7 @@ int main() {
       cout << cyan << endl;
       cout << cyan << "Items and moves also have a scope which determines if they will affect one " << white << "HACKMON" << cyan << " or all " << white << "HACKMON" << cyan << " in the party." << endl;
       cout << endl;
-      cout << cyan << "----------------------------------------------------------------------------------------------------" << endl;
+      cout << white << "----------------------------------------------------------------------------------------------------" << endl;
     }
 
     cout << endl;
@@ -241,6 +251,7 @@ int main() {
           int hackmonType;
           int hackmonNumber;
           char wantNameHackmon;
+          char wantTwoTypes;
           string hackmonName;
           int hackmonMove;
           vector<unique_ptr<Move>> hackmonMoves;
@@ -260,22 +271,33 @@ int main() {
           cout << yellow << "(h/o)" << reset << endl;
           hackmonSelect = getValidValueOneOf<char>('h', 'o');
 
-          cout << endl << cyan << "Here is a list of the 8 " << white << "HACKMON" << cyan << " types:" << endl;
-          printTypeList();
-          cout << "Which type would you like your " << white << "HACKMON" << cyan << " to be? " << yellow << "(1 <= # <= 8)" << reset << endl;
-          getValidValueRange(hackmonType, 1, 8);
-          --hackmonType;
-
           if (hackmonSelect == 'h') {
-            cout << endl << cyan << "Here is a list of the " << white << "HACKMON" << cyan << " of type " << typeString.at((Type)hackmonType) << "." << endl;
-            printHackerdexAtType(hackmonType);
-            cout << "Which " << white << "HACKMON" << cyan << " would you like to select? " << yellow << "(1 <= # <= " << hackerdex.at((Type)hackmonType).size() << ")" << reset << endl;
-            getValidValueRange(hackmonNumber, 1, (int)hackerdex.at((Type)hackmonType).size());
+            cout << endl << cyan << "Here is a list of all the available " << white << "HACKMON" << cyan << ":" << endl;
+            printHackerdex();
+            cout << "Which " << white << "HACKMON" << cyan << " would you like to select? " << yellow << "(1 <= # <= " << hackerdex.size() << ")" << reset << endl;
+            getValidValueRange(hackmonNumber, 1, (int)hackerdex.size());
             hackmonNumber--;
           } else {
+            cout << endl << cyan << "Here is a list of the 8 " << white << "HACKMON" << cyan << " types:" << endl;
+            printTypeList();
+            cout << "Which type would you like your " << white << "HACKMON" << cyan << " to be? " << yellow << "(1 <= # <= 8)" << reset << endl;
+            getValidValueRange(hackmonType, 1, 8);
+            --hackmonType;
 
             newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
-            cout << cyan << "What would you like the name of your species to be?" << reset << endl;
+
+            cout << endl << cyan << "Would you like your " << white << "HACKMON" << cyan << " to have two types? " << yellow << "(y/n)" << reset << endl;
+            wantTwoTypes = getValidValueOneOf<char>('y', 'n');
+
+            if (wantTwoTypes == 'y') {
+              cout << endl << cyan << "Which second type would you like your " << white << "HACKMON" << cyan << " to be? " << yellow << "(1 <= # <= 8)(# != " << hackmonType+1 << ")" << reset << endl;
+              getValidValueRange(hackmonType, 1, 8);
+              --hackmonType;
+
+              newHackmonFamily.emplace_back(Family((Type)hackmonType)); // FIXME: remove casting
+            }
+
+            cout << cyan << endl << "What would you like the name of your species to be?" << reset << endl;
             newHackmonSpecies = getName();
           }
 
@@ -323,10 +345,10 @@ int main() {
               newHackmonFamily
             );
 
-            hackerdex.at((Type)hackmonType).emplace_back(createdHackmonSpecies);
-            speciesToUse = &hackerdex.at((Type)hackmonType).back(); // FIXME: get from species list
+            hackerdex.emplace_back(createdHackmonSpecies);
+            speciesToUse = &hackerdex.back(); // FIXME: get from species list
           } else {
-            speciesToUse = &hackerdex.at((Type)hackmonType).at(hackmonNumber);
+            speciesToUse = &hackerdex.at(hackmonNumber);
           }
 
           unique_ptr<Hackmon> newHackmon = speciesToUse->createHackmon(move(hackmonMoves), hackmonName);
@@ -635,6 +657,7 @@ int main() {
         char playAgain;
         char keepHackmon;
 
+        printRob();
         cout << cyan << "ROB HACKMAN here! Congrats to " << red << winner << cyan << " for the win!" << endl; // FIXME: add timers to these statement
         cout << "Here is the current scores:" << endl;
         cout << red << p1.name << ": " << p1.winTotal << endl;

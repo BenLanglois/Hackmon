@@ -31,4 +31,14 @@ void Species::printSpecies() {
   cout << " Attack: " << setw(10) << stats.getStat(ATTACK);
   cout << " Defense: " << setw(10) << stats.getStat(DEFENSE);
   cout << " Speed: " << setw(10) << stats.getStat(SPEED);
+  cout << " Type: " << setw(20);
+  if (family.size() == 1) {
+    cout << typeString.at(family.at(0).type);
+  } else {
+    string types = "";
+    for (size_t i=0; i<family.size(); ++i) {
+      if (i!=0) types += ", ";
+      types += typeString.at(family.at(i).type);
+    }
+  }
 }
